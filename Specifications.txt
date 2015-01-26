@@ -1,0 +1,64 @@
+
+Organisation des données (vue utilisateur):
+ Notion de tableau (Board)
+ Un tableau est constitué de projets
+ Un projet est composés de sous-projets/lots *et* d'actions
+ Un sous-projet/lot contient des actions et éventuellement des
+ Une action a de manière optionnelle, une échéance et une priorité
+ Une action peut avoir des commentaires
+   
+Calcul:
+ Quand une action a une échéance, l'outil calcul le temps restant
+ (slack time), en nombre de jours ouvrés. Idéalement, un lien avec des
+ agendas (en ligne, type ics, google agenda, thunderbird) retire les
+  créneaux déjà occupées (réunions congés, missions). La granularité du
+  calcul devrait être paramétrable (demi-journée, heure). Si on
+  pouvait exclure certains créneaux, en se basant sur 
+ 
+
+Affichage;
+ - On peut utiliser plusieurs tableaux/Boards en même temps
+ - Un projet liste ces lots et ces actions, l'ordre étant fixé par
+   l'utilisateur
+ - Idem pour les sous-lots
+ - On peut limiter la longueur de l'affichage d'un projet, d'un lot, etc
+ - On interdira la superposition d'objets visuels (sauf les commentaires)
+ - Les commentaires d'une actions ne sont pas visibles par d"fauts, et
+   peuvent s'ouvrir dans une autre fenéêtre
+ - Des codes couleurs différents pour les titres de board/projet/lots
+   sont utilisées (et paramétrables)
+ - Des tâches urgentes et/ou importantes ont un code couleur
+   spécifique
+ - Au choix de l'utilisateur, une action terminée est soit masquée,
+   soit affichée  barrée
+ - On peut convertir une action dans un projet en lot. Idem à tous les
+   niveaux de hiérarchie
+
+
+Actions:
+ - On peut transférer une tâche entre deux conteneurs, éventuellement
+   dans des tableaux différents
+ - On peut transférer un projet entre tableaux
+ - Déplacer l'affichage de projets
+ - On peut créer/modifier/supprimer les tableaux/projets/lots/actions
+ - On peut déclarer une action comme terminée
+ - On peut archiver l'état d'un tableau: 
+    1. cela crée un nouveau tableau "archive" non modifiable
+    2. l'ensemble des actions 'terminées" est supprimé du tableau
+    (je fais ça en fin de semaine)
+ - A chaque action, on associera un raccourci clavier
+    préfixé par Ctrl 
+ - Chaque action dans un menu doit afficher son raccourci clavier
+ - Le logiciel doit avoir une IHM configurable en plusieurs langues
+
+Intégration:
+ - Une intégration thunderbird serait un plus, entre autre, la
+   possibilité de transformer un mail en tâche
+ - Une interface WEB est un plus, mais un client qui fonctionne sans
+   accès réseau est bien aussi
+ - Le logiciel Trello est une bonne base de travail, un plugin peut
+   être une solution
+
+Global:
+ - la pérennité du projet est un enjeux: qui maintiendra le code après
+   le projet ? Voulez-vous qu'il soit simplement jeté ?

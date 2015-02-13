@@ -14,8 +14,3 @@ def test(fct,expected,*args) :
 
 test(maths.addition,18,1,234,5321)
 test(maths.addition,10,1,2,3,4)
-
-
-
-
-

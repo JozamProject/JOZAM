@@ -1,15 +1,19 @@
 <?php
 
 require_once('Board.php');
+require_once('Projet.php');
+require_once('Tache.php');
 class GestionnaireDesTaches
 {
 	private $_utilisateur;
-	private $_boards = array();
-	private $_key = 0;
+	private $_boards;
+	private $_key ;
 	
-	public function __construct($utilisateur)
+	public function __construct($utilisateur = "Utilisateur")
 	{
 		$this->setUtilisateur($utilisateur);
+		$_key = 0;
+		$_boards = array();
 	}
 	
 	public function setUtilisateur($utilisateur)
@@ -42,11 +46,12 @@ class GestionnaireDesTaches
 	
 	public function addBoard($board) 
 	{
-		if (isset($this->items[$key])) {
-			throw new KeyHasUseException("Key $key already in use.");
+		if (isset($this->_boards[$this->_key])) {
+			throw new KeyHasUseException("Key $this->_key already in use.");
 		}
 		else {
-			$this->_boards[$key++] = $board;
+			$this->_boards[$this->_key] = $board;
+			$this->_key++;
 		}
 	}
 	
@@ -55,7 +60,7 @@ class GestionnaireDesTaches
 		$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \r\n";
 		$xml .= "<gestionnaireDesTaches utilisateur=" . "\"" . $this->_utilisateur . "\">\r\n";
 		foreach($this->_boards as $board){
-			$xml .= $board->toXML();
+			$xml .= $board->toXML(1);
 		}
 		$xml .= "<\gestionnaireDesTaches>";
 		return $xml;
@@ -64,12 +69,31 @@ class GestionnaireDesTaches
 }
 
 $gt = new GestionnaireDesTaches("Othman");
-$board = new Board("Maison");
-$gt->addBoard($board);
+$board1 = new Board("Maison");
+$board2 = new Board("Boulot");
+$projet11 = new Projet("projet11");
+$projet12 = new Projet("projet12");
+$projet111 = new Projet("projet111");
+$projet21 = new Projet("projet21");
+$tache11 = new tache("tache11");
+$tache111 = new tache("tache111");
+$projet11->addTache($tache11);
+$projet111->addTache($tache111);
+$projet11->addProjet($projet111);
+$board1->addProjet($projet11);
+$board1->addProjet($projet12);
+$board2->addProjet($projet21);
+
+
+$gt->addBoard($board1);
+$gt->addBoard($board2);
+
+
 echo $gt->getUtilisateur();
 echo "\n toto \n";
 //
-file_put_contents('C:\Users\othmane\workspace\ProjetLong\GestionnaireDesTaches\gtxml.xml', $gt->toXML());
+file_put_contents('C:\Users\othmane\git\JOZAM\web_GestionnaireTaches\gtxml.xml', $gt->toXML());
 //echo "\"" .$gt->toXML(). "\"";
+echo "\nFin"
 
 ?>

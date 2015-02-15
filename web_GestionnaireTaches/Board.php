@@ -1,11 +1,12 @@
 <?php
+require_once('Projet.php');
 class Board {
 	private $_nom;
-	private $_projets;
+	private $_projets = array();
 	private $_graphique;
 	private $_key;
 	
-public function __construct($nom)
+public function __construct($nom = "my board")
 	{
 		$this->setNom($nom);
 	}
@@ -40,22 +41,29 @@ public function __construct($nom)
 	
 	public function addProjet($projet) 
 	{
-		if (isset($this->items[$key])) {
-			throw new KeyHasUseException("Key $key already in use.");
+		if (isset($this->items[$this->_key])) {
+			throw new KeyHasUseException("Key $this->key already in use.");
 		}
 		else {
-			$this->_projets[$key++] = $projet;
+			$this->_projets[$this->_key++] = $projet;
 		}
 	}
 	
-	public function toXML()
+	public function toXML($nbTabs)
 	{
 		$xml = "";
+		for ($i = 1; $i <= $nbTabs; $i++) {
+			$xml .= "\t";
+		}
 		$xml .= "<board nom=" . "\"" . $this->_nom . "\">\r\n";
-		/*foreach($this->_projets as $projet){
-			$xml += $projet->toXML();
-		}*/
+		foreach($this->_projets as $projet){
+			$xml .= $projet->toXML($nbTabs+1);
+		}
+		for ($i = 1; $i <= $nbTabs; $i++) {
+			$xml .= "\t";
+		}
 		$xml .= "<\board>\r\n";
 		return $xml;
 	}
 }
+?>

@@ -28,7 +28,6 @@ class Main(QtGui.QMainWindow):
 
         # build ui
         self.ui = Ui_Form()
-        self.ui.setupUi(self.ui)
 
         # self.ui.resize(self.ui.frame_3.width(), self.ui.frame_3.height())
         # self.ui.resize(self.ui.width(), self.ui.height())

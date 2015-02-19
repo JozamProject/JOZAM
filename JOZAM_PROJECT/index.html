@@ -230,13 +230,13 @@
 					}).data('gridster');
 				}
                 				
-				var testID = "voila le test" + "\r\n";
-                var j = 0;
-                var  n = getAllElementsWithAttribute("data-row").length;
-				for (j =0; j < n; j++)
+				var action = "CreationProjet" + "\r\n";
+                var board = "0";
+                //var  n = getAllElementsWithAttribute("data-row").length;
+				/*for (j =0; j < n; j++)
 				{
 					testID += getAllElementsWithAttribute("data-row")[j].getAttribute('data-row');
-				}
+				}*/
 				
 				$(document).on( "click", "#addWidgetButton", function(e) {
 					 e.preventDefault(); 
@@ -244,7 +244,7 @@
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { testID : testID },
+						data: { action : action},
 						success: function(data)
 						{
 							//alert("Project created!");
@@ -258,7 +258,7 @@
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { testID : testID },
+						data: { action : action, board : board  },
 						success: function(data)
 						{
 							//alert("Project created!");
@@ -272,7 +272,7 @@
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { testID : testID },
+						data: { action : action, board : board  },
 						success: function(data)
 						{
 							//alert("Project created!");

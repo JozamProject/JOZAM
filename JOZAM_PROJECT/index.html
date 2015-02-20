@@ -240,8 +240,9 @@
 					 gridster[0].add_widget.apply(gridster[0], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
-                    
+                  
                     popup(idcpt);
+                    
                     
                     
                     
@@ -264,7 +265,9 @@
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
                     
+                   
                     popup(idcpt);
+                    
                     
 					  $.ajax({
 						type: "POST",
@@ -284,7 +287,9 @@
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
                     
+                    
                     popup(idcpt);
+                    
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
@@ -599,6 +604,7 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
+        popup(-1);
         function popup(idcpt) {
           $(function(){
             var dialog, form,
@@ -617,6 +623,7 @@
                 tips.removeClass( "ui-state-highlight", 1500 );
               }, 500 );
             }
+              
             function addUser() {
               var valid = true;
               allFields.removeClass( "ui-state-error" );
@@ -639,7 +646,7 @@
 						{
 							//alert("data sent to trait.php!");
 						} 
-                });
+                    });
                 },
                 Cancel: function() {
                   dialog.dialog( "close" );
@@ -650,6 +657,7 @@
                 allFields.removeClass( "ui-state-error" );
               }
             });
+              
             form = dialog.find( "form" ).on( "submit", function( event ) {
               event.preventDefault();
               addUser();

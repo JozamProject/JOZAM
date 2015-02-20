@@ -1,8 +1,8 @@
 <?php
-require_once('GestionnaireDesTaches.php');
+/*require_once('GestionnaireDesTaches.php');
 require_once('Board.php');
 require_once('Projet.php');
-require_once('Tache.php');
+require_once('Tache.php');*/
 
 $boards = new SimpleXMLElement('gtxml.xml',0,true);
 //$action = $_POST['action'];

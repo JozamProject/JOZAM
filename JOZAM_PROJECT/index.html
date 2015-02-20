@@ -12,6 +12,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        	<!-- sources pour le changement des couleurs-->
+		<link rel="stylesheet" href="assets/changeColorAssets/jquery-ui.css">
+		      <!-- popup -->
+		<link rel="stylesheet" href="popup/jquery-ui.css">
+		<script src="popup/jquery-ui.js"></script>
 	</head>
 	<body>
         <div>
@@ -78,15 +83,20 @@
                                     </header>
                                     <ul style="background: #DDDDDD;">
                                         <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" style="background: #E8AC71;">
+                                            <div id = "my-widget1">
                                             <header>
                                                 <p style="cursor: move; background: #DDDDDD;" >|||</p>
                                                 <div class="dragDiv" contenteditable="true">
                                                     SousProject
                                                     <div id="loadbuttonsous" class="load">+</div>
                                                     <div id="deletebuttonsous" class="delete">*</div>
+                                                    		<!-- POPUP -->
+												    <button id="create-user" style = "height : 7px; width: 7px;"></button>
+												        <!-- FIN POPUP -->
                                                 </div>
                                             </header>
                                             <div id="divtestsous" style="overflow:auto;"></div>
+                                            </div>
                                         </li>
                                         <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" style="background: red;">
                                             <header>
@@ -232,8 +242,8 @@
                 				
 				var action = "CreationProjet" + "\r\n";
                 var board = "0";
-                //var  n = getAllElementsWithAttribute("data-row").length;
-				/*for (j =0; j < n; j++)
+               /* var  n = getAllElementsWithAttribute("data-row").length;
+				for (j =0; j < n; j++)
 				{
 					testID += getAllElementsWithAttribute("data-row")[j].getAttribute('data-row');
 				}*/
@@ -244,35 +254,35 @@
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { action : action},
+						data: { action : action , board : board },
 						success: function(data)
 						{
 							//alert("Project created!");
 						}
 					});
 				});
-                
+                var board = "1";
                 $(document).on( "click", "#addWidgetButtonSurveille", function(e) {
 					 e.preventDefault(); 
 					 gridster[1].add_widget.apply(gridster[1], ['<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w"><header><p style="cursor: move;">|||</p><div class="dragDiv" contenteditable="true">New</div></header></li>', 1, 1]);
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { action : action, board : board  },
+						data: { action : action , board : board },
 						success: function(data)
 						{
 							//alert("Project created!");
 						}
 					});
 				});
-                
+                var board = "2";
                 $(document).on( "click", "#addWidgetButtonNew", function(e) {
 					 e.preventDefault(); 
 					 gridster[2].add_widget.apply(gridster[2], ['<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w"><header><p style="cursor: move;">|||</p><div class="dragDiv" contenteditable="true">New</div></header></li>', 1, 1]);
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { action : action, board : board  },
+						data: { action : action , board : board },
 						success: function(data)
 						{
 							//alert("Project created!");
@@ -402,5 +412,292 @@
                 });
             });
         </script>
+        
+		<!-- sources pour le changement des couleurs-->
+		<script src="assets/changeColorAssets/jquery-ui.js"></script>
+		<!-- script changement de couleurs -->
+		<style>
+          .custom-colorize {
+            font-size: 7px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
+          .custom-colorize-changer {
+            font-size: 10px;
+            position: absolute;
+            height : 6px;
+            width : 6px;
+            left: 1px;
+            bottom: 1px;
+            background-color : black;
+
+          }
+            
+        </style>
+        <script>
+          $(function() {
+            // the widget definition, where "custom" is the namespace,
+            // "colorize" the widget name
+            $.widget( "custom.colorize", {
+              // default options
+              options: {
+                red: 255,
+                green: 0,
+                blue: 0,
+
+                // callbacks
+                change: null,
+                random: null
+              },
+ 
+              // the constructor
+              _create: function() {
+                this.element
+                  // add a class for theming
+                  .addClass( "custom-colorize" )
+                  // prevent double click to select text
+                  .disableSelection();
+
+                this.changer = $( "<button>", {
+                  text: "",
+                  "class": "custom-colorize-changer"
+                })
+                .appendTo( this.element )
+                .button();
+ 
+                // bind click events on the changer button to the random method
+                this._on( this.changer, {
+                  // _on won't call random when widget is disabled
+                  click: "random"
+                });
+                this._refresh();
+              },
+
+              // called when created, and later when changing options
+              _refresh: function() {
+                this.element.css( "background-color", "rgb(" +
+                  this.options.red +"," +
+                  this.options.green + "," +
+                  this.options.blue + ")"
+                );
+
+                // trigger a callback/event
+                this._trigger( "change" );
+              },
+
+              // a public method to change the color to a random value
+              // can be called directly via .colorize( "random" )
+              random: function( event ) {
+                var colors = {
+                  red: Math.floor( Math.random() * 256 ),
+                  green: Math.floor( Math.random() * 256 ),
+                  blue: Math.floor( Math.random() * 256 )
+                };
+
+                // trigger an event, check if it's canceled
+                if ( this._trigger( "random", event, colors ) !== false ) {
+                  this.option( colors );
+                }
+              },
+ 
+              // events bound via _on are removed automatically
+              // revert other modifications here
+              _destroy: function() {
+                // remove generated elements
+                this.changer.remove();
+
+                this.element
+                  .removeClass( "custom-colorize" )
+                  .enableSelection()
+                  .css( "background-color", "transparent" );
+              },
+ 
+              // _setOptions is called with a hash of all options that are changing
+              // always refresh when changing options
+              _setOptions: function() {
+                // _super and _superApply handle keeping the right this-context
+                this._superApply( arguments );
+                this._refresh();
+              },
+
+              // _setOption is called for each individual option that is changing
+              _setOption: function( key, value ) {
+                // prevent invalid color values
+                if ( /red|green|blue/.test(key) && (value < 0 || value > 255) ) {
+                  return;
+                }
+                this._super( key, value );
+              }
+            });
+ 
+            // initialize with default options
+            $( "#my-widget1" ).colorize();
+
+            // initialize with two customized options
+            $( "#my-widget2" ).colorize({
+              red: 60,
+              blue: 60
+            });
+
+            // initialize with custom green value
+            // and a random callback to allow only colors with enough green
+            $( "#my-widget3" ).colorize( {
+              green: 128,
+              random: function( event, ui ) {
+                return ui.green > 128;
+              }
+            });
+ 
+            // click to toggle enabled/disabled
+            $( "#disable" ).click(function() {
+              // use the custom selector created for each widget to find all instances
+              // all instances are toggled together, so we can check the state from the first
+              if ( $( ":custom-colorize" ).colorize( "option", "disabled" ) ) {
+                $( ":custom-colorize" ).colorize( "enable" );
+              } else {
+                $( ":custom-colorize" ).colorize( "disable" );
+              }
+            });
+
+            // click to set options after initialization
+            $( "#green" ).click( function() {
+              $( ":custom-colorize" ).colorize( "option", {
+                red: 64,
+                green: 250,
+                blue: 8
+              });
+            });
+          });
+    </script>
+  
+    <style>
+        label, input { display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
+    <script>
+          $(function() {
+            var dialog, form,
+
+              // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+              emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+              name = $( "#name" ),
+              email = $( "#email" ),
+              password = $( "#password" ),
+              allFields = $( [] ).add( name ).add( email ).add( password ),
+              tips = $( ".validateTips" );
+
+            function updateTips( t ) {
+              tips
+                .text( t )
+                .addClass( "ui-state-highlight" );
+              setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+              }, 500 );
+            }
+ 
+            function checkLength( o, n, min, max ) {
+              if ( o.val().length > max || o.val().length < min ) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Length of " + n + " must be between " +
+                  min + " and " + max + "." );
+                return false;
+              } else {
+                return true;
+              }
+            }
+ 
+            function checkRegexp( o, regexp, n ) {
+              if ( !( regexp.test( o.val() ) ) ) {
+                o.addClass( "ui-state-error" );
+                updateTips( n );
+                return false;
+              } else {
+                return true;
+              }
+            }
+
+            function addUser() {
+              var valid = true;
+              allFields.removeClass( "ui-state-error" );
+
+              valid = valid && checkLength( name, "username", 3, 16 );
+              valid = valid && checkLength( email, "email", 6, 80 );
+              valid = valid && checkLength( password, "password", 5, 16 );
+
+              valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+              valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
+              valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+
+              if ( valid ) {
+                $( "#users tbody" ).append( "<tr>" +
+                  "<td>" + name.val() + "</td>" +
+                  "<td>" + email.val() + "</td>" +
+                  "<td>" + password.val() + "</td>" +
+                "</tr>" );
+                dialog.dialog( "close" );
+              }
+              return valid;
+            }
+ 
+            dialog = $( "#dialog-form" ).dialog({
+              autoOpen: false,
+              height: 300,
+              width: 350,
+              modal: true,
+              buttons: {
+                "Create task": addUser,
+                Cancel: function() {
+                  dialog.dialog( "close" );
+                }
+              },
+              close: function() {
+                form[ 0 ].reset();
+                allFields.removeClass( "ui-state-error" );
+              }
+            });
+ 
+            form = dialog.find( "form" ).on( "submit", function( event ) {
+              event.preventDefault();
+              addUser();
+            });
+
+            $( "#create-user" ).button().on( "click", function() {
+              dialog.dialog( "open" );
+            });
+          });
+
+          //datepicker
+            $(function() {
+            $( "#password" ).datepicker();
+          });
+    </script>
+
+ 
+        <div id="dialog-form" title="Create task">
+
+          <form>
+            <fieldset>
+              <label for="name">Titre</label>
+              <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+              <label for="email">Description</label>
+              <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
+              <label for="password">Echeance</label>
+              <input type="datepicker" name="password" id="password" class="text ui-widget-content ui-corner-all">
+              <label for="password" >commentaire</label>
+              <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
+
+              <!-- Allow form submission with keyboard without duplicating the dialog button -->
+              <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+          </form>
+        </div>
+ 
 	</body>
 </html>

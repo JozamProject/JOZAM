@@ -82,22 +82,7 @@
                                         <div class="dragDiv" contenteditable="true">Project2</div>
                                     </header>
                                     <ul style="background: #DDDDDD;">
-                                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" style="background: #E8AC71;">
-                                            <div id = "my-widget1">
-                                            <header>
-                                                <p style="cursor: move; background: #DDDDDD;" >|||</p>
-                                                <div class="dragDiv" contenteditable="true">
-                                                    SousProject
-                                                    <div id="loadbuttonsous" class="load">+</div>
-                                                    <div id="deletebuttonsous" class="delete">*</div>
-                                                    		<!-- POPUP -->
-												    <button id="create-user" style = "height : 7px; width: 7px;"></button>
-												        <!-- FIN POPUP -->
-                                                </div>
-                                            </header>
-                                            <div id="divtestsous" style="overflow:auto;"></div>
-                                            </div>
-                                        </li>
+                                        
                                         <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" style="background: red;">
                                             <header>
                                                 <p style="cursor: move; background: #DDDDDD;" >|||</p>
@@ -185,6 +170,7 @@
 
             //duplicate             
 			var i = 2;
+            var idcpt = 0;
 			
 			function duplicate() {
                 "use strict";
@@ -250,7 +236,16 @@
 				
 				$(document).on( "click", "#addWidgetButton", function(e) {
 					 e.preventDefault(); 
-					 gridster[0].add_widget.apply(gridster[0], ['<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w"><header><p style="cursor: move;">|||</p><div class="dragDiv" contenteditable="true">New</div></header></li>', 1, 1]);
+                     idcpt++;
+					 gridster[0].add_widget.apply(gridster[0], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
+                    $("#my-widget"+idcpt).colorize();
+                    /**************************/
+                    
+                    popup(idcpt);
+                    
+                    
+                    
+                    /******************************/
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
@@ -264,7 +259,13 @@
                 var board = "1";
                 $(document).on( "click", "#addWidgetButtonSurveille", function(e) {
 					 e.preventDefault(); 
-					 gridster[1].add_widget.apply(gridster[1], ['<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w"><header><p style="cursor: move;">|||</p><div class="dragDiv" contenteditable="true">New</div></header></li>', 1, 1]);
+					   idcpt++;
+					 gridster[1].add_widget.apply(gridster[1], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
+                    $("#my-widget"+idcpt).colorize();
+                    /**************************/
+                    
+                    popup(idcpt);
+                    
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
@@ -278,7 +279,12 @@
                 var board = "2";
                 $(document).on( "click", "#addWidgetButtonNew", function(e) {
 					 e.preventDefault(); 
-					 gridster[2].add_widget.apply(gridster[2], ['<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w"><header><p style="cursor: move;">|||</p><div class="dragDiv" contenteditable="true">New</div></header></li>', 1, 1]);
+					  idcpt++;
+					 gridster[2].add_widget.apply(gridster[2], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
+                    $("#my-widget"+idcpt).colorize();
+                    /**************************/
+                    
+                    popup(idcpt);
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
@@ -437,6 +443,10 @@
         </style>
         <script>
           $(function() {
+              //variable colors
+              var i=0;
+              var j=0;
+              var k=0;
             // the widget definition, where "custom" is the namespace,
             // "colorize" the widget name
             $.widget( "custom.colorize", {
@@ -490,10 +500,26 @@
               // can be called directly via .colorize( "random" )
               random: function( event ) {
                 var colors = {
-                  red: Math.floor( Math.random() * 256 ),
-                  green: Math.floor( Math.random() * 256 ),
-                  blue: Math.floor( Math.random() * 256 )
-                };
+                  red: i*250,
+                  blue: j*250,
+                  green: (1-k)*250
+                  };
+                  
+                   $.ajax({
+                    type :"POST",
+                    url : "trait.php",
+                    data: { i : i , j : j , k : k },
+						success: function(data)
+						{
+							//alert("Color change the new one is : "+i+""+j+""+k);
+						} 
+                   });
+
+                  if (j==0 && i==0 && k==0) {i=0; j=1; k=1;}
+                  else if (j==1&&i==0&&k==1) {j=0; i=1; k=0;}
+                        else if(i==1 && k==0 && j==0){i=1; j=1; k=1;}
+                        else if(i==1&& j==1&& k==1){i=1; j=0; k=1;}
+                             else {i=0; j=0; k=0;}
 
                 // trigger an event, check if it's canceled
                 if ( this._trigger( "random", event, colors ) !== false ) {
@@ -535,19 +561,11 @@
             $( "#my-widget1" ).colorize();
 
             // initialize with two customized options
-            $( "#my-widget2" ).colorize({
-              red: 60,
-              blue: 60
-            });
+            $( "#my-widget2" ).colorize();
 
             // initialize with custom green value
             // and a random callback to allow only colors with enough green
-            $( "#my-widget3" ).colorize( {
-              green: 128,
-              random: function( event, ui ) {
-                return ui.green > 128;
-              }
-            });
+            $( "#my-widget3" ).colorize();
  
             // click to toggle enabled/disabled
             $( "#disable" ).click(function() {
@@ -570,7 +588,6 @@
             });
           });
     </script>
-  
     <style>
         label, input { display:block; }
         input.text { margin-bottom:12px; width:95%; padding: .4em; }
@@ -582,15 +599,14 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
-          $(function() {
+        function popup(idcpt) {
+          $(function(){
             var dialog, form,
-
-              // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-              emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-              name = $( "#name" ),
-              email = $( "#email" ),
-              password = $( "#password" ),
-              allFields = $( [] ).add( name ).add( email ).add( password ),
+              titre = $( "#titre" ),
+              description = $( "#description" ),
+              echeance = $( "#echeance" ),
+              commentaire = $( "#commentaire" ),
+              allFields = $( [] ).add( titre ).add( description ).add( echeance ).add( commentaire ),
               tips = $( ".validateTips" );
 
             function updateTips( t ) {
@@ -601,58 +617,30 @@
                 tips.removeClass( "ui-state-highlight", 1500 );
               }, 500 );
             }
- 
-            function checkLength( o, n, min, max ) {
-              if ( o.val().length > max || o.val().length < min ) {
-                o.addClass( "ui-state-error" );
-                updateTips( "Length of " + n + " must be between " +
-                  min + " and " + max + "." );
-                return false;
-              } else {
-                return true;
-              }
-            }
- 
-            function checkRegexp( o, regexp, n ) {
-              if ( !( regexp.test( o.val() ) ) ) {
-                o.addClass( "ui-state-error" );
-                updateTips( n );
-                return false;
-              } else {
-                return true;
-              }
-            }
-
             function addUser() {
               var valid = true;
               allFields.removeClass( "ui-state-error" );
-
-              valid = valid && checkLength( name, "username", 3, 16 );
-              valid = valid && checkLength( email, "email", 6, 80 );
-              valid = valid && checkLength( password, "password", 5, 16 );
-
-              valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
-              valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
-              valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
-
-              if ( valid ) {
-                $( "#users tbody" ).append( "<tr>" +
-                  "<td>" + name.val() + "</td>" +
-                  "<td>" + email.val() + "</td>" +
-                  "<td>" + password.val() + "</td>" +
-                "</tr>" );
-                dialog.dialog( "close" );
-              }
+              dialog.dialog( "close" );
               return valid;
             }
  
             dialog = $( "#dialog-form" ).dialog({
               autoOpen: false,
-              height: 300,
-              width: 350,
+              height: 400,
+              width: 450,
               modal: true,
               buttons: {
-                "Create task": addUser,
+                "Create task": function(){
+                    $.ajax({
+                    type :"POST",
+                    url : "trait.php",
+                    data: { titre : titre.val() , echeance : echeance.val() , commentaire : commentaire.val() , description : description.val() },
+						success: function(data)
+						{
+							//alert("data sent to trait.php!");
+						} 
+                });
+                },
                 Cancel: function() {
                   dialog.dialog( "close" );
                 }
@@ -662,21 +650,21 @@
                 allFields.removeClass( "ui-state-error" );
               }
             });
- 
             form = dialog.find( "form" ).on( "submit", function( event ) {
               event.preventDefault();
               addUser();
+             dialog.dialog( "close" ); 
             });
 
-            $( "#create-user" ).button().on( "click", function() {
+            $( "#create-user"+idcpt ).button().on( "click", function() {
               dialog.dialog( "open" );
             });
           });
-
           //datepicker
             $(function() {
-            $( "#password" ).datepicker();
+            $( "#echeance" ).datepicker();
           });
+        }
     </script>
 
  
@@ -684,20 +672,20 @@
 
           <form>
             <fieldset>
-              <label for="name">Titre</label>
-              <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
-              <label for="email">Description</label>
-              <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
-              <label for="password">Echeance</label>
-              <input type="datepicker" name="password" id="password" class="text ui-widget-content ui-corner-all">
-              <label for="password" >commentaire</label>
-              <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
-
+              <label for="titre">Titre</label>
+              <input type="text" name="titre" id="titre" class="text ui-widget-content ui-corner-all">
+              <label for="description">Description</label>
+              <input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
+              <label for="echeance">Echeance</label>
+              <input type="datepicker" name="echeance" id="echeance" class="text ui-widget-content ui-corner-all">
+              <label for="commentaire" >commentaire</label>
+              <input type="text" name="commentaire" id="commentaire" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
               <!-- Allow form submission with keyboard without duplicating the dialog button -->
               <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
           </form>
         </div>
  
+        
 	</body>
 </html>

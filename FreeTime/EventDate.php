@@ -128,7 +128,8 @@ class Duration {
 		$h = floor ( $nbSeconds / 3600 ) % 24;
 		$i = ($nbSeconds / 60) % 60;
 		$ds = ($d > 1) ? 's' : '';
-		$return = sprintf ( '%00d day%s, %00d h %00d min', $d, $ds, $h, $i );
+		$days = ($d == 0) ? '' : sprintf('%00d day%s, ', $d, $ds);
+		$return = sprintf ( '%s%00d h %00d min', $days, $h, $i );
 		return $return;
 	}
 }

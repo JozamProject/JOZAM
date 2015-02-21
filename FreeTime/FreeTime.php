@@ -60,10 +60,20 @@ class FreeTime {
 		$icsCalendar = EventDate::__toIcsCalendar ( $freeEventDates, 'Free Time for Task 0' ); // replace by $task->getName()
 		file_put_contents ( $calendar_name . '.ics', $icsCalendar );
 	}
+	static function timeLeft($calendar_path, $task) {
+		$freeEventDates = FreeTime::retrieveFreeEventDates ( $calendar_path, $task );
+		$timeLeft = 0;
+		foreach ( $freeEventDates as $fed ) {
+			$timeLeft += $fed->duration ();
+		}
+		return $timeLeft;
+	}
 }
 
+/* Tests */
+
 // task event date
-$task_EventDate = new EventDate ( new CalendarDate ( '2015', '03', '01', '00', '00', '00' ), new CalendarDate ( '2015', '03', '14', '00', '00', '00' ) );
+$task_EventDate = new EventDate ( new CalendarDate ( '2015', '03', '02', '00', '00', '00' ), new CalendarDate ( '2015', '03', '05', '00', '00', '00' ) );
 echo 'Task event date :<br>' . $task_EventDate . '<br><br>';
 
 // working hours event dates
@@ -90,5 +100,9 @@ echo 'Free event dates :<br>' . $freeEventDates . '<br><br>';
 // creating ics calendar
 $icsCalendar = FreeTime::createIcsCalendar ( 'ADECal.ics', $task_EventDate, 'FreeTime' );
 echo 'ICS Calendar :<br>' . htmlspecialchars ( file_get_contents ( 'FreeTime.ics' ) ) . '<br><br>';
+
+// computing time left
+$timeLeft = FreeTime::timeLeft ( 'ADECal.ics', $task_EventDate );
+echo 'Time left : ' . Duration::seconds_to_string ( $timeLeft ) . '<br><br>';
 
 ?>

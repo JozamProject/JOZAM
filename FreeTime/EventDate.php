@@ -27,7 +27,8 @@ class EventDate {
 		return '{from ' . $this->getStartDate () . ' to ' . $this->getEndDate () . '}';
 	}
 	public function duration() {
-		return $this->getEndDate ()->diff ( $this->getStartDate () );
+		$duration = new Duration ( $this->getEndDate ()->diff ( $this->getStartDate () ) );
+		return $duration->getDuration ();
 	}
 	public static function startDateSort($ed0, $ed1) {
 		$sd0 = $ed0->getStartDate ();
@@ -47,7 +48,6 @@ class EventDate {
 	public function removeEventDate($eventDate) {
 		// debug
 		// echo 'removeEventDate <br>' . $eventDate . '<br><br>from<br><br>' . $this . '<br><br>';
-
 		$new_eventDates = new ArrayCollection ();
 		
 		// first event
@@ -101,10 +101,34 @@ END:VEVENT
 METHOD:REQUEST
 
 ';
-		foreach($eventDates as $ed) {
-			$return .= $ed->__toIcsEvent($summary);
+		foreach ( $eventDates as $ed ) {
+			$return .= $ed->__toIcsEvent ( $summary );
 		}
 		$return .= 'END:VCALENDAR';
+		return $return;
+	}
+}
+class Duration {
+	private $dateInterval;
+	private $duration;
+	public function __construct($dateInterval) {
+		$this->dateInterval = $dateInterval;
+		$this->duration = $this->dateInterval_to_seconds ();
+	}
+	public function getDuration() {
+		return $this->duration;
+	}
+	public function dateInterval_to_seconds() {
+		$reference = new DateTimeImmutable ();
+		$endTime = $reference->add ( $this->dateInterval );
+		return $reference->getTimestamp () - $endTime->getTimestamp ();
+	}
+	public static function seconds_to_string($nbSeconds) {
+		$d = floor ( floor ( $nbSeconds / 3600 ) / 24 );
+		$h = floor ( $nbSeconds / 3600 ) % 24;
+		$i = ($nbSeconds / 60) % 60;
+		$ds = ($d > 1) ? 's' : '';
+		$return = sprintf ( '%00d day%s, %00d h %00d min', $d, $ds, $h, $i );
 		return $return;
 	}
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gestionnaireDesTaches utilisateur="Othman">
+  <board nom="Travail" id="0">
+  </board>
+  <board nom="Surveille" id="1">
+  </board>
+</gestionnaireDesTaches>
+
+                

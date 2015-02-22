@@ -1,3 +1,31 @@
+<?php 
+function afficherProjet($projet){
+        	?>
+        	<li data-row=<?php echo $projet['data-row']?> data-col=<?php echo $projet['data-col']?> data-sizex=<?php echo $projet['data-sizex']?> data-sizey=<?php echo $projet['data-sizey']?> class="gs-w scrollable-menu">
+        	 	<div id = "my-widget" value="<?php echo $projet['id'];?>">
+        			<header>
+        				<p style="cursor: move; background: #DDDDDD;" >|||</p>
+        				<div class="dragDiv" contenteditable="true">
+        					<?php echo $projet['nom']?>
+        					<div id="loadbuttonsous" class="load">+</div>
+        					<div id="deletebuttonsous" class="delete">*</div>
+        					
+        					<button id="create-user" value="<?php echo $projet['id'];?>" style = "height : 7px; width: 7px;" onclick="popup()"></button>
+        				</div>
+        			</header>
+        			<div id="divtestsous" style="overflow:auto;"></div>
+        		</div>
+        		<ul style="background: #DDDDDD;">
+        			<?php 
+        			foreach($projet->projet as $sprojet){
+        				afficherProjet($sprojet);
+        				popup();
+        			}?>	
+        		</ul>
+        	</li><?php 
+        }
+       ?>
+
 <!DOCTYPE html>
 <html lang="en" charset="UTF-8">
 	<head>
@@ -93,7 +121,7 @@
             var idcpt = 0;
 			
 			function duplicate() {
-                "use strict";
+                /*"use strict";
 				var original = document.getElementById('duplicater' + i);
 				var clone = original.cloneNode(true); // "deep" clone
                 //i += i;
@@ -102,10 +130,16 @@
 				original.parentNode.appendChild(clone);
                 //show the hiden board or the duplicated one
                 document.getElementById('duplicater2').style.display = 'block';
-				--i;// -= i;
+				--i;// -= i;*/
+				var action = "CreationBoard";
+				$.ajax({
+					type : "POST",
+					url  : "trait.php",
+					data : { action : action }
+				});
 			}
 			document.getElementById('addBoard').onclick = duplicate;
-			
+			//Location.Reload();
 		
 				
 			function getAllElementsWithAttribute(attribute) {
@@ -146,8 +180,8 @@
 					}).data('gridster');
 				}
                 				
-				var action = "CreationProjet" + "\r\n";
-                var board = "0";
+				var action = "CreationProjet";
+                
                /* var  n = getAllElementsWithAttribute("data-row").length;
 				for (j =0; j < n; j++)
 				{
@@ -159,11 +193,12 @@
                      idcpt++;
                      var me = $(this);
                      //alert(me.val());
-                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
+                     var idBoard = me.val();
+                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
                   
-                    popup(idcpt);
+                    popup();
                     
                     
                     
@@ -172,56 +207,14 @@
 					  $.ajax({
 						type: "POST",
 						url: 'trait.php',
-						data: { action : action , board : board },
+						data: { action : action , idBoard : idBoard },
 						success: function(data)
 						{
 							//alert("Project created!");
 						}
 					});
 				});
-                var board = "1";
-                $(document).on( "click", "#addWidgetButtonSurveille", function(e) {
-					 e.preventDefault(); 
-					   idcpt++;
-					 gridster[1].add_widget.apply(gridster[1], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
-                    $("#my-widget"+idcpt).colorize();
-                    /**************************/
-                    
-                   
-                    popup(idcpt);
-                    
-                    
-					  $.ajax({
-						type: "POST",
-						url: 'trait.php',
-						data: { action : action , board : board },
-						success: function(data)
-						{
-							//alert("Project created!");
-						}
-					});
-				});
-                var board = "2";
-                $(document).on( "click", "#addWidgetButtonNew", function(e) {
-					 e.preventDefault(); 
-					  idcpt++;
-					 gridster[2].add_widget.apply(gridster[2], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">SousProject<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
-                    $("#my-widget"+idcpt).colorize();
-                    /**************************/
-                    
-                    
-                    popup(idcpt);
-                    
-					  $.ajax({
-						type: "POST",
-						url: 'trait.php',
-						data: { action : action , board : board },
-						success: function(data)
-						{
-							//alert("Project created!");
-						}
-					});
-				});
+                
 				
 				$('.gridster li').on('mousedown', mouseDownHandler).on('mouseup', mouseUpHandler );
 			});
@@ -303,7 +296,8 @@
 		<script>
 		//Show and Hide Boards
 			$(document).ready(function(){
-                $("#duplicater2").hide();
+                //$("#duplicater2").hide();
+                //$("#dialog-form").hide();
                 
 				$("#btnshowhide").click(function(){
 					$("#showorHideBoards").toggle();
@@ -311,6 +305,7 @@
                 $("#btnshowhideTravail").click(function(){
 					$("#showorHideTravail").toggle();
 				});
+                
                 $("#btnshowhideSurveille").click(function(){
 					$("#showorHideSurveille").toggle();
 				});
@@ -485,14 +480,8 @@
             });
  
             // initialize with default options
-            $( "#my-widget1" ).colorize();
+            $( "#my-widget" ).colorize();
 
-            // initialize with two customized options
-            $( "#my-widget2" ).colorize();
-
-            // initialize with custom green value
-            // and a random callback to allow only colors with enough green
-            $( "#my-widget3" ).colorize();
  
             // click to toggle enabled/disabled
             $( "#disable" ).click(function() {
@@ -526,10 +515,13 @@
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
     <script>
-        popup(-1);
-        function popup(idcpt) {
+        popup();
+        function popup() {
+            
           $(function(){
+        	var idProjet;
             var dialog, form,
+              action = "CreationTache",
               titre = $( "#titre" ),
               description = $( "#description" ),
               echeance = $( "#echeance" ),
@@ -563,7 +555,7 @@
                     $.ajax({
                     type :"POST",
                     url : "trait.php",
-                    data: { titre : titre.val() , echeance : echeance.val() , commentaire : commentaire.val() , description : description.val() },
+                    data: { action : action, idProjet : idProjet, titre : titre.val() , echeance : echeance.val() , commentaire : commentaire.val() , description : description.val() },
 						success: function(data)
 						{
 							//alert("data sent to trait.php!");
@@ -585,8 +577,10 @@
               addUser();
              dialog.dialog( "close" ); 
             });
-
-            $( "#create-user"+idcpt ).button().on( "click", function() {
+            $(document).on( "click", "#create-user", function() {
+              var me = $(this);
+              idProjet = me.val();
+              //alert(me.val());
               dialog.dialog( "open" );
             });
           });
@@ -596,42 +590,23 @@
           });
         }
     </script>
+    <div id="dialog-form" title="Create task">
+
+          <form>
+            <fieldset>
+              <label for="titre">Titre</label>
+              <input type="text" name="titre" id="titre" class="text ui-widget-content ui-corner-all">
+              <label for="description">Description</label>
+              <input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
+              <label for="echeance">Echeance</label>
+              <input type="datepicker" name="echeance" id="echeance" class="text ui-widget-content ui-corner-all">
+              <label for="commentaire" >commentaire</label>
+              <input type="text" name="commentaire" id="commentaire" class="text ui-widget-content ui-corner-all" style = "height: 70px;">
+              <!-- Allow form submission with keyboard without duplicating the dialog button -->
+              <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+          </form>
+        </div>
     	
 	</body>
 	</html>
-        <?php
-        function afficherProjet($projet){
-        	?>
-        	<li data-row=<?php echo $projet['data-row']?> data-col=<?php echo $projet['data-col']?> data-sizex=<?php echo $projet['data-sizex']?> data-sizey=<?php echo $projet['data-sizey']?> class="gs-w scrollable-menu">
-        	 	<div id = "my-widget'+idcpt+'">
-        			<header>
-        				<p style="cursor: move; background: #DDDDDD;" >|||</p>
-        				<div class="dragDiv" contenteditable="true">
-        					<?php echo $projet['nom']?>
-        					<div id="loadbuttonsous" class="load">+</div>
-        					<div id="deletebuttonsous" class="delete">*</div>
-        					<button id="create-user'+idcpt+'" style = "height : 7px; width: 7px;"></button>
-        				</div>
-        			</header>
-        			<div id="divtestsous" style="overflow:auto;"></div>
-        		</div>
-        		<ul style="background: #DDDDDD;">
-        			<?php 
-        			foreach($projet->projet as $sprojet){
-        				afficherProjet($sprojet);
-        			}?>	
-        		</ul>
-        	</li><?php 
-        }
-$boards = new SimpleXMLElement('input.xml',0,true);
-//file_put_contents('result_file_create.txt', $action);
-//$projet = $boards->board[0]->addChild('projet','New');
-//file_put_contents('gtxml.xml', $boards->asXML());
-//$dom = new DOMDocument("1.0");
-//$dom->preserveWhiteSpace = false;
-//$dom->formatOutput = true;
-//$dom->loadXML($boards->asXML());
-//file_put_contents('result_file_toto.txt', $action);
-//file_put_contents('bbb.xml', $boards->asXML());
-//file_put_contents('gtxml.xml', $dom->saveXML());
-?>

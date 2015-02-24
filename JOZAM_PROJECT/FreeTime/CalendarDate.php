@@ -48,6 +48,6 @@ class CalendarDate extends DateTime {
 		return $this->format ( 'Y-m-d H:i:s' );
 	}
 	public function __toIcsDate() {
-		return $this->format ( 'Ymd' ) . 'T' . $this->format ( 'His' ) . 'Z';
+		return $this->format ( 'Ymd\THis' );
 	}
 }

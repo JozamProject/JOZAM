@@ -57,9 +57,8 @@ class ArrayCollection implements Collection, Selectable {
 			}
 		}
 	}
-	
 	public function sort($sortFunction) {
-		usort($this->elements, $sortFunction);
+		usort ( $this->elements, $sortFunction );
 	}
 	
 	/**
@@ -75,9 +74,8 @@ class ArrayCollection implements Collection, Selectable {
 	public function first() {
 		return reset ( $this->elements );
 	}
-	
 	public function queue() {
-		$queue = new ArrayCollection($this->slice(1));
+		$queue = new ArrayCollection ( $this->slice ( 1 ) );
 		return $queue;
 	}
 	
@@ -122,7 +120,11 @@ class ArrayCollection implements Collection, Selectable {
 		
 		return $removed;
 	}
-	
+	public function removeAllElements($elements) {
+		foreach ( $elements as $e ) {
+			$this->removeElement ( $e );
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 */
@@ -255,12 +257,11 @@ class ArrayCollection implements Collection, Selectable {
 		
 		return true;
 	}
-	
-	public function addAll ($values) {
-		foreach($values as $v) {
-			$this->add($v);
+	public function addAll($values) {
+		foreach ( $values as $v ) {
+			$this->add ( $v );
 		}
-	
+		
 		return true;
 	}
 	
@@ -337,28 +338,28 @@ class ArrayCollection implements Collection, Selectable {
 		foreach ( $this->elements as $o ) {
 			$return = $return . $o . ', <br>';
 		}
-		$return = ($this->isEmpty() ? $return : substr ( $return, 0, - 6 )) . ']';
+		$return = ($this->isEmpty () ? $return : substr ( $return, 0, - 6 )) . ']';
 		return $return;
 	}
 	public static function is_ArrayCollection($object) {
 		return is_a ( $object, get_class () );
 	}
 	/*
-	 	public function br_toString($nbParents = 1) {
-		$tabs = str_repeat ( '__', $nbParents - 1 );
-		$kid_is_array = ArrayCollection::is_ArrayCollection ( $this->first () );
-		$return = $tabs . '[' . ($kid_is_array ? '<br>' : '');
-		$nbParents ++;
-		foreach ( $this->elements as $o ) {
-			$is_array = ArrayCollection::is_ArrayCollection ( $o );
-			$str_o = $is_array ? $o->br_toString ( $nbParents ) : $o;
-			$return = $return . $str_o . ($is_array ? '<br>' : ', ');
-		}
-		$return = substr ( $return, 0, - 2 ) . ($kid_is_array ? '<br><br>' . $tabs . ']' . '<br>' : ']');
-		$return = ($nbParents == 2) ? (substr ( $return, 0, - 9 ) . ']') : $return;
-		return $return;
-	}
-	*/
+	 * public function br_toString($nbParents = 1) {
+	 * $tabs = str_repeat ( '__', $nbParents - 1 );
+	 * $kid_is_array = ArrayCollection::is_ArrayCollection ( $this->first () );
+	 * $return = $tabs . '[' . ($kid_is_array ? '<br>' : '');
+	 * $nbParents ++;
+	 * foreach ( $this->elements as $o ) {
+	 * $is_array = ArrayCollection::is_ArrayCollection ( $o );
+	 * $str_o = $is_array ? $o->br_toString ( $nbParents ) : $o;
+	 * $return = $return . $str_o . ($is_array ? '<br>' : ', ');
+	 * }
+	 * $return = substr ( $return, 0, - 2 ) . ($kid_is_array ? '<br><br>' . $tabs . ']' . '<br>' : ']');
+	 * $return = ($nbParents == 2) ? (substr ( $return, 0, - 9 ) . ']') : $return;
+	 * return $return;
+	 * }
+	 */
 	
 	/**
 	 * {@inheritDoc}

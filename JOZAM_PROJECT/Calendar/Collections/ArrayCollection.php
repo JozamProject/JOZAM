@@ -29,10 +29,11 @@ use Collections\Expr\ClosureExpressionVisitor;
 /**
  * An ArrayCollection is a Collection implementation that wraps a regular PHP array.
  *
- * @since 2.0
+ * @since 2.1
  * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
  * @author Jonathan Wage <jonwage@gmail.com>
  * @author Roman Borschel <roman@code-factory.org>
+ * @author Jaafar Bouayad <bouayad.jaafar@gmail.com>
  */
 class ArrayCollection implements Collection, Selectable {
 	/**
@@ -57,9 +58,6 @@ class ArrayCollection implements Collection, Selectable {
 			}
 		}
 	}
-	public function sort($sortFunction) {
-		usort ( $this->elements, $sortFunction );
-	}
 	
 	/**
 	 * {@inheritDoc}
@@ -73,10 +71,6 @@ class ArrayCollection implements Collection, Selectable {
 	 */
 	public function first() {
 		return reset ( $this->elements );
-	}
-	public function queue() {
-		$queue = new ArrayCollection ( $this->slice ( 1 ) );
-		return $queue;
 	}
 	
 	/**
@@ -120,11 +114,7 @@ class ArrayCollection implements Collection, Selectable {
 		
 		return $removed;
 	}
-	public function removeAllElements($elements) {
-		foreach ( $elements as $e ) {
-			$this->removeElement ( $e );
-		}
-	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -257,13 +247,6 @@ class ArrayCollection implements Collection, Selectable {
 		
 		return true;
 	}
-	public function addAll($values) {
-		foreach ( $values as $v ) {
-			$this->add ( $v );
-		}
-		
-		return true;
-	}
 	
 	/**
 	 * {@inheritDoc}
@@ -329,39 +312,6 @@ class ArrayCollection implements Collection, Selectable {
 	}
 	
 	/**
-	 * Returns a string representation of this object.
-	 *
-	 * @return string
-	 */
-	public function __toString() {
-		$return = '[';
-		foreach ( $this->elements as $o ) {
-			$return = $return . $o . ', <br>';
-		}
-		$return = ($this->isEmpty () ? $return : substr ( $return, 0, - 6 )) . ']';
-		return $return;
-	}
-	public static function is_ArrayCollection($object) {
-		return is_a ( $object, get_class () );
-	}
-	/*
-	 * public function br_toString($nbParents = 1) {
-	 * $tabs = str_repeat ( '__', $nbParents - 1 );
-	 * $kid_is_array = ArrayCollection::is_ArrayCollection ( $this->first () );
-	 * $return = $tabs . '[' . ($kid_is_array ? '<br>' : '');
-	 * $nbParents ++;
-	 * foreach ( $this->elements as $o ) {
-	 * $is_array = ArrayCollection::is_ArrayCollection ( $o );
-	 * $str_o = $is_array ? $o->br_toString ( $nbParents ) : $o;
-	 * $return = $return . $str_o . ($is_array ? '<br>' : ', ');
-	 * }
-	 * $return = substr ( $return, 0, - 2 ) . ($kid_is_array ? '<br><br>' . $tabs . ']' . '<br>' : ']');
-	 * $return = ($nbParents == 2) ? (substr ( $return, 0, - 9 ) . ']') : $return;
-	 * return $return;
-	 * }
-	 */
-	
-	/**
 	 * {@inheritDoc}
 	 */
 	public function clear() {
@@ -404,5 +354,83 @@ class ArrayCollection implements Collection, Selectable {
 		}
 		
 		return new static ( $filtered );
+	}
+	
+	/* Added utility functions for JOZAM Project, by Jaafar Bouayad */
+	/**
+	 * Returns a string representation of this object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		$return = '[';
+		foreach ( $this->elements as $o ) {
+			$return = $return . $o . ', <br>';
+		}
+		$return = ($this->isEmpty () ? $return : substr ( $return, 0, - 6 )) . ']';
+		return $return;
+	}
+	
+	/**
+	 * Tests if the object is an ArrayCollection.
+	 *
+	 * @return boolean TRUE if the object is an ArrayCollection, FALSE otherwise.
+	 */
+	public static function is_ArrayCollection($object) {
+		return is_a ( $object, get_class () );
+	}
+	
+	/**
+	 * Add all the elements to the ArrayCollection.
+	 *
+	 * @param
+	 *        	ArrayCollection ($elements
+	 *        	
+	 * @return void
+	 */
+	public function addAll($elements) {
+		foreach ( $elements as $v ) {
+			$this->add ( $v );
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Remove all the elements from the ArrayCollection.
+	 *
+	 * @param ArrayCollection $values        	
+	 *
+	 * @return void
+	 */
+	public function removeAllElements($elements) {
+		foreach ( $elements as $e ) {
+			$this->removeElement ( $e );
+		}
+	}
+	
+	/**
+	 * Returns the queue of the ArrayCollection.
+	 *
+	 * @return ArrayCollection
+	 */
+	public function queue() {
+		$queue = new ArrayCollection ( $this->slice ( 1 ) );
+		return $queue;
+	}
+	
+	/**
+	 * Sorts the ArrayCollection in accordance with the sort function.
+	 *
+	 * @param ArrayCollection $sortFunction
+	 *        	The comparison function must return an integer
+	 *        	less than, equal to, or greater than zero
+	 *        	if the first argument is considered to be respectively
+	 *        	less than, equal to, or greater than the second.
+	 *        	
+	 * @return void
+	 */
+	public function sort($sortFunction) {
+		usort ( $this->elements, $sortFunction );
 	}
 }

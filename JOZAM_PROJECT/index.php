@@ -1,8 +1,18 @@
+<?php
+function afficherTache($tache){
+    ?>
+        <div style="font-size: 14px;"> <?php print $tache['titre'] . "--" .$tache['echeance'] ; ?> </div>
+        <br>
+        <div style="font-size: 14px;"> Description :<?php print $tache->description;?></div>
+        <br>
+<?php
+}
+?>
 <?php 
 function afficherProjet($projet){
         	?>
         	<li data-row=<?php echo $projet['data-row']?> data-col=<?php echo $projet['data-col']?> data-sizex=<?php echo $projet['data-sizex']?> data-sizey=<?php echo $projet['data-sizey']?> class="gs-w scrollable-menu">
-        	 	<div id = "my-widget" value="<?php echo $projet['id'];?>">
+        	 	<div id = "my-widget"  value="<?php echo $projet['id'];?>">
         			<header>
         				<p style="cursor: move; background: #DDDDDD;" >|||</p>
         				<div class="dragDiv" contenteditable="true">
@@ -13,6 +23,12 @@ function afficherProjet($projet){
         					<button id="create-user" value="<?php echo $projet['id'];?>" style = "height : 7px; width: 7px;" onclick="popup()"></button>
         				</div>
         			</header>
+                    <div> 
+                        <?php 
+                        foreach($projet->tache as $stache){
+                            afficherTache($stache);
+                        }?>
+                    </div>
         			<div id="divtestsous" style="overflow:auto;"></div>
         		</div>
         		<ul style="background: #DDDDDD;">
@@ -137,9 +153,11 @@ function afficherProjet($projet){
 					url  : "trait.php",
 					data : { action : action }
 				});
+                alert("board created!!");
+                window.location.reload();
 			}
 			document.getElementById('addBoard').onclick = duplicate;
-			//Location.Reload();
+			
 		
 				
 			function getAllElementsWithAttribute(attribute) {
@@ -610,3 +628,17 @@ function afficherProjet($projet){
     	
 	</body>
 	</html>
+        <?php
+        
+$boards = new SimpleXMLElement('input.xml',0,true);
+//file_put_contents('result_file_create.txt', $action);
+//$projet = $boards->board[0]->addChild('projet','New');
+//file_put_contents('gtxml.xml', $boards->asXML());
+//$dom = new DOMDocument("1.0");
+//$dom->preserveWhiteSpace = false;
+//$dom->formatOutput = true;
+//$dom->loadXML($boards->asXML());
+//file_put_contents('result_file_toto.txt', $action);
+//file_put_contents('bbb.xml', $boards->asXML());
+//file_put_contents('gtxml.xml', $dom->saveXML());
+?>

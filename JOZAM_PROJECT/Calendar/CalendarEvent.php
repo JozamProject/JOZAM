@@ -396,7 +396,7 @@ END:VEVENT
 	 */
 	public static function __toIcsCalendar($calendarEvents, $summary) {
 		$return = 'BEGIN:VCALENDAR
-METHOD:REQUEST
+METHOD:PUBLISH
 
 ';
 		foreach ( $calendarEvents as $ed ) {

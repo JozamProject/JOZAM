@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Cp1252">
-<title>Insert title here</title>
+<title>Calendar</title>
 </head>
 <body>
 	<a
-		href="http://localhost/jozam_git/JOZAM_PROJECT/Calendar/CalendarFreeTime.ics">Calendar</a>
+		href="https://www.google.com/calendar/render?cid=drive.google.com/uc?id=0ByHfad74KOl_NXdHSmtYNEhwRXc">Calendar</a>
 
 	<?php
 	/*<iframe

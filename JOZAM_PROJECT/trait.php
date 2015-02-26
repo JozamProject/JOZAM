@@ -117,24 +117,4 @@ if(isset($_POST['action']))
 	print_r($recoveredArray);*/
 	
 }
-else if(isset($_POST['clicked_lang']){
-    file_put_contents('bbb.xml',$_POST['clicked_lang'] );
-    $l = $_POST['clicked_lang'];
-    $langs = new SimpleXMLElement('Languages.xml',0,true);
-    foreach($langs->Languages as lang){
-        if($lang['name']==$l)
-        {
-    		if($lang['chosen']=="false"){
-                $lang->Language['chosen'] = 'true';
-            }
-        }else{
-            $lang->Language['chosen'] = 'false';
-        }
-        $dom = new DOMDocument("1.0");
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
-        $dom->loadXML($langs->asXML());
-        file_put_contents('Languages.xml', $dom->saveXML());
-    }
-}
 ?>

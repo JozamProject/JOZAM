@@ -1,7 +1,7 @@
 <?php
 function afficherTache($tache){
     ?>
-        <div><abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> <?php echo $tache['titre'] . "//\\" .$tache['echeance'] ; ?> </abbr></div>
+<div><abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> <?php echo "-> ".$tache['titre'] . " /\\ " .$tache['echeance'] ; ?> </abbr></div>
         </br>
 <?php
 }
@@ -9,10 +9,10 @@ function afficherTache($tache){
 <?php 
 function afficherProjet($projet){
         	?>
-        	<li data-row="<?php echo $projet['data-row']?>" data-col="<?php echo $projet['data-col']?>" data-sizex="<?php echo $projet['data-sizex']?>" data-sizey="<?php echo $projet['data-sizey']?>" class="gs-w scrollable-menu">
-        	 	<div id = "my-widget"  value="<?php echo $projet['id'];?>">
+        	<li id ="<?php echo $projet['id']?>" data-row="<?php echo $projet['data-row']?>" data-col="<?php echo $projet['data-col']?>" data-sizex="<?php echo $projet['data-sizex']?>" data-sizey="<?php echo $projet['data-sizey']?>" class="gs-w scrollable-menu">
+        	 	<div id = "my-widget"  value="<?php echo $projet['id'];?>" >
         			<header>
-        				<p style="cursor: move; background: #DDDDDD;" >|||</p>
+        				<p style="cursor: move; background: grey;" >|||</p>
         				<div class="dragDiv" contenteditable="true">
         					<?php echo $projet['nom']?>
         					<div id="loadbuttonsous" class="load">+</div>
@@ -21,7 +21,7 @@ function afficherProjet($projet){
         					<button id="create-user" value="<?php echo $projet['id'];?>" style = "height : 7px; width: 7px;" onclick="popup()"></button>
         				</div>
         			</header>
-                    <div> 
+                    <div style="text-align:left; margin-left: 10%;"> 
                         <?php 
                         foreach($projet->tache as $stache){
                             afficherTache($stache);
@@ -205,7 +205,8 @@ function afficherProjet($projet){
 		
 			var gridster = [];
 			var startPosition = {};
-			var taille = 10;
+            //max board number
+			var taille = 20;
 			$(function()
 			{
                 var nombre = 0;
@@ -218,7 +219,19 @@ function afficherProjet($projet){
                        // autogrow_cols: true,
                        // widget_seletor: 'li'
 						resize: {
-							enabled: true
+							enabled: true,
+                            //Retrieve new dimensions of prjects----------------
+                            stop: function (e, ui, $widget) {
+                                var newDimensions = this.serialize($widget)[0];
+                                alert("widget is:" + $widget.attr('id'));
+                                alert("New width: " + newDimensions.size_x);
+                                alert("New height: " + newDimensions.size_y);
+                                $.ajax({
+                                    type : "POST",
+                                    url : "trait.php",
+                                    data : { idProj : $widget.attr('id') , NewWidth : newDimensions.size_x , NewHeight : newDimensions.size_y}
+                                });
+                            }
 						},
                         draggable: {
                             handle: 'header p'                        
@@ -240,7 +253,7 @@ function afficherProjet($projet){
                      var me = $(this);
                      //alert(me.val());
                      var idBoard = me.val();
-                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DDDDDD;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
+                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbuttonsous" class="load">+</div><div id="deletebuttonsous" class="delete">*</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header><div id="divtestsous" style="overflow:auto;"></div></div></li>', 1, 1]);
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
                   
@@ -286,6 +299,8 @@ function afficherProjet($projet){
 					x: event.clientX,
 					y: event.clientY
 				};
+                //alert(dropPosition.x+" "+ dropPosition.y);
+                
 				
 				/** the element we clicked or dragged on **/
 				var liElement = $(this);
@@ -293,7 +308,6 @@ function afficherProjet($projet){
 				var currentGridster = liElement.closest('.gridster');
 				/** the gridster object of the element we clicked on **/
 				var gridsterObject = getGridsterObjectById(currentGridster.attr('id'));
-				
 				/** check if we dragged **/
 				if( startPosition.x == dropPosition.x && startPosition.y == dropPosition.y ) {
 					return true;
@@ -405,6 +419,7 @@ function afficherProjet($projet){
         <script>
             
           $(function() {
+             
               //variable colors
               var i=0;
               var j=0;
@@ -521,8 +536,9 @@ function afficherProjet($projet){
             });
  
             // initialize with default options
-                $( "#my-widget" ).colorize();
-
+            $( "#my-widget" ).colorize();
+              
+            
 
  
             // click to toggle enabled/disabled

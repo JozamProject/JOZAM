@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Language>
+    <Title> JOZAM </Title>
+	<Abb> En </Abb>
+    	<Project> JOZAM Task Manager </Project>
+	<AddBoard> Add board </AddBoard>
+	<AddProject> Add project </AddProject>
+	<Toggle> Toggle </Toggle>
+</Language>

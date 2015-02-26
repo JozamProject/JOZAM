@@ -1,8 +1,4 @@
 <?php
-require_once('GestionnaireDesTaches.php');
-require_once('Board.php');
-require_once('Projet.php');
-require_once('Tache.php');
 
 //file_put_contents('bbb.xml', $_POST['action']);
 
@@ -15,7 +11,6 @@ require_once('Tache.php');
 }
 $projet = $boards->board[0]->addChild('projet','projet1');
 file_put_contents('result_file_xml.xml', $boards->asXML());*/
-
 if(isset($_POST['action']))
 {
 	
@@ -121,7 +116,5 @@ if(isset($_POST['action']))
 	// you can print your array like
 	print_r($recoveredArray);*/
 	
-}else{
-file_put_contents('C:\Users\Ayoub\Desktop\gridster_sample\gridster_test\result_failed.txt', "failed to recover data");
 }
 ?>

@@ -191,6 +191,11 @@ class CalendarDate extends DateTime {
 	 * @return string
 	 */
 	public function __toIcsDate() {
-		return $this->format ( 'Ymd\THis' );
+		$return = $this->format ( 'Ymd\THis' );
+		$timeZone = new DateTimeZone('UTC');
+		$dateTime = new DateTime($return);
+		$dateTime->setTimezone($timeZone);
+		$return = $dateTime->format ( 'Ymd\THis' ).'Z';
+		return $return;
 	}
 }

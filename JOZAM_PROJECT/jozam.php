@@ -1,12 +1,7 @@
 <?php
 function afficherTache($tache){
     ?>
-		<!--
-        <div><?php //print $tache['titre'] . "--" .$tache['echeance'] ; ?></div>
-        </br>
-        <div>Description :<?php //print $tache->description;?></div>
-		-->
-        <div><abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> <?php echo $tache['titre'] . "==>" .$tache['echeance'] ; ?> </abbr></div>
+        <div><abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> <?php echo $tache['titre'] . "//\\" .$tache['echeance'] ; ?> </abbr></div>
         </br>
 <?php
 }
@@ -14,7 +9,7 @@ function afficherTache($tache){
 <?php 
 function afficherProjet($projet){
         	?>
-        	<li data-row=<?php echo $projet['data-row']?> data-col=<?php echo $projet['data-col']?> data-sizex=<?php echo $projet['data-sizex']?> data-sizey=<?php echo $projet['data-sizey']?> class="gs-w scrollable-menu">
+        	<li data-row="<?php echo $projet['data-row']?>" data-col="<?php echo $projet['data-col']?>" data-sizex="<?php echo $projet['data-sizex']?>" data-sizey="<?php echo $projet['data-sizey']?>" class="gs-w scrollable-menu">
         	 	<div id = "my-widget"  value="<?php echo $projet['id'];?>">
         			<header>
         				<p style="cursor: move; background: #DDDDDD;" >|||</p>
@@ -44,11 +39,20 @@ function afficherProjet($projet){
         	</li><?php 
         }
        ?>
+<?php 
+    $languages = new SimpleXMLElement('Languages.xml',0,true);
+    $boards = new SimpleXMLElement('input.xml',0,true);
+    foreach($languages->Language as $l){
+        if($l['chosen']=="true"){
+            $lstring = str_replace(' ', '', $l);
+            $language =  new SimpleXMLElement($lstring,0,true);
 
+        }
+    }?>
 <!DOCTYPE html>
-<html lang="en" charset="UTF-8">
+<html charset="UTF-8">
 	<head>
-		<title>JOZAM PROJECT</title>
+		<title><?php echo $language->Title ?></title>
 		<meta name="author" content="gyurisc">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css">
@@ -77,43 +81,64 @@ function afficherProjet($projet){
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="#" class="navbar-brand">JOZAM Task Manager</a>
+                        <a href="#" class="navbar-brand"><?php echo $language->Project ?></a>
                     </div>
                     <!-- Collection of nav links and other content for toggling -->
                     <div id="navbarCollapse" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li><a id="addBoard" href="#">Add board</a></li>
+                            <li><a id="addBoard" href="#"><?php echo $language->AddBoard ?></a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Toggle <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $language->Toggle ?> <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a id="btnshowhide" href="#">All</a></li>
+                                    <?php 
+                                        foreach($boards->board as $board){?>                                        
+                                            <li><button id="btnshowhide" value="<?php echo $board['id'];?>" href="#" style="width:100%; background: none;"><?php echo $board['nom'];?></button></li>
+                                        <?php } ?>
+                                    <!--<li><a id="btnshowhide" href="#">All</a></li>
                                     <li><a id="btnshowhideTravail" href="#">Travail</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" id="btnshowhideSurveille">Surveille</a></li>
+                                    <li><a href="#" id="btnshowhideSurveille">Surveille</a></li>-->
                                 </ul>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Jozam User</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <?php echo $language->Abb;?>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <?php 
+                                        //$languages = new SimpleXMLElement('Languages.xml',0,true);
+                                        
+			                            foreach($languages->Language as $l){ 
+                                        if($l['chosen']=="true")
+                                            $chosen = 'v ';
+                                        else $chosen = " ";
+                                    ?>
+                                    <li href="#"><button id="<?php echo $l['name'];?>" style="width:100%; background: none;" onclick="change(this.id)"><?php echo $chosen.$l['name'];?></button></li>  
+                                    <?php } ?>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
         <div class="navbar" style="margin-top: 50px;">
-            <div id="showorHideBoards" class="container">
+            <div class="container">
 		<?php 
-			$boards = new SimpleXMLElement('input.xml',0,true);
+			
 			foreach($boards->board as $board){
 				?> 
 							
-					<div id=<?php echo "showorHide".$board['nom'];?>>
-                    <div id=<?php echo "duplicater".$board['id'];?>>
-                        <div id=<?php echo "demo-".$board['id'];?> class="gridster">
+					<div id="<?php echo "showorHide".$board['id'];?>">
+                    <div id="<?php echo "duplicater".$board['id'];?>">
+                        <div id="<?php echo "demo-".$board['id'];?>" class="gridster">
                             <div contenteditable="true">
                                 <h2><?php echo $board['nom'];?></h2>
                             </div>
-                            <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm" >Add Project</button>
+                            <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm" ><?php echo $language->AddProject ?></button>
                             <ul id="myList">
                             	<?php 
                             		foreach($board->projet as $projet){
@@ -316,21 +341,14 @@ function afficherProjet($projet){
 		
 		<script>
 		//Show and Hide Boards
-			$(document).ready(function(){
-                //$("#duplicater2").hide();
-                //$("#dialog-form").hide();
-                
-				$("#btnshowhide").click(function(){
-					$("#showorHideBoards").toggle();
-				});
-                $("#btnshowhideTravail").click(function(){
-					$("#showorHideTravail").toggle();
-				});
-                
-                $("#btnshowhideSurveille").click(function(){
-					$("#showorHideSurveille").toggle();
-				});
-			});
+           
+                var idPrj;
+                $(document).on( "click", "#btnshowhide", function() {
+                        var m = $(this);
+                        idPrj = m.val();
+                        $("#showorHide"+idPrj).toggle();
+                });
+            
 		</script>
         
         <script>
@@ -385,6 +403,7 @@ function afficherProjet($projet){
             
         </style>
         <script>
+            
           $(function() {
               //variable colors
               var i=0;
@@ -468,6 +487,7 @@ function afficherProjet($projet){
                 if ( this._trigger( "random", event, colors ) !== false ) {
                   this.option( colors );
                 }
+                  
               },
  
               // events bound via _on are removed automatically
@@ -501,7 +521,8 @@ function afficherProjet($projet){
             });
  
             // initialize with default options
-            $( "#my-widget" ).colorize();
+                $( "#my-widget" ).colorize();
+
 
  
             // click to toggle enabled/disabled
@@ -611,6 +632,19 @@ function afficherProjet($projet){
           });
         }
     </script>
+        <script>
+            //sending the langage chose !!
+            function change(clicked_lang){
+                alert(clicked_lang);
+                $.ajax({
+					type : "POST",
+					url  : "trait.php",
+					data : { clicked_lang : clicked_lang }
+				});
+                //alert("Langage chosen!!");
+                window.location.reload();               
+            }
+        </script>
     <div id="dialog-form" title="Create task">
 
           <form>

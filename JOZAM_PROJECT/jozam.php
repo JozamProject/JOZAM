@@ -1,4 +1,12 @@
 <?php
+session_start();
+if($_GET["state"] == "ok"){
+    $_SESSION['connect'] =true;
+}
+if(isset($_SESSION['connect'])){
+    if($_SESSION['connect'] == true){
+?>
+<?php
 function afficherTache($tache){
     ?>
 <div id="create-user" value="<?php echo $tache['id'];?>" onclick="popup()">
@@ -118,11 +126,11 @@ function afficherProjet($projet){
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">
+						<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <?php echo $language->Abb;?>
                                     <span class="caret"></span>
-						</a>
+						    </a>
 							<ul class="dropdown-menu" role="menu">
                                     <?php 
                                         //$languages = new SimpleXMLElement('Languages.xml',0,true);
@@ -137,14 +145,18 @@ function afficherProjet($projet){
 										style="width: 100%; background: none;"
 										onclick="change(this.id)"><?php echo $chosen.$l['name'];?></button></li>  
                                     <?php } ?>
-                                </ul></li>
+                                </ul>
+                        </li>
+                        <li>
+                            <a href="logout.php" id="disconnect"><?php echo $language->Disconnect; ?></a>
+                        </li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
 	<div class="navbar" style="margin-top: 50px;">
-		<div class="container">
+		<div class="container" style="margin : 5px !important;">
 		<?php 
 			
 			foreach($boards->board as $board){
@@ -206,7 +218,7 @@ function afficherProjet($projet){
 			document.getElementById('addBoard').onclick = duplicate;
 			
 		
-				
+			/*	
 			function getAllElementsWithAttribute(attribute) {
 			    var matchingElements = [];
 			    var allElements = document.getElementsByTagName('*');
@@ -221,7 +233,7 @@ function afficherProjet($projet){
 			    }
 			    return matchingElements;
 			}
-		
+		*/
 			var gridster = [];
 			var startPosition = {};
             //max board number
@@ -818,3 +830,5 @@ $boards = new SimpleXMLElement('input.xml',0,true);
 //file_put_contents('bbb.xml', $boards->asXML());
 //file_put_contents('gtxml.xml', $dom->saveXML());
 ?>
+
+<?php } } ?>

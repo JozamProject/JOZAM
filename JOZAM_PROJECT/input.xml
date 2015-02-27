@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gestionnaireDesTaches utilisateur="Othman">
+  <board nom="New Board" id="2">
+    <projet nom="New Project" id="3-0" data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <tache id="idTache" titre="jhjh" echeance="02/28/2015">
+        <commentaire>sdhbf djkfb dhfkbs</commentaire>
+        <description>hhihb jbhb</description>
+      </tache>
+      <tache id="idTache" titre="uihiu" echeance="02/26/2015">
+        <commentaire>ouhduhfui ezuifb</commentaire>
+        <description>iuih</description>
+      </tache>
+    </projet>
+    <projet nom="New project" id="3-1" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+    <projet nom="New project" id="3-2" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+    <projet nom="New project" id="3-3" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+    <projet nom="New project" id="3-4" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+  </board>
+  <board nom="New Board" id="3">
+    <projet nom="New Project" id="3-0" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+  </board>
   <board nom="Travail" id="0" datasizex="" datasizey="1">
     <projet nom="New project" id="0-0" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
       <tache id="idTache" titre="tache1" echeance="02/25/2015">
@@ -25,10 +44,15 @@
         <description>hbhkb</description>
       </tache>
     </projet>
-    <projet nom="New project" id="0-2" data-row="1" data-col="1" data-sizex="2" data-sizey="1"/>
+    <projet nom="New project" id="0-2" data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <tache id="idTache" titre="tt" echeance="02/27/2015">
+        <commentaire>iiljlijh</commentaire>
+        <description>hghg</description>
+      </tache>
+    </projet>
     <projet nom="New project" id="0-3" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
   </board>
-  <board nom="New Board" id="2">
+  <board nom="New Board" id="1">
     <projet nom="New Project" id="2-0" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
       <tache id="idTache" titre="test" echeance="02/26/2015">
         <commentaire>kjbskcb</commentaire>
@@ -45,18 +69,6 @@
       <tache id="idTache" titre="jb" echeance="02/26/2015">
         <commentaire>hbhb</commentaire>
         <description>hbb</description>
-      </tache>
-    </projet>
-  </board>
-  <board nom="New Board" id="3">
-    <projet nom="New Project" id="3-0" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-      <tache id="idTache" titre="jhjh" echeance="02/28/2015">
-        <commentaire>sdhbf djkfb dhfkbs</commentaire>
-        <description>hhihb jbhb</description>
-      </tache>
-      <tache id="idTache" titre="uihiu" echeance="02/26/2015">
-        <commentaire>ouhduhfui ezuifb</commentaire>
-        <description>iuih</description>
       </tache>
     </projet>
   </board>

@@ -6,4 +6,5 @@
 	<AddBoard> Ajouter board </AddBoard>
 	<AddProject> Ajouter projet </AddProject>
 	<Toggle> Cacher </Toggle>
+	<Disconnect> Se deconnecter </Disconnect>
 </Language>

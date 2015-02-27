@@ -45,7 +45,6 @@ if (isset ( $_POST ['action'] )) {
 	
 	if ($action === "CreationTache") {
 		$id = $_POST ['idProjet'];
-		file_put_contents ( 'aaa.xml', $id );
 		list ( $idBoard, $idProjet ) = split ( "-", $id );
 		$boards = new SimpleXMLElement ( 'input.xml', 0, true );
 		foreach ( $boards->board as $board ) {
@@ -53,7 +52,6 @@ if (isset ( $_POST ['action'] )) {
 				foreach ( $board->projet as $projet ) {
 					// $chaine .= $idProjet."/".$projet['id']. " ";
 					if ($projet ['id'] == $id) {
-						file_put_contents ( 'bbb.xml', "tototo" );
 						$idTache = $id . '-' . $projet->count ();
 						$tache = $projet->addChild ( 'tache' );
 						$tache->addAttribute ( 'id', idTache );
@@ -96,7 +94,7 @@ if (isset ( $_POST ['action'] )) {
 				}
 				$projects ['data-sizex'] = $width;
 				$projects ['data-sizey'] = $height;
-				file_put_contents ( 'bbb.xml', "x : " . $projects ['data-sizex'] . " ,y : " . $projects ['data-sizey'] );
+				//file_put_contents ( 'bbb.xml', "x : " . $projects ['data-sizex'] . " ,y : " . $projects ['data-sizey'] );
 				
 				break;
 			}

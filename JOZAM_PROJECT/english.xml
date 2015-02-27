@@ -6,4 +6,5 @@
 	<AddBoard> Add board </AddBoard>
 	<AddProject> Add project </AddProject>
 	<Toggle> Toggle </Toggle>
+    <Disconnect> Disconnect </Disconnect>
 </Language>

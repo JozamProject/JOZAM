@@ -11,7 +11,7 @@ if(isset($_SESSION['connect'])){
 <?php
 function afficherTache($tache){
     ?>
-<div id="modify-task" value="<?php echo $tache['id'];?>" onclick="popupmodify()">
+<div id="create-user" value="<?php echo $tache['id'];?>" onclick="popup()">
 	<abbr
 		title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> <?php echo "- ".$tache['titre'] . " || " .$tache['echeance'] ; ?> </abbr>
 </div>
@@ -28,33 +28,32 @@ function afficherProjet($projet){
 	data-sizex="<?php echo $projet['data-sizex']?>"
 	data-sizey="<?php echo $projet['data-sizey']?>"
 	class="gs-w scrollable-menu">
-	<div id="<?php echo "my-widget".$projet['id'];?>" value="<?php echo $projet['id'];?>" onload="ch(this.id)" style="overflow: auto;">
+	<div id="<?php echo "my-widget".$projet['id'];?>" value="<?php echo $projet['id'];?>" onload="ch(this.id)">
 		<header>
 			<p style="cursor: move; background: grey;">|||</p>
 			<div class="dragDiv" contenteditable="true">
         					<?php echo $projet['nom']?>
         					<div id="<?php echo $projet['id'];?>" onclick="createproj(this.id)" class="load">+</div>
-				            <div id="<?php echo $projet['id'];?>" class="delete" onclick="deleteproj(this.id)">x</div>
+				<div id="<?php echo $projet['id'];?>" class="delete" onclick="deleteproj(this.id)">x</div>
 
 				<button id="create-user" value="<?php echo $projet['id'];?>"
 					style="height: 7px; width: 7px;" onclick="popup()"></button>
 			</div>
 		</header>
-		<div style="text-align: left; margin-left: 10%;"> 
+		<div style="text-align: left; margin-left: 10%; overflow: auto;"> 
                         <?php 
                         foreach($projet->tache as $stache){
                             afficherTache($stache);
                         }?>
-                        <ul style="background: #DDDDDD;">
-                            <?php 
-                            foreach($projet->projet as $sprojet){
-                                afficherProjet($sprojet);
-                                //popup();
-                            }?>	
-        		        </ul>
-        </div>
+                    </div>
 	</div>
-	
+	<ul style="background: #DDDDDD;">
+        			<?php 
+        			foreach($projet->projet as $sprojet){
+        				afficherProjet($sprojet);
+        				//popup();
+        			}?>	
+        		</ul>
 </li><?php 
         }
        ?>
@@ -289,12 +288,12 @@ function afficherProjet($projet){
                      var me = $(this);
                      //alert(me.val());
                      var idParent = me.val();
-                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 1, 1]);
+                     gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">*</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 1, 1]);
                     $("#my-widget"+idcpt).colorize();
                     /**************************/
-                    
+                  
                     popup();
-                    //window.location.reload();
+                    
                     
                     
                     
@@ -311,7 +310,7 @@ function afficherProjet($projet){
 				});
                 
 				
-				$('.gridster li div header p').on('mousedown', mouseDownHandler).on('mouseup', mouseUpHandler );
+				$('.gridster li').on('mousedown', mouseDownHandler).on('mouseup', mouseUpHandler );
 			});
             
                       
@@ -338,7 +337,7 @@ function afficherProjet($projet){
                 
                
 				/** the element we clicked or dragged on **/
-				var liElement = $(this).parent().parent().parent();
+				var liElement = $(this);
 				/** the gridster of the element we clicked on **/
 				var currentGridster = liElement.closest('.gridster');
 				/** the gridster object of the element we clicked on **/
@@ -415,7 +414,7 @@ function afficherProjet($projet){
             //load data from files
             function createproj(createdproj){
                 var action = "CreationProjet";
-                //alert("create project"+createdproj);
+                alert("create project"+createdproj);
                 $.ajax({
 					type : "POST",
 					url  : "trait.php",
@@ -426,18 +425,15 @@ function afficherProjet($projet){
             }
             //delete data from files
         function deleteproj(idProj){
-             if (confirm("Confirm delete ?")) { // Clic sur OK
             	var action = "DeleteProject";
-                //alert("delete project"+idProj);
+                alert("delete project"+idProj);
                 $.ajax({
 					type : "POST",
 					url  : "trait.php",
 					data : { action : action, idProj : idProj }
 				});
                 //alert("Langage chosen!!");
-                window.location.reload(); 
-                window.location.reload(); 
-             }
+                window.location.reload();               
             }
         </script>
 
@@ -636,15 +632,9 @@ function afficherProjet($projet){
             // initialize with default options
               
             //$( "#my-widget" ).colorize();
-              for(var j=0;j<20;j++){
-                  for(var i=0;i<50;i++){
+              for(var j=0;j<100;j++){
+                  for(var i=0;i<100;i++){
                     $( "#my-widget"+j+"-"+i ).colorize();
-                      for(var k=0;k<20;k++){
-                           $( "#my-widget"+j+"-"+i+"-"+k ).colorize();
-                          for(var l=0;l<10;l++){
-                              $( "#my-widget"+j+"-"+i+"-"+k+"-"+l ).colorize();
-                          }
-                      }
                   }
               }
 
@@ -792,17 +782,6 @@ div#users-contain table td, div#users-contain table th {
             $( "#echeance" ).datepicker();
           });
         }
-        
-        //popupmodify() modify a task
-        
-        function popupmodify(){
-            $(document).on( "click", "#modify-task", function() {
-
-                alert("not implemented yet !!");
-             
-            });
-            
-        }
     </script>
 	<script>
             //sending the langage chose !!
@@ -822,15 +801,15 @@ div#users-contain table td, div#users-contain table th {
 
 		<form>
 			<fieldset>
-				<label for="titre">Title</label> <input type="text" name="titre"
+				<label for="titre">Titre</label> <input type="text" name="titre"
 					id="titre" class="text ui-widget-content ui-corner-all"> <label
 					for="description">Description</label> <input type="text"
 					name="description" id="description"
 					class="text ui-widget-content ui-corner-all" style="height: 70px;">
-				<label for="echeance">Deadline</label> <input type="datepicker"
+				<label for="echeance">Echeance</label> <input type="datepicker"
 					name="echeance" id="echeance"
 					class="text ui-widget-content ui-corner-all"> <label
-					for="commentaire">comment</label> <input type="text"
+					for="commentaire">commentaire</label> <input type="text"
 					name="commentaire" id="commentaire"
 					class="text ui-widget-content ui-corner-all" style="height: 70px;">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->

@@ -1,74 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gestionnaireDesTaches utilisateur="Othman">
+  <board nom="Travail" id="0">
+    <projet nom="Project X" id="0-0" data-row="1" data-col="10" data-sizex="2" data-sizey="1">
+      <tache id="idTache" titre="Meeting" echeance="03/26/2015">
+        <commentaire>It's just a test</commentaire>
+        <description>Meet the head master</description>
+      </tache>
+    </projet>
+    <projet nom="Software" id="0-1" data-row="2" data-col="1" data-sizex="2" data-sizey="1">
+      <tache id="idTache" titre="Javascript" echeance="02/21/2015">
+        <commentaire>Test</commentaire>
+        <description>Implement an algorithm to test something</description>
+      </tache>
+    </projet>
+    <projet nom="Research" id="0-2" data-row="1" data-col="5" data-sizex="6" data-sizey="5">
+      <tache id="idTache" titre="Look for partener" echeance="03/25/2015">
+        <commentaire>it's also just a test</commentaire>
+        <description>looking for a partener to achieve a goal !!</description>
+      </tache>
+      <projet nom="SubProject" id="0-2-1" data-row="3" data-col="1" data-sizex="4" data-sizey="1">
+        <tache id="idTache" titre="More research" echeance="04/09/2015">
+          <commentaire>The comment about this</commentaire>
+          <description>The description of the research</description>
+        </tache>
+      </projet>
+      <projet nom="New project" id="0-2-2" data-row="1" data-col="2" data-sizex="3" data-sizey="3">
+        <projet nom="New project" id="0-2-2-0" data-row="1" data-col="2" data-sizex="1" data-sizey="1"/>
+        <projet nom="New project" id="0-2-2-1" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
+        <tache id="idTache" titre="subSubTask" echeance="02/28/2015">
+          <commentaire>this is a comment</commentaire>
+          <description>this is a test</description>
+        </tache>
+      </projet>
+      <projet nom="New project" id="0-2-3" data-row="1" data-col="3" data-sizex="1" data-sizey="1"/>
+      <tache id="idTache" titre="test" echeance="02/28/2015">
+        <commentaire>jhnjfnf</commentaire>
+        <description>test</description>
+      </tache>
+    </projet>
+    <projet nom="Validation" id="0-3" data-row="3" data-col="1" data-sizex="3" data-sizey="2">
+      <tache id="idTache" titre="Validate a task" echeance="03/05/2015">
+        <commentaire>No comment on this !!</commentaire>
+        <description>Validate the previous project</description>
+      </tache>
+    </projet>
+  </board>
+  <board nom="Frigo" id="1">
+    <projet nom="On hold" id="1-0" data-row="1" data-col="1" data-sizex="3" data-sizey="1">
+      <tache id="idTache" titre="Stopped now" echeance="02/28/2015">
+        <commentaire>test of comment</commentaire>
+        <description>Description of what is stopped</description>
+      </tache>
+    </projet>
+    <projet nom="New project" id="1-1" data-row="1" data-col="4" data-sizex="2" data-sizey="1"/>
+  </board>
   <board nom="New Board" id="2">
-    <projet nom="New Project" id="3-0" data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <tache id="idTache" titre="jhjh" echeance="02/28/2015">
-        <commentaire>sdhbf djkfb dhfkbs</commentaire>
-        <description>hhihb jbhb</description>
-      </tache>
-      <tache id="idTache" titre="uihiu" echeance="02/26/2015">
-        <commentaire>ouhduhfui ezuifb</commentaire>
-        <description>iuih</description>
-      </tache>
-    </projet>
-    <projet nom="New project" id="3-1" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-    <projet nom="New project" id="3-2" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-    <projet nom="New project" id="3-3" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-    <projet nom="New project" id="3-4" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-  </board>
-  <board nom="New Board" id="3">
-    <projet nom="New Project" id="3-0" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-  </board>
-  <board nom="Travail" id="0" datasizex="" datasizey="1">
-    <projet nom="New project" id="0-0" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-      <tache id="idTache" titre="tache1" echeance="02/25/2015">
-        <commentaire>ceci est un commentaire</commentaire>
-        <description>description de test</description>
-      </tache>
-      <tache id="idTache" titre="tache2" echeance="02/18/2015">
-        <commentaire>c'est juste un test de comm</commentaire>
-        <description>desc test</description>
-      </tache>
-    </projet>
-    <projet nom="New project" id="0-1" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-      <tache id="idTache" titre="tata" echeance="02/12/2015">
-        <commentaire>test test</commentaire>
-        <description>desc desc</description>
-      </tache>
-      <tache id="idTache" titre="rtrt" echeance="02/27/2015">
-        <commentaire>gfhngfnbvn</commentaire>
-        <description>fgfg</description>
-      </tache>
-      <tache id="idTache" titre="test" echeance="02/26/2015">
-        <commentaire>kjkbkh</commentaire>
-        <description>hbhkb</description>
-      </tache>
-    </projet>
-    <projet nom="New project" id="0-2" data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <tache id="idTache" titre="tt" echeance="02/27/2015">
-        <commentaire>iiljlijh</commentaire>
-        <description>hghg</description>
-      </tache>
-    </projet>
-    <projet nom="New project" id="0-3" data-row="1" data-col="1" data-sizex="1" data-sizey="1"/>
-  </board>
-  <board nom="New Board" id="1">
     <projet nom="New Project" id="2-0" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-      <tache id="idTache" titre="test" echeance="02/26/2015">
-        <commentaire>kjbskcb</commentaire>
-        <description>jb</description>
-      </tache>
-      <tache id="idTache" titre="tete" echeance="02/26/2015">
-        <commentaire>kjjbkjbkhb</commentaire>
-        <description>tvtgv</description>
-      </tache>
-      <tache id="idTache" titre="jbjhbh" echeance="02/26/2015">
-        <commentaire>kbkbk</commentaire>
-        <description>bhb</description>
-      </tache>
-      <tache id="idTache" titre="jb" echeance="02/26/2015">
-        <commentaire>hbhb</commentaire>
-        <description>hbb</description>
+      <tache id="idTache" titre="test of title" echeance="02/28/2015">
+        <commentaire>test of comment</commentaire>
+        <description>test of description</description>
       </tache>
     </projet>
   </board>

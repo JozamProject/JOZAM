@@ -41,13 +41,14 @@ $_SESSION["connect"] = false;
 				
 				   <div class="content">
 					<form name='register'>
-						<fieldset>
+                        Not Implemented yet !!
+						<!--<fieldset>
 							<label for="name">Email</label>
 							<input type="text" name="email" />
 							<label for="password">Password</label>
 							<input type="password" name="password" value=""  />
 							<button>OK</button>
-						</fieldset>
+						</fieldset>-->
 					</form>
 				   </div> 
 			   </div>

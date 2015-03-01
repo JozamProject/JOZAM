@@ -232,11 +232,12 @@ body {
 }
 .delete{
             background: #AAA;
-            font-size: 15px;
+            font-size: 12px;
 			float: right;
             display: block;
             line-height: normal;
             padding: 0px 0px 0px ;
+            margin-right:3px;
             margin-bottom: 0px;
             cursor: pointer;
     

@@ -1,8 +1,7 @@
 <?php
-//file_put_contents('aaa.xml', "test language");
-
 if(isset($_POST['clicked_lang']))
 {	
+    //Script to chose the language selected and to set "true" or "false" the language chosen
 	$clicked_lang = $_POST['clicked_lang'];
 	$languages = new SimpleXMLElement('Languages.xml',0,true);
 	$found = false;
@@ -29,5 +28,4 @@ if(isset($_POST['clicked_lang']))
 	$dom->loadXML($languages->asXML());
 	file_put_contents('Languages.xml', $dom->saveXML());
 }
-
 ?>

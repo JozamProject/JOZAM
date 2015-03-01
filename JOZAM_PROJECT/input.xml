@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gestionnaireDesTaches utilisateur="Othman">
   <board nom="Travail" id="0">
-    <projet nom="Project X" id="0-0" data-row="1" data-col="10" data-sizex="2" data-sizey="1">
+    <projet nom="Project X" id="0-0" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
       <tache id="idTache" titre="Meeting" echeance="03/26/2015">
         <commentaire>It's just a test</commentaire>
         <description>Meet the head master</description>

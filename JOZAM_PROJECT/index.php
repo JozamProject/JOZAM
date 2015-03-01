@@ -1,11 +1,11 @@
 <?php
-session_start();
-$_SESSION["connect"] = false;
+//session variable setted to false
+    session_start();
+    $_SESSION["connect"] = false;
 ?>
 <!DOCTYPE html>
 <html lang="en" charset="UTF-8">
 	<head>
-        
 		<link rel="stylesheet" href="assets/connect/connect.css">
         <!--
 		<script src="assets/connect/firebase.js"></script>
@@ -64,6 +64,7 @@ $_SESSION["connect"] = false;
 		</div>
         
         <script>
+            //script to verify connection IDs
             function connect(){
                     var div = document.getElementById('connectdiv');
                     var c=document.getElementById("email");

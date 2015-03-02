@@ -6,7 +6,7 @@
 </head>
 <body>
 	<a
-		href="http://localhost/jozam_git/JOZAM_PROJECT/Calendar/CalendarFreeTime.ics">
+		href="http://localhost/JOZAM6.0/Calendar/CalendarFreeTime.ics">
 		Open Free Time Calendar</a>
 </body>
 </html>

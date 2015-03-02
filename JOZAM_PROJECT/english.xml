@@ -2,9 +2,11 @@
 <Language>
     <Title> JOZAM </Title>
 	<Abb> En </Abb>
-    	<Project> JOZAM Task Manager </Project>
+    <Project> JOZAM Task Manager </Project>
 	<AddBoard> Add board </AddBoard>
 	<AddProject> Add project </AddProject>
+	<DeleteProject> Delete project </DeleteProject>
 	<Toggle> Toggle </Toggle>
     <Disconnect> Disconnect </Disconnect>
+    <ConfirmDelete> Confirm delete </ConfirmDelete>
 </Language>

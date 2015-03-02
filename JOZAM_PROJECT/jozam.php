@@ -13,10 +13,10 @@ if(isset($_SESSION['connect'])){
 
 <?php
         //Function to display tasks in each project
-function afficherTache($tache){
+function showTask($tache){
     ?>
     <div id="modify-task" value="<?php echo $tache['id'];?>" onclick="popupmodify()">
-        <abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire;?>"> 
+        <abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire . "\r\n";?>"> 
             <?php echo "- ".$tache['titre'] . " || " .$tache['echeance'] ; ?> 
         </abbr>
     </div>
@@ -27,30 +27,36 @@ function afficherTache($tache){
 
 <?php 
         //function to load projects from XML dynamically and display them on boards
-function afficherProjet($projet){
+function showProject($project){
         	?>
-    <li id="<?php echo $projet['id']?>" data-row="<?php echo $projet['data-row']?>" data-col="<?php echo $projet['data-col']?>" data-sizex="<?php echo $projet['data-sizex']?>" data-sizey="<?php echo $projet['data-sizey']?>" class="gs-w scrollable-menu">
-        <div id="<?php echo "my-widget".$projet['id'];?>" value="<?php echo $projet['id'];?>" onload="ch(this.id)" style="overflow: auto;">
+    <li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu">
+        <div id="<?php echo "my-widget".$project['id'];?>" value="<?php echo $project['id'];?>" onload="ch(this.id)" style="overflow: auto;">
             <header>
                 <p style="cursor: move; background: grey;">|||</p>
                 <div class="dragDiv" contenteditable="true">
-                    <?php echo $projet['nom']?>
-                    <div id="<?php echo $projet['id'];?>" onclick="createproj(this.id)" class="load">+</div>
-                    <div id="<?php echo $projet['id'];?>" class="delete" onclick="deleteproj(this.id)">x</div>
-                    <button id="create-user" value="<?php echo $projet['id'];?>" style="height: 7px; width: 7px;" onclick="popup()"></button>
+                    <?php echo $project['nom']?>
+                    <div id="<?php echo $project['id'];?>" class="delete" onclick="deleteproj(this.id)">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </div>
+                    <div id="<?php echo $project['id'];?>" onclick="createproj(this.id)" class="load">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </div>
+                    <button id="create-user" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="loadtask" onclick="popup()">
+                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                    </button>
                 </div>
             </header>
             <div style="text-align: left; margin-left: 10%;"> 
                 <?php 
                     //Iteretor to fetch tasks from XML and display them for each project
-                    foreach($projet->tache as $stache){
-                        afficherTache($stache);
+                    foreach($project->tache as $stache){
+                        showTask($stache);
                         }?>
                 <ul style="background: #DDDDDD;">
                      <?php 
                         //Iteretor to fetch sub projects and display the recurssevilly
-                        foreach($projet->projet as $sprojet){
-                            afficherProjet($sprojet);
+                        foreach($project->projet as $sproject){
+                            showProject($sproject);
                             }?>	
                 </ul>
             </div>
@@ -77,6 +83,7 @@ function afficherProjet($projet){
     <head>
         <!-- SRC needd Bootstrap , Ajax, Jquery et les CSS -->
         <title><?php echo $language->Title ?></title>
+		<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png" type="image/png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css">
         <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
@@ -84,6 +91,7 @@ function afficherProjet($projet){
         <link rel="stylesheet" href="assets/css/bootstrap.netdna.min.css" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <script src="assets/jquery.min.js"></script>
         <script src="assets/css/bootstrap.min.js"></script>
         <link rel="stylesheet" href="assets/changeColorAssets/jquery-ui.css">
@@ -104,6 +112,7 @@ function afficherProjet($projet){
                                 class="icon-bar"></span> <span class="icon-bar"></span> <span
                                 class="icon-bar"></span>
                         </button>
+						<a href="#" class="navbar-brand"><img src="assets/css/JOZAM_Logo.png" style="width:40px; height: 40px; margin-top:-10px;" /></a>
                         <a href="#" class="navbar-brand"><?php echo $language->Project ?></a>
                     </div>
                     <!-- Collection of nav links and other content for toggling -->
@@ -173,11 +182,14 @@ function afficherProjet($projet){
                             <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm">
                                 <?php echo $language->AddProject ?>
                             </button>
+                            <button type="button" id="deleteWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm">
+                                <?php echo $language->DeleteProject ?>
+                            </button>
                             <ul id="myList">
                                 <!--Display projects in this board-->
                                     <?php 
-                                        foreach($board->projet as $projet){
-                                            afficherProjet($projet);
+                                        foreach($board->projet as $project){
+                                            showProject($project);
                                         }
                                     ?>
                             </ul>
@@ -194,6 +206,21 @@ function afficherProjet($projet){
         <!-- the JS Script needed -->
         <script src="assets/jquery-1.11.2.js"></script>
         <script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
+        <script>
+		$(document).on( "click", "#deleteWidgetButton", function(e) {
+            e.preventDefault(); 
+            var action = "DeleteBoard";
+            var me = $(this);
+            var idBoard = me.val();
+            //alert(idBoard);
+            $.ajax({
+                type : "POST",
+                url  : "trait.php",
+                data : { action : action , idBoard : idBoard }
+            });
+            window.location.reload();
+		});
+        </script>
         <script>
                 //Creating new board ans send action to trait.php to save it in input XML             
                 var i = 2;
@@ -227,9 +254,11 @@ function afficherProjet($projet){
                             widget_margins: [5, 5],
                            // autogrow_cols: true,
                            // widget_seletor: 'li'
+                            
                             resize: {
                                 enabled: true,
-                                //Retrieve new dimensions of prjects----------------
+                                //Retrieve new dimensions of prjects
+                                min_size: [2, 1],
                                 stop: function (e, ui, $widget) {
                                     var newDimensions = this.serialize($widget)[0];
                                     var action = "ModifyProject";
@@ -255,7 +284,7 @@ function afficherProjet($projet){
                          idcpt++;
                          var me = $(this);
                          var idParent = me.val();
-                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 1, 1]);
+                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 2, 1]);
                         //activate the color change on the new project
                         $("#my-widget"+idcpt).colorize();
                         //activate the tast creator on the new project
@@ -462,11 +491,13 @@ function afficherProjet($projet){
                       blue: j*250,
                       green: (1-k)*250
                       };
+                    var action = "ChangeColor";
                       //send the color of the project
+                      //alert(action);
                        $.ajax({
                         type :"POST",
                         url : "trait.php",
-                        data: { i : i , j : j , k : k },
+                        data: { action : action, i : i , j : j , k : k },
                             success: function(data)
                             {
                                 //alert("Color change the new one is : "+i+""+j+""+k);

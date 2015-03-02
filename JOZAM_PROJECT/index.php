@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en" charset="UTF-8">
 	<head>
+		<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png" type="image/png"/>
 		<link rel="stylesheet" href="assets/connect/connect.css">
         <!--
 		<script src="assets/connect/firebase.js"></script>

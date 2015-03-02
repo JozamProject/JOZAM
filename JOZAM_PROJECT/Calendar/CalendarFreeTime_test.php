@@ -15,9 +15,9 @@ $task_CalendarEvent = new CalendarEvent ( new CalendarDate ( '2015', '03', '02',
 echo 'Task event date :<br>' . $task_CalendarEvent . '<br><br>';
 
 // retrieve calendar
-// $calendar = CalendarFreeTime::retrieveCalendar ( 'ADECal.ics' );
+$calendar = CalendarFreeTime::retrieveCalendar ( 'ADECal.ics' );
 //$calendar = CalendarFreeTime::retrieveCalendar ( 'https://www.google.com/calendar/ical/vfp5pk3n8udcuvsj7l5deuruas%40group.calendar.google.com/private-ca0015ea949cf5cd75f80f56118597dd/basic.ics' );
-$calendar = CalendarFreeTime::retrieveCalendar ( 'http://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=150&projectId=4&calType=ical&nbWeeks=20' );
+//$calendar = CalendarFreeTime::retrieveCalendar ( 'http://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=150&projectId=4&calType=ical&nbWeeks=20' );
 
 // retrieved dates for .ics file
 $retrievedDates = CalendarFreeTime::retrieveCalendarEvents ( $calendar );

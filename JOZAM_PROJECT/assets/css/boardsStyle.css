@@ -221,13 +221,26 @@ body {
         }
 .load{
             background: #AAA;
-            font-size: 15px;
-			float: left;
+            font-size: 12px;
+			float: right;
             display: block;
             line-height: normal;
             padding: 0px 0px 0px ;
             margin-bottom: 0px;
             cursor: pointer;
+            margin-right: 2px;
+    
+}
+.loadtask{
+            background: #AAA;
+            font-size: 12px;
+			float: right;
+            display: block;
+            line-height: normal;
+            padding: 0px 0px 0px ;
+            margin-bottom: 0px;
+            cursor: pointer;
+            margin-right:2px;
     
 }
 .delete{

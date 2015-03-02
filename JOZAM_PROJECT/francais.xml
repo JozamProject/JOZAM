@@ -5,6 +5,8 @@
     <Project> JOZAM Gestionnaire de taches </Project>
 	<AddBoard> Ajouter board </AddBoard>
 	<AddProject> Ajouter projet </AddProject>
+	<DeleteProject> Supprimer board </DeleteProject>
 	<Toggle> Cacher </Toggle>
 	<Disconnect> Se deconnecter </Disconnect>
+	<ConfirmDelete> Confirmer la supression </ConfirmDelete>
 </Language>

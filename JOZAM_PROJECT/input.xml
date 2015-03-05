@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gestionnaireDesTaches utilisateur="Othman" idMax="2">
-  <board nom="New Board" id="0" idMax="3">
-    <projet nom="New project" id="0-2" idMax="2" data-row="1" data-col="0" data-sizex="3" data-sizey="2">
-      <tache id="0-2-1" titre="a" echeance="03/04/2015">
-        <commentaire>aa</commentaire>
-        <description>a</description>
-      </tache>
-    </projet>
-  </board>
-  <board nom="New Board" id="1" idMax="2">
-    <projet nom="New Project" id="1-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1"/>
-    <projet nom="New project" id="1-1" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1"/>
-  </board>
+	<board nom="New Board" id="0" idMax="3">
+		<projet nom="New project" id="0-2" idMax="2" data-row="1"
+			data-col="0" data-sizex="3" data-sizey="2">
+			<tache id="0-2-1" titre="a" echeance="03/04/2015">
+				<commentaire>aa</commentaire>
+				<description>a</description>
+			</tache>
+		</projet>
+	</board>
+	<board nom="New Board" id="1" idMax="2">
+		<projet nom="New Project" id="1-0" idMax="0" data-row="1"
+			data-col="1" data-sizex="2" data-sizey="1" />
+		<projet nom="New project" id="1-1" idMax="0" data-row="1"
+			data-col="1" data-sizex="2" data-sizey="1" />
+	</board>
 </gestionnaireDesTaches>

@@ -32,14 +32,14 @@ class RecurringEvent {
 	/**
 	 * The time slot during which the generated events will occur.
 	 *
-	 * @var EventDate
+	 * @var CalendarEvent
 	 */
 	private $timeSlot;
 	
 	/**
 	 * The days of the week during which the generated events will occur.
 	 *
-	 * @var array
+	 * @var ArrayCollection
 	 */
 	private $days;
 	
@@ -64,7 +64,7 @@ class RecurringEvent {
 	 *        	The time at which the recurring event will start.
 	 * @param CalendarTime $endTime
 	 *        	The time at which the recurring event will end.
-	 * @param EventDate $timeSlot
+	 * @param CalendarEvent $timeSlot
 	 *        	The time slot during which the generated events will occur.
 	 * @param array $days
 	 *        	The days of the week during which the generated events will occur (all days of the week by default).
@@ -79,7 +79,7 @@ class RecurringEvent {
 	/**
 	 * Sets the time slot during which the generated events will occur.
 	 *
-	 * @param EventDate $timeSlot
+	 * @param CalendarEvent $timeSlot
 	 *        	The time slot during which the generated events will occur.
 	 *        	
 	 * @return void
@@ -91,7 +91,7 @@ class RecurringEvent {
 	/**
 	 * Returns the time slot during which the generated events will occur.
 	 *
-	 * @return EventDate
+	 * @return CalendarEvent
 	 */
 	public function getTimeSlot() {
 		return $this->timeSlot;
@@ -126,7 +126,7 @@ class RecurringEvent {
 	 *        	
 	 * @return void
 	 */
-	public function setstartTime($startTime) {
+	public function setStartTime($startTime) {
 		$this->startTime = $startTime;
 	}
 	
@@ -135,7 +135,7 @@ class RecurringEvent {
 	 *
 	 * @return CalendarTime
 	 */
-	public function getstartTime() {
+	public function getStartTime() {
 		return $this->startTime;
 	}
 	
@@ -147,7 +147,7 @@ class RecurringEvent {
 	 *        	
 	 * @return void
 	 */
-	public function setendTime($endTime) {
+	public function setEndTime($endTime) {
 		$this->endTime = $endTime;
 	}
 	
@@ -156,7 +156,7 @@ class RecurringEvent {
 	 *
 	 * @return CalendarTime
 	 */
-	public function getendTime() {
+	public function getEndTime() {
 		return $this->endTime;
 	}
 	
@@ -166,7 +166,7 @@ class RecurringEvent {
 	 * @return ArrayCollection Returns an ArrayCollection of all the CalendarEvents generated.
 	 */
 	public function generate() {
-		$busyEventDates = new ArrayCollection ();
+		$busyCalendarEvents = new ArrayCollection ();
 		
 		// busy event date start hour
 		$startTime = $this->getstartTime ();
@@ -195,10 +195,64 @@ class RecurringEvent {
 			if ($this->getDays ()->contains ( $busy_startDate->format ( 'l' ) )) {
 				$busy_endDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i + $j, $endTime_hour, $endTime_minute, $endTime_second );
 				$busy_eventDate = new CalendarEvent ( $busy_startDate, $busy_endDate );
-				$busyEventDates->add ( $busy_eventDate );
+				$busyCalendarEvents->add ( $busy_eventDate );
 			}
 		}
 		
-		return $busyEventDates;
+		return $busyCalendarEvents;
+	}
+	
+	/**
+	 * Returns a string representation of this object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		$return = 'Every ';
+		foreach ( $this->getDays () as $d ) {
+			$return .= $d . ', ';
+		}
+		$return .= '<br>from ' . $this->getStartTime () . ' to ' . $this->getEndTime () . ', ';
+		$return .= '<br>during this time slot : ' . $this->getTimeSlot () . '.';
+		
+		return $return;
+	}
+	
+	/**
+	 * Generates a Simple XML Element string matching this object.
+	 *
+	 * @param String $name
+	 *        	Name of the Simple XML Element.
+	 *        	
+	 * @return String Simple XML Element string matching this object.
+	 */
+	public function __toXML($name = 'recurringEvent') {
+		$xml_string = '<' . $name . ' days = "' . str_replace ( '<br>', '', $this->getDays () ) . '">
+';
+		
+		$xml_string .= $this->getStartTime ()->__toXML ( 'startTime' );
+		$xml_string .= $this->getEndTime ()->__toXML ( 'endTime' );
+		$xml_string .= $this->getTimeSlot ()->__toXML ( 'timeSlot' );
+		
+		$xml_string .= '</' . $name . '>
+';
+		
+		return $xml_string;
+	}
+	
+	/**
+	 * Generates a RecurringEvent matching a SimpleXMLElement.
+	 *
+	 * @param SimpleXMLElement $recurringEvent
+	 *        	A Simple XML Element.
+	 *        	
+	 * @return RecurringEvent RecurringEvent matching the Simple XML Element.
+	 */
+	public static function XML_to_RecurringEvent($recurringEvent) {
+		$startTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->startTime );
+		$endTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->endTime );
+		$timeSlot = CalendarEvent::XML_to_CalendarEvent ( $recurringEvent->timeSlot );
+		$days = explode ( ', ', substr ( $recurringEvent ['days'], 1, - 1 ) );
+		return new RecurringEvent ( $startTime, $endTime, $timeSlot, $days );
 	}
 }

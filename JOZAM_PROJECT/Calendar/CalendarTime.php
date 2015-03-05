@@ -99,5 +99,41 @@ class CalendarTime {
 	public function getSecond() {
 		return $this->second;
 	}
+	
+	/**
+	 * Returns a string representation of this object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->getHour () . ':' . $this->getMinute () . ':' . $this->getSecond ();
+	}
+	
+	/**
+	 * Generates a Simple XML Element string matching this object.
+	 *
+	 * @param String $name
+	 *        	Name of the Simple XML Element.
+	 *        	
+	 * @return String Simple XML Element string matching this object.
+	 */
+	public function __toXML($name = 'calendarTime') {
+		$xml_string = '<' . $name . ' hour = "' . $this->getHour () . '" minute = "' . $this->getMinute () . '" second = "' . $this->getSecond () . '"/>
+';
+		
+		return $xml_string;
+	}
+	
+	/**
+	 * Generates a CalendarTime matching a SimpleXMLElement.
+	 *
+	 * @param SimpleXMLElement $calendarTime
+	 *        	A Simple XML Element.
+	 *        	
+	 * @return CalendarTime RecurringEvent matching the Simple XML Element.
+	 */
+	public static function XML_to_CalendarTime($calendarTime) {
+		return new CalendarTime ( $calendarTime ['hour'], $calendarTime ['minute'], $calendarTime ['second'] );
+	}
 }
 ?>

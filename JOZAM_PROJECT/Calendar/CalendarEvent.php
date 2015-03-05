@@ -397,7 +397,7 @@ END:VEVENT
 	public static function __toIcsCalendar($calendarEvents, $summary) {
 		$return = 'BEGIN:VCALENDAR
 METHOD:PUBLISH
-X-WR-CALNAME:'.$summary.'
+X-WR-CALNAME:' . $summary . '
 
 ';
 		foreach ( $calendarEvents as $ed ) {
@@ -422,5 +422,40 @@ X-WR-CALNAME:'.$summary.'
 	static function add($calendarEvents, $to_be_added_calendarEvents) {
 		$clone = clone $to_be_added_calendarEvents;
 		$calendarEvents->addAll ( $clone );
+	}
+	
+	/**
+	 * Generates a Simple XML Element string matching this object.
+	 *
+	 * @param String $name
+	 *        	Name of the Simple XML Element.
+	 *        	
+	 * @return String Simple XML Element string matching this object.
+	 */
+	public function __toXML($name = 'calendarEvent') {
+		$xml_string = '<' . $name . '>
+';
+		
+		$xml_string .= $this->getStartDate ()->__toXML ( 'startDate' );
+		$xml_string .= $this->getEndDate ()->__toXML ( 'endDate' );
+		
+		$xml_string .= '</' . $name . '>
+';
+		
+		return $xml_string;
+	}
+	
+	/**
+	 * Generates a CalendarEvent matching a SimpleXMLElement.
+	 *
+	 * @param SimpleXMLElement $calendarEvent
+	 *        	A Simple XML Element.
+	 *        	
+	 * @return CalendarEvent CalendarEvent matching the Simple XML Element.
+	 */
+	public static function XML_to_CalendarEvent($calendarEvent) {
+		$startDate = CalendarDate::XML_to_CalendarDate ( $calendarEvent->startDate );
+		$endDate = CalendarDate::XML_to_CalendarDate ( $calendarEvent->endDate );
+		return new CalendarEvent ( $startDate, $endDate );
 	}
 }

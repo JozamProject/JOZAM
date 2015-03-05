@@ -192,10 +192,36 @@ class CalendarDate extends DateTime {
 	 */
 	public function __toIcsDate() {
 		$return = $this->format ( 'Ymd\THis' );
-		$timeZone = new DateTimeZone('UTC');
-		$dateTime = new DateTime($return);
-		$dateTime->setTimezone($timeZone);
-		$return = $dateTime->format ( 'Ymd\THis' ).'Z';
+		$timeZone = new DateTimeZone ( 'UTC' );
+		$dateTime = new DateTime ( $return );
+		$dateTime->setTimezone ( $timeZone );
+		$return = $dateTime->format ( 'Ymd\THis' ) . 'Z';
 		return $return;
+	}
+	
+	/**
+	 * Generates a Simple XML Element string matching this object.
+	 *
+	 * @param String $name
+	 *        	Name of the Simple XML Element.
+	 *        	
+	 * @return String Simple XML Element string matching this object.
+	 */
+	public function __toXML($name = 'calendarDate') {
+		$xml_string = '<' . $name . ' year = "' . $this->getYear () . '" month = "' . $this->getMonth () . '" day = "' . $this->getDay () . '" hour = "' . $this->getHour () . '" minute = "' . $this->getMinute () . '" second = "' . $this->getSecond () . '"/>
+';
+		return $xml_string;
+	}
+	
+	/**
+	 * Generates a CalendarDate matching a SimpleXMLElement.
+	 *
+	 * @param SimpleXMLElement $calendarDate
+	 *        	A Simple XML Element.
+	 *        	
+	 * @return CalendarDate CalendarDate matching the Simple XML Element.
+	 */
+	public static function XML_to_CalendarDate($calendarDate) {
+		return new CalendarDate ( (int) $calendarDate ['year'], (int) $calendarDate ['month'], (int) $calendarDate ['day'], (int) $calendarDate ['hour'], (int) $calendarDate ['minute'], (int) $calendarDate ['second'] );
 	}
 }

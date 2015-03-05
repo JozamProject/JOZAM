@@ -16,8 +16,8 @@ echo 'Task event date :<br>' . $task_CalendarEvent . '<br><br>';
 
 // retrieve calendar
 $calendar = CalendarFreeTime::retrieveCalendar ( 'ADECal.ics' );
-//$calendar = CalendarFreeTime::retrieveCalendar ( 'https://www.google.com/calendar/ical/vfp5pk3n8udcuvsj7l5deuruas%40group.calendar.google.com/private-ca0015ea949cf5cd75f80f56118597dd/basic.ics' );
-//$calendar = CalendarFreeTime::retrieveCalendar ( 'http://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=150&projectId=4&calType=ical&nbWeeks=20' );
+// $calendar = CalendarFreeTime::retrieveCalendar ( 'https://www.google.com/calendar/ical/vfp5pk3n8udcuvsj7l5deuruas%40group.calendar.google.com/private-ca0015ea949cf5cd75f80f56118597dd/basic.ics' );
+// $calendar = CalendarFreeTime::retrieveCalendar ( 'http://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=150&projectId=4&calType=ical&nbWeeks=20' );
 
 // retrieved dates for .ics file
 $retrievedDates = CalendarFreeTime::retrieveCalendarEvents ( $calendar );
@@ -44,6 +44,21 @@ $weekend = array (
 $weekend_CalendarEvent = new RecurringEvent ( $weekend_startHour, $weekend_endHour, $weekend_timeSlot, $weekend );
 $weekendCalendarEvents = $weekend_CalendarEvent->generate ();
 echo 'Weekend event dates :<br>' . $weekendCalendarEvents . '<br><br>';
+
+
+echo 'Weekend Calendar Event :<br>' . $weekend_CalendarEvent . '<br><br>';
+
+$weekend_xml = $weekend_CalendarEvent->__toXML ('weekend');
+$weekend_asXml = new SimpleXMLElement($weekend_xml);
+$weekend_xml = $weekend_asXml->asXml();
+file_put_contents ( 'weekend.xml', $weekend_xml);
+
+echo '$weekend_asXml :<br>' . htmlspecialchars($weekend_asXml->asXml()) . '<br><br>';
+
+$weekend_generated_from_xml = RecurringEvent::XML_to_RecurringEvent($weekend_asXml);
+
+echo 'Weekend generated from xml :<br>' . $weekend_generated_from_xml . '<br><br>';
+
 
 // SLEEP busy event dates
 // busy start & end hours

@@ -1,10 +1,10 @@
 <?php
 use Collections\ArrayCollection;
-require_once ('Collections/ArrayCollection.php');
-require_once ('CalendarDate.php');
-require_once ('CalendarEvent.php');
-require_once ('RecurringEvent.php');
-require_once ('CalendarFreeTime.php');
+require_once ('../Collections/ArrayCollection.php');
+require_once ('../CalendarDate.php');
+require_once ('../CalendarEvent.php');
+require_once ('../RecurringEvent.php');
+require_once ('../CalendarFreeTime.php');
 
 /**
  * This file aims to show how to use the functions of the CalendarFreeTime utility class.

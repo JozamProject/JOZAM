@@ -2,11 +2,16 @@
 <Language>
     <Title> JOZAM </Title>
 	<Abb> Fr </Abb>
-    <Project> JOZAM Gestionnaire de taches </Project>
+    	<Project> JOZAM Gestionnaire de taches </Project>
 	<AddBoard> Ajouter board </AddBoard>
 	<AddProject> Ajouter projet </AddProject>
 	<DeleteProject> Supprimer board </DeleteProject>
 	<Toggle> Cacher </Toggle>
 	<Disconnect> Se deconnecter </Disconnect>
 	<ConfirmDelete> Confirmer la supression </ConfirmDelete>
+	<PasteError> Veuillez selectionner un seul projet/tableau</PasteError>
+    	<Synchronize> Sync. Restauration </Synchronize>
+    	<RollBack> Restaurer </RollBack>
+    	<Archive> Archiver </Archive>
+	
 </Language>

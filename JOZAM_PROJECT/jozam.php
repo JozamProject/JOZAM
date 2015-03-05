@@ -13,13 +13,22 @@ if(isset($_SESSION['connect'])){
 
 <?php
         //Function to display tasks in each project
-function showTask($tache){
+function showTask($task){
     ?>
-    <div id="modify-task" value="<?php echo $tache['id'];?>" onclick="popupmodify()">
-        <abbr title="Description :<?php echo $tache->description . "\r\n";?>Comment :<?php echo $tache->commentaire . "\r\n";?>"> 
-            <?php echo "- ".$tache['titre'] . " || " .$tache['echeance'] ; ?> 
+    <button id="modify-task" value="<?php echo $task['id'];?>" onclick="popupmodify()" style="color : black; font-size:16px; background : none; border: none">
+        <abbr title="Description :<?php echo $task->description . "\r\n";?>Comment :<?php echo $task->comment . "\r\n";?>"> 
+            <?php if($task['archive']=="true"){?>
+            	<s id="<?php echo "underline".$task['id'];?>">
+            		<?php
+                        $var = "- ".$task['title']." || ".$task['deadLine'];
+                        echo $var;
+                    ?> 
+            	</s>
+            <?php }
+            	  else 
+            	  		  echo "- ".$task['title'] . " || " .$task['deadLine'] ; ?>
         </abbr>
-    </div>
+    </button>
 </br>
 <?php
     }
@@ -29,33 +38,36 @@ function showTask($tache){
         //function to load projects from XML dynamically and display them on boards
 function showProject($project){
         	?>
-    <li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu">
+    <li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu" style= "background:<?php echo $project['color']?>">
         <div id="<?php echo "my-widget".$project['id'];?>" value="<?php echo $project['id'];?>" onload="ch(this.id)" style="overflow: auto;">
             <header>
-                <p style="cursor: move; background: grey;">|||</p>
+                <p id="<?php echo $project['id']?>" style="cursor: move; background: #DAD5D5;" ondblclick="selectItem(this.id)" onclick="unselectItem(this.id)" >|||</p>
                 <div class="dragDiv" contenteditable="true">
-                    <?php echo $project['nom']?>
+                    <?php echo $project['name']?>
                     <div id="<?php echo $project['id'];?>" class="delete" onclick="deleteproj(this.id)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </div>
                     <div id="<?php echo $project['id'];?>" onclick="createproj(this.id)" class="load">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                     </div>
-                    <button id="create-user" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="loadtask" onclick="popup()">
+                    <button id="create-user" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="loadtask">
                         <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                    </button>
+                    <button id="changeColor" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="chcolor">
+                        <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
                     </button>
                 </div>
             </header>
             <div style="text-align: left; margin-left: 10%;"> 
                 <?php 
                     //Iteretor to fetch tasks from XML and display them for each project
-                    foreach($project->tache as $stache){
-                        showTask($stache);
+                    foreach($project->task as $stask){
+                        showTask($stask);
                         }?>
                 <ul style="background: #DDDDDD;">
                      <?php 
                         //Iteretor to fetch sub projects and display the recurssevilly
-                        foreach($project->projet as $sproject){
+                        foreach($project->project as $sproject){
                             showProject($sproject);
                             }?>	
                 </ul>
@@ -79,10 +91,11 @@ function showProject($project){
 ?>
 <!-- Startin the HTML document -->
 <!DOCTYPE html>
-<html charset="UTF-8">
+<html charset="UTF-8" >
     <head>
         <!-- SRC needd Bootstrap , Ajax, Jquery et les CSS -->
         <title><?php echo $language->Title ?></title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png" type="image/png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css">
@@ -128,10 +141,14 @@ function showProject($project){
                                             foreach($boards->board as $board){?>                                        
                                                 <li><button id="btnshowhide"
                                             value="<?php echo $board['id'];?>" href="#"
-                                            style="width: 100%; background: none;"><?php echo $board['nom'];?></button></li>
+                                            style="width: 100%; background: none;"><?php echo $board['name'];?></button></li>
                                             <?php } ?>
                                 </ul>
                             </li>
+                            <li><a id="synchronize" href="#"><?php echo $language->Synchronize ?></a></li>
+                            <li><a id="rollBack" href="#"><?php echo $language->RollBack ?></a></li>
+                            <li><a id="archive" href="#"><?php echo $language->Archive ?></a></li>
+                            
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -159,36 +176,43 @@ function showProject($project){
                             <li>
                                 <a href="logout.php" id="disconnect"><?php echo $language->Disconnect; ?></a>
                             </li>
+                            <!--Config-->
+                            <li>
+                                <button id="config" style="background : none; border : none; margin-top : 15px; ">
+                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="navbar" style="margin-top: 50px;">
-            <div class="container" style="margin : 5px !important;">
+        <div class="navbar" style="margin-top: 60px;">
+            <div class="container" style="margin-left : -20px !important;">
             <!--Charge and display boards on the main menu-->
             <?php 
                 foreach($boards->board as $board)
                 {
             ?> 
-                <div id="<?php echo "showorHide".$board['id'];?>">
+                <div id="<?php echo "showorHide".$board['id'];?>" style="margin-right: -150px;">
                     <div id="<?php echo "duplicater".$board['id'];?>">
                         <div id="<?php echo "demo-".$board['id'];?>" class="gridster">
-                            <div contenteditable="true">
-                                <h2>
-                                    <?php echo $board['nom'];?>
-                                </h2>
+                                                  
+                            <div class="btn-group" role="group" aria-label="...">
+                            	<button class="btn btn-default" style="background:none;font-weight: bold;border:none;" contenteditable="true">
+                            		<?php echo $board['name'];?>
+                            	</button> 
+                                <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
+                                    <?php echo $language->AddProject ?>
+                                </button>
+                                <button type="button" id="deleteWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
+                                    <?php echo $language->DeleteProject ?>
+                                </button>
                             </div>
-                            <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm">
-                                <?php echo $language->AddProject ?>
-                            </button>
-                            <button type="button" id="deleteWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-default btn-sm">
-                                <?php echo $language->DeleteProject ?>
-                            </button>
-                            <ul id="myList">
+                            <ul id="<?php echo $board['id'];?>" style="width: 105% !important;" ondblclick="selectItem(this.id)" onclick="unselectItem(this.id)">
                                 <!--Display projects in this board-->
                                     <?php 
-                                        foreach($board->projet as $project){
+                                        foreach($board->project as $project){
                                             showProject($project);
                                         }
                                     ?>
@@ -216,7 +240,12 @@ function showProject($project){
             $.ajax({
                 type : "POST",
                 url  : "trait.php",
-                data : { action : action , idBoard : idBoard }
+                data : { action : action , idBoard : idBoard },
+                success: function(data)
+                {
+                    if(data!="")
+                    	alert(data);
+                }
             });
             window.location.reload();
 		});
@@ -230,7 +259,12 @@ function showProject($project){
                     $.ajax({
                         type : "POST",
                         url  : "trait.php",
-                        data : { action : action }
+                        data : { action : action },
+                        success: function(data)
+                        {
+                        	if(data!="")
+                            	alert(data);
+                        }
                     });
                     window.location.reload();
                 }
@@ -266,7 +300,12 @@ function showProject($project){
                                     $.ajax({
                                         type : "POST",
                                         url : "trait.php",
-                                        data : { action : action , action1 : action1 , idProj : $widget.attr('id') , NewWidth : newDimensions.size_x , NewHeight : newDimensions.size_y}
+                                        data : { action : action , action1 : action1 , idProj : $widget.attr('id') , NewWidth : newDimensions.size_x , NewHeight : newDimensions.size_y},
+                                        success: function(data)
+                                        {
+                                            if(data!="")
+                                            	alert(data);
+                                        }
                                     });
                                 }
                             },
@@ -277,16 +316,16 @@ function showProject($project){
                     }
 
                     //The handler of creating new project inside the gridster
-                    var action = "CreationProjet";
+                    var action = "CreateProject";
 
                     $(document).on( "click", "#addWidgetButton", function(e) {
                          e.preventDefault(); 
                          idcpt++;
                          var me = $(this);
                          var idParent = me.val();
-                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #E8AC71;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: grey;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 2, 1]);
+                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #192237;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DAD5D5;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 2, 1]);
                         //activate the color change on the new project
-                        $("#my-widget"+idcpt).colorize();
+                        //$("#my-widget"+idcpt).colorize();
                         //activate the tast creator on the new project
                         popup();
                         //send the new project created to trait.php to save it in the input xml
@@ -294,6 +333,11 @@ function showProject($project){
                             type: "POST",
                             url: 'trait.php',
                             data: { action : action , idParent : idParent },
+                            success: function(data)
+                            {
+                                if(data!="")
+                                	alert(data);
+                            }
                         });
                     });
                     //set the handler of mouse event on the projects
@@ -308,7 +352,8 @@ function showProject($project){
                     startPosition = {
                         x: event.clientX,
                         y: event.clientY
-                    };
+
+                                  };
                 }
                 //the mouse handler function "Up"
                 function mouseUpHandler(event)
@@ -336,15 +381,21 @@ function showProject($project){
                          $.ajax({
                              type : "POST",
                              url : "trait.php",
-                             data : { action : action , action1 : action1 , idProj : liElement.attr('id'), NewCol : (parseInt(Math.round((dropPosition.x-startPosition.x)/100))+parseInt(liElement.attr('data-col'))) , NewRow : (parseInt(Math.round((dropPosition.y-startPosition.y)/100))+parseInt(liElement.attr('data-row'))) }
+                             data : { action : action , action1 : action1 , idProj : liElement.attr('id'), NewCol : (parseInt(Math.round((dropPosition.x-startPosition.x)/100))+parseInt(liElement.attr('data-col'))) , NewRow : (parseInt(Math.round((dropPosition.y-startPosition.y)/100))+parseInt(liElement.attr('data-row'))) },
+                             success: function(data)
+                             {
+                                 if(data!="")
+                                 	alert(data);
+                             }
                          });
                     }
 
                     /** loop through all gridsters to check if we dropped the element in here **/
+                    /*
                     $('.gridster').each(function() {
                         var offset = $(this).offset();
                         /** check if element is dropped in the current gridster **/
-                        if( 
+                      /*  if( 
                             dropPosition.x > offset.left && 
                             dropPosition.x < ( offset.left+$(this).width() ) &&
                             dropPosition.y > offset.top && 
@@ -352,17 +403,17 @@ function showProject($project){
                             $(this).attr('id') != currentGridster.attr('id')
                         ) {
                             /** get the new gridster object to put the element in **/
-                            newGridsterObject = getGridsterObjectById($(this).attr('id'));
+                        //    newGridsterObject = getGridsterObjectById($(this).attr('id'));
                             /** get the HTML of the liElement **/
-                            var newLiElement = liElement.clone().removeAttr('style').wrap('<p>').parent().html();
+                         //   var newLiElement = liElement.clone().removeAttr('style').wrap('<p>').parent().html();
                             /** add the listeners on the new element **/
-                            $(newLiElement).on('mousedown', mouseDownHandler).on('mouseup', mouseUpHandler );
+                        //    $(newLiElement).on('mousedown', mouseDownHandler).on('mouseup', mouseUpHandler );
                             /** add the liElement widget **/
-                            newGridsterObject.add_widget(newLiElement);
+                        //    newGridsterObject.add_widget(newLiElement);
                             /** remove the old widget **/
-                            gridsterObject.remove_widget(liElement);
-                        }
-                    });
+                        //    gridsterObject.remove_widget(liElement);
+                      //  }
+                   // });
                 }
                 /**
                  * Get the gridster object by id
@@ -386,12 +437,17 @@ function showProject($project){
 
             <script>
                 //function to send the new Created project to save it on XML
-                function createproj(createdproj){
-                    var action = "CreationProjet";
+                function createproj(idParent){
+                    var action = "CreateProject";
                     $.ajax({
                         type : "POST",
                         url  : "trait.php",
-                        data : { action : action , idParent: createdproj }
+                        data : { action : action , idParent: idParent },
+                        success: function(data)
+                        {
+                            if(data!="")
+                            	alert(data);
+                        }
                     });
                     window.location.reload();               
                 }
@@ -402,7 +458,12 @@ function showProject($project){
                     $.ajax({
                         type : "POST",
                         url  : "trait.php",
-                        data : { action : action, idProj : idProj }
+                        data : { action : action, idProj : idProj },
+                        success: function(data)
+                        {
+                            if(data!="")
+                            	alert(data);
+                        }
                     });
                     window.location.reload(); 
                     window.location.reload(); 
@@ -414,7 +475,6 @@ function showProject($project){
         <!-- style for color changer -->
         <style>
             .custom-colorize {
-                color : white;
                 position: relative;
                 width: 100%;
                 height: 100%;
@@ -423,11 +483,11 @@ function showProject($project){
             .custom-colorize-changer {
                 font-size: 10px;
                 position: absolute;
-                height: 6px;
-                width: 6px;
+                height: 0px;
+                width: 0px;
                 left: 1px;
                 bottom: 1px;
-                background-color: black;
+                background-color: none;
             }
         </style>
         <!--Script of color changer-->
@@ -443,9 +503,9 @@ function showProject($project){
                 $.widget( "custom.colorize", {
                   // default options
                   options: {
-                    red: 255,
-                    green: 0,
-                    blue: 0,
+                    red: 25,
+                    green: 34,
+                    blue: 55,
                     // callbacks
                     change: null,
                     random: null
@@ -459,30 +519,15 @@ function showProject($project){
                       // prevent double click to select text
                       .disableSelection();
 
-                    this.changer = $( "<button>", {
-                      text: "",
-                      "class": "custom-colorize-changer"
-                    })
-                    .appendTo( this.element )
-                    .button();
-
                     // bind click events on the changer button to the random method
                     this._on( this.changer, {
                       // _on won't call random when widget is disabled
                       click: "random"
                     });
-                    this._refresh();
+                    //this._refresh();
                   },
                   // called when created, and later when changing options
-                  _refresh: function() {
-                    this.element.css( "background-color", "rgb(" +
-                      this.options.red +"," +
-                      this.options.green + "," +
-                      this.options.blue + ")"
-                    );
-                    // trigger a callback/event
-                    this._trigger( "change" );
-                  },
+                  
                   // a public method to change the color to a random value
                   // can be called directly via .colorize( "random" )
                   random: function( event ) {
@@ -491,18 +536,7 @@ function showProject($project){
                       blue: j*250,
                       green: (1-k)*250
                       };
-                    var action = "ChangeColor";
-                      //send the color of the project
-                      //alert(action);
-                       $.ajax({
-                        type :"POST",
-                        url : "trait.php",
-                        data: { action : action, i : i , j : j , k : k },
-                            success: function(data)
-                            {
-                                //alert("Color change the new one is : "+i+""+j+""+k);
-                            } 
-                       });
+  
                       //switcher color algorithm
                       if (j==0 && i==0 && k==0) {i=0; j=1; k=1;}
                       else if (j==1&&i==0&&k==1) {j=0; i=1; k=0;}
@@ -534,7 +568,7 @@ function showProject($project){
                   _setOptions: function() {
                     // _super and _superApply handle keeping the right this-context
                     this._superApply( arguments );
-                    this._refresh();
+                    //this._refresh();
                   },
 
                   // _setOption is called for each individual option that is changing
@@ -579,6 +613,22 @@ function showProject($project){
                     blue: 8
                   });
                 });
+              });
+        </script>
+        
+        <script>
+
+              $(document).on( "click", "#changeColor", function() {
+                  var me = $(this);
+                  idProj = me.val();
+                   $.ajax({ 
+                       type : "POST",
+                       url  : "colorChanger.php",
+                       data : { idProj : idProj },
+                       success : function(output) { 
+                           document.getElementById(idProj).style.backgroundColor=output;
+                       }
+                        });
               });
         </script>
         <!-- style script of popup task creator-->
@@ -633,14 +683,14 @@ function showProject($project){
             function popup() {
               $(function(){
                   //elements needed for the popup
-                var idProjet;
+                var idProject;
                 var dialog, form,
-                  action = "CreationTache",
-                  titre = $( "#titre" ),
+                  action = "CreateTask",
+                  title = $( "#title" ),
                   description = $( "#description" ),
-                  echeance = $( "#echeance" ),
-                  commentaire = $( "#commentaire" ),
-                  allFields = $( [] ).add( titre ).add( description ).add( echeance ).add( commentaire ),
+                  deadLine = $( "#deadLine" ),
+                  comment = $( "#comment" ),
+                  allFields = $( [] ).add( title ).add( description ).add( deadLine ).add( comment ),
                   tips = $( ".validateTips" );
 
                 function updateTips( t ) {
@@ -652,12 +702,12 @@ function showProject($project){
                   }, 500 );
                 }
                   //not used
-                function addUser() {
+                /*function addUser() {
                   var valid = true;
                   allFields.removeClass( "ui-state-error" );
                   dialog.dialog( "close" );
                   return valid;
-                }
+                }*/
                   //the dialog form
                 dialog = $( "#dialog-form" ).dialog({
                   autoOpen: false,
@@ -670,10 +720,11 @@ function showProject($project){
                         $.ajax({
                         type :"POST",
                         url : "trait.php",
-                        data: { action : action, idProjet : idProjet, titre : titre.val() , echeance : echeance.val() , commentaire : commentaire.val() , description : description.val() },
+                        data: { action : action, idProject : idProject, title : title.val() , deadLine : deadLine.val() , comment : comment.val() , description : description.val() },
                             success: function(data)
                             {
-                                //alert("data sent to trait.php!");
+                            	 if(data!="")
+                                 	alert(data);
                             } 
                         });
                         dialog.dialog( "close" );
@@ -691,39 +742,123 @@ function showProject($project){
 
                 form = dialog.find( "form" ).on( "submit", function( event ) {
                   event.preventDefault();
-                  addUser();
+                  //addUser();
                  dialog.dialog( "close" ); 
                 });
                   //on click button activate the dialog form
                 $(document).on( "click", "#create-user", function() {
                   var me = $(this);
-                  idProjet = me.val();
+                  idProject = me.val();
                   dialog.dialog( "open" );
                 });
               });
               //datepicker to add calendar to deadline
                 $(function() {
-                    $( "#echeance" ).datepicker();
+                    $( "#deadLine" ).datepicker();
               });
             }
         </script>
         <!-- script of task modifyer -->
         <script>
             //popupmodify() modify a task
-            function popupmodify(){
+            /*function popupmodify(){
                 $(document).on( "click", "#modify-task", function() {
                     /**** To implement here ****/
-                    alert("not implemented yet !!");
+                    /*alert("not implemented yet !!");
 
                 });
 
-            }
+            }*/
         
         </script>
         
         <!-- Script of Switcher Alt + t  : change order of boards-->
+
+        <!-- Change Language Script -->
         <script>
-            var map = {18: false, 84: false};
+                //sending the langage chose !!
+                function change(clicked_lang){
+                    //send the chosen language to php file
+                    $.ajax({
+                        type : "POST",
+                        url  : "languageChanger.php",
+                        data : { clicked_lang : clicked_lang }
+                    });
+                    window.location.reload();               
+                }
+        </script>
+        
+        <script>
+
+        $(document).on( "click", "#synchronize", function() {
+            var action = "synchronize";
+             $.ajax({ 
+                 type : "POST",
+                 url  : "rollBack.php",
+                 data : { action : action },
+                 success : function(output) { 
+                	 if(output!="")
+                     	alert(output);
+                	 else 
+                    	alert("The synchronisation succeded");
+                 }
+                  }); 
+        });
+
+        $(document).on( "click", "#rollBack", function() {
+            var action = "rollBack";
+             $.ajax({ 
+                 type : "POST",
+                 url  : "rollBack.php",
+                 data : { action : action },
+                 success : function(output) { 
+                	 if(output!="")
+                      	alert(output);
+                 	 else 
+                 		window.location.reload(); 
+              	 }
+                  });
+        });
+
+        $(document).on( "click", "#archive", function() {
+            var action = "archive";
+             $.ajax({ 
+                 type : "POST",
+                 url  : "archive.php",
+                 data : { action : action },
+                 success : function(output) { 
+                	 if(output!="")
+                     	alert(output);
+                	 else 
+                    	alert("Tasks archived !");
+                	 	window.location.reload(); 
+                 }
+                  }); 
+        });
+        </script>
+        <script>
+            //To Do SELECTED PROJECT
+            var selectedProjects = [];
+            var cutProjects = [];
+            
+
+            
+            function selectItem(id){
+                
+                document.getElementById(id).style.borderStyle = 'solid';                
+                document.getElementById(id).style.borderColor = '#000000';  
+                //alert(id); 
+                selectedProjects.push(id); 
+                //alert("taille : " +selectedProjects.length);         
+            }
+            function unselectItem(id){
+                 document.getElementById(id).style.borderStyle = 'none';
+                 var index = selectedProjects.indexOf(id);
+                 if(index > -1){
+                     selectedProjects.splice(index,1);
+                 }             
+            }
+            var map = {17: false, 18: false, 84: false, 86: false, 88: false};
             function keydown(e) {
                 if (e.keyCode in map) {
                     map[e.keyCode] = true;
@@ -740,6 +875,41 @@ function showProject($project){
                             }
                         });
                     }
+                    else if(map[17] && map[88]) {
+                        for(var i=0;i<selectedProjects.length;i++){
+                            document.getElementById(selectedProjects[i]).style.borderStyle = 'none';
+                        }
+                    	for(var i=0;i<selectedProjects.length;i++){
+                            if(selectedProjects[i].length == 1){
+                                selectedProjects.splice(i,1);
+                            }
+                        }
+                        cutProjects = selectedProjects.slice();
+						selectedProjects = [];
+                    }
+                    else if(map[17] && map[86]) {
+                        if(selectedProjects.length != 1){
+                            alert(<?php echo json_encode((string)$language->PasteError);?>);
+                        }
+                        var action = "ChangeParent";
+                        var id = selectedProjects[0];
+                        var idString = JSON.stringify(cutProjects);
+                        $.ajax({
+                            type: "POST",
+                            url: 'trait.php',
+                            data: { action : action, id : id, idString : idString },
+                            success: function(data)
+                            {
+                                if(data!="")
+                                    alert(data);
+                                window.location.reload();
+                            }
+                        });
+                        
+                        document.getElementById(selectedProjects[0]).style.borderStyle = 'none';
+                        selectedProjects = [];
+                        cutProjects = [];
+                    }
                 }
             }
             //function of key event
@@ -752,39 +922,351 @@ function showProject($project){
             window.addEventListener('keyup', keyup);
             window.addEventListener('keydown', keydown);
         </script>
-        <!-- Change Language Script -->
-        <script>
-                //sending the langage chose !!
-                function change(clicked_lang){
-                    //send the chosen language to php file
-                    $.ajax({
-                        type : "POST",
-                        url  : "languageChanger.php",
-                        data : { clicked_lang : clicked_lang }
-                    });
-                    window.location.reload();               
-                }
-        </script>
         <!-- the Form of the popup -->
-        <div id="dialog-form" title="Create task">
+        <div id="dialog-form" title="Create task" style="height:410px!important;">
             <form>
                 <fieldset>
-                    <label for="titre">
+                    <label for="title">
                         Title
                     </label> 
-                    <input type="text" name="titre" id="titre" class="text ui-widget-content ui-corner-all"> 
+                    <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all"> 
                     <label for="description">
                         Description
                     </label> 
                     <input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all" style="height: 70px;">
-                    <label for="echeance">
+                    <label for="deadLine">
                         Deadline
                     </label> 
-                    <input type="datepicker" name="echeance" id="echeance" class="text ui-widget-content ui-corner-all"> 
-                    <label for="commentaire">
+                    <input type="datepicker" name="deadLine" id="deadLine" class="text ui-widget-content ui-corner-all"> 
+                    <label for="comment">
                         comment
                     </label> 
-                    <input type="text" name="commentaire" id="commentaire" class="text ui-widget-content ui-corner-all" style="height: 70px;">
+                    <input type="text" name="comment" id="comment" class="text ui-widget-content ui-corner-all" style="height: 70px;">
+                    <input type="submit" tabindex="-1" style="position: absolute; top: -1000px"> 	 	
+	                </fieldset> 	 	
+	            </form> 	 	
+	        </div> 	 	
+	        <!-- end form --> 	 	
+	          <!-- script of task modifyer --> 	 	
+	        <script> 	 	
+	            popupmodify(); 	 	
+	            //popupmodify() modify a task 	 	
+	            function popupmodify(){ 	 	
+	                $(function() { 	 	
+							/**** To implement here ****/ 	 	
+								 //elements needed for the popup 	 	
+						var idTask; 	 	
+						var dialog, form,
+                          archivemodif ,
+						  titlemodif = $( "#titlemodif" ), 	 	
+						  descriptionmodif = $( "#descriptionmodif" ), 	 	
+						  deadLinemodif = $( "#deadLinemodif" ), 	 	
+						  commentmodif = $( "#commentmodif" ), 	 	
+						  allFields = $( [] ).add( titlemodif ).add( descriptionmodif ).add( deadLinemodif ).add( commentmodif ).add(archivemodif), 	 	
+						  tips = $( ".validateTips" ); 	 	
+	 	 	
+						function updateTips( t ) { 	 	
+						  tips 	 	
+							.text( t ) 	 	
+							.addClass( "ui-state-highlight" ); 	 	
+						  setTimeout(function() { 	 	
+							tips.removeClass( "ui-state-highlight", 1500 ); 	 	
+						  }, 500 ); 	 	
+						} 	 	
+						  //not used 	 	
+					  /*  function addUser() { 	 	
+						  var valid = true; 	 	
+						  allFields.removeClass( "ui-state-error" ); 	 	
+						  dialog.dialog( "close" ); 	 	
+						  return valid; 	 	
+						}*/ 	 	
+						  //the dialog form 	 	
+						dialog = $( "#dialog-form-modify" ).dialog({ 	 	
+						  autoOpen: false, 	 	
+						  height: 400, 	 	
+						  width: 450, 	 	
+						  modal: true, 	 	
+						  buttons: { 	 	
+							  //send data on click button 	 	
+							"Modify": function(){ 	
+								  var descr = <?php echo json_encode((string)$language->Description);?>+" :"+descriptionmodif.val()+"\n";
+								  var com = <?php echo json_encode((string)$language->Comment);?>+" :"+commentmodif.val();
+                                  var title = titlemodif.val();
+                                  var deadLine = deadLinemodif.val(); 
+		   						  action = "ModifyTask";	 	
+		   						  $.ajax({
+		   	                         type :"POST",
+		   	                         url : "trait.php",
+		   	                         data: { action : action, idTask : idTask, title : titlemodif.val() , deadLine : deadLinemodif.val() , comment : commentmodif.val() , description : descriptionmodif.val() , archivemodif : archivemodif},
+		   	                             success: function(data)
+		   	                             {
+                                             window.location.reload();
+			   	                             /*var task = document.getElementById(idTask);
+                                             if(archivemodif == "false"){
+                                                 var underline = document.getElementById("underline"+idTask);
+                                                 underline.parentNode.removeChild(underline);
+                                                 task.nodeValue ="- "+title+" || "+deadLine;
+                                             }
+                                             else{
+                                                 if(data == "true" && archivemodif == "true")
+                                                     document.getElementById("underline"+idTask).firstChild.nodeValue = "- "+title+" || "+deadLine;
+                                                 else
+                                                 {
+                                                     var underline = document.createElement('s');
+                                                     underline.setAttribute('id','underline'+idTask);
+                                                     var textNode = document.createTextNode("- "+title+" || "+deadLine);
+                                                     underline.appendChild(textNode);
+                                                     task.firstChild.appendChild(underline);
+                                                     
+                                                 }
+                                                
+                                             }
+                                                /*  if(data == "true"){
+			   	                            	    document.getElementById("underline"+idTask).firstChild.nodeValue = "- "+title+" || "+deadLine;
+                                                  }
+                                                else
+                                                  task.nodeValue ="- "+title+" || "+deadLine;*/
+			   	                            	//task.title = descr+com;
+		   	                            	  
+		   	                             } 	 	
+		   	                             	 	
+		   	                      }); 	 
+		   						  dialog.dialog( "close" );	
+							}, 	 	
+   							   	 	
+   							  "Delete": function(){ 
+   								if (confirm("Confirm delete ?")) {	 	
+   									action = "DeleteTask";	 	
+		   						  	$.ajax({
+		   	                         	type :"POST",
+		   	                         	url : "trait.php",
+		   	                         	data: { action : action, idTask : idTask},
+		   	                            success: function(data)
+		   	                             	{
+		   	                            	  	if(data!="")
+		   	                                  	 	alert(data);
+		   	                             	} 	 	
+		   	                      	}); 	 
+		   						  dialog.dialog( "close" );	
+   								} 	 	
+   							  }, 	 	
+   							  Cancel: function() { 	 	
+   							  dialog.dialog( "close" ); 	 	
+   							} 	 	
+   						  }, 	 	
+   						  close: function() { 	 	
+   							form[ 0 ].reset(); 	 	
+   							allFields.removeClass( "ui-state-error" ); 	 	
+   						  } 	 	
+   						}); 	 	
+   	 	 	
+   						form = dialog.find( "form" ).on( "submit", function( event ) { 	 	
+   						  event.preventDefault(); 	 	
+   						 // addUser(); 	 	
+   						 dialog.dialog( "close" );  	 	
+   						}); 
+                        
+                        //on click check box
+                        $(document).on( "click", "#archivemodif", function() { 
+                            
+                            if(document.getElementById("archivemodif").checked  == true)
+                                archivemodif = 'true';
+                            else
+                                archivemodif = 'false';
+                        });
+   						  //on click button activate the dialog form 	 	
+   						$(document).on( "click", "#modify-task", function() { 	 	
+   						  var me = $(this); 	 	
+   						  idTask = me.val(); 
+   						  action = "GetTaskAttributes";	 	
+   	                      $.ajax({ 	 	
+   	                            type : "POST", 	 	
+   	                            url : "trait.php", 	 	
+   	                            data : { action : action , idTask : idTask }, 	 	
+   	                            success : function(data) 	 	
+   	                            { 	 	
+   	   	                            var attributes = data.split("|");
+   	    	                        dialog.dialog( "open" ); 	 	
+   	    	                        $("#titlemodif").val(attributes[0]); 	 	
+   	    	                        $("#descriptionmodif").val(attributes[1]); 	 	
+   	    	                        $("#commentmodif").val(attributes[2]); 	 
+   	    	                     	$("#deadLinemodif").val(attributes[3]); 
+   	    	                     	$("#archivemodif").val(attributes[4]);
+                                    archivemodif = attributes[4];
+                                    if(attributes[4]=="true")
+                                        document.getElementById("archivemodif").checked = true;
+                                    else
+                                        document.getElementById("archivemodif").checked = false;
+   	    	                        
+   	                            } 	 	
+   	                             	 	
+   	                      }); 	
+   	                        	
+   						   	 	
+   						}); 	 	
+   							 	 	
+   	 	 	
+   	                }); 	 	
+   	                 	 	
+   	              $(function() { 	 	
+   	                    $( "#deadLinemodif" ).datepicker(); 	 	
+   	              }); 	 	
+   	 	 	
+   	            } 	 	
+   	         	 	
+   	        </script> 	 	
+   	        <!-- the Form of the popup modify --> 	 	
+   	        <div id="dialog-form-modify" title="Modify task" style="height:4   !important;"> 	 	
+   	            <form> 	 	
+   	                <fieldset> 
+                        <label for="archivemodif"> 	 	
+   	                        State	 	
+   	                    </label>  	 	
+   	                    <label class="checkbox-inline">
+                            <input type="checkbox" id="archivemodif" name="archivemodif" value="archivemodif"> Archive
+                        </label> 
+   	                    <label for="titlemodif"> 	 	
+   	                        Title 	 	
+   	                    </label>  	 	
+   	                    <input type="text" name="titlemodif" id="titlemodif" class="text ui-widget-content ui-corner-all">  	 	
+   	                    <label for="descriptionmodif"> 	 	
+   	                        Description 	 	
+   	                    </label>  	 	
+   	                    <input type="text" name="descriptionmodif" id="descriptionmodif" class="text ui-widget-content ui-corner-all" style="height: 70px;"> 	 	
+   	                    <label for="deadLinemodif"> 	 	
+   	                        Deadline 	 	
+   	                    </label>  	 	
+   	                    <input type="datepicker" name="deadLinemodif" id="deadLinemodif" class="text ui-widget-content ui-corner-all">  	 	
+   	                    <label for="commentmodif"> 	 	
+   	                        comment 	 	
+   	                    </label>  	 	
+   	                    <input type="text" name="commentmodif" id="commentmodif" class="text ui-widget-content ui-corner-all" style="height: 70px;"> 
+                    <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
+                </fieldset>
+            </form>
+        </div>
+        <!-- end form -->
+        
+               <!-- script of task modifyer -->
+        <script>
+            popupconfig();
+            //popupmodify() modify a task
+            function popupconfig(){
+                $(function() {
+						/**** To implement here ****/
+							 //elements needed for the popup
+					var dialog, form,
+					  action = "Configure",
+					  url = $( "#url" ),
+					  startHour = $( "#startHour" ),
+					  endHour = $( "#endHour" ),
+                        Monday = $("#Monday").is(':checked'),
+                        Thursday = $("#Thursday").is(':checked'),
+                        Wednesday = $("#Wednesday").is(':checked'),
+                        Tuesday = $("#Tuesday").is(':checked'),
+                        Friday = $("#Friday").is(':checked'),
+                        Saturday = $("#Saturday").is(':checked'),
+                        Sunday = $("#Sunday").is(':checked'),
+					 // workDays = $( "#workDays" ),
+					  allFields = $( [] ).add( url ).add( startHour ).add( endHour ).add( Monday ).add(Thursday).add(Wednesday).add(Tuesday).add(Friday).add(Saturday).add(Sunday),
+					  tips = $( ".validateTips" );
+
+					function updateTips( t ) {
+					  tips
+						.text( t )
+						.addClass( "ui-state-highlight" );
+					  setTimeout(function() {
+						tips.removeClass( "ui-state-highlight", 1500 );
+					  }, 500 );
+					}
+					  //the dialog form
+					dialog = $( "#dialog-form-config" ).dialog({
+					  autoOpen: false,
+					  height: 400,
+					  width: 450,
+					  modal: true,
+					  buttons: {
+						  //send data on click button
+						"Save Config": function(){
+						   alert(action+" --"+url.val()+" --"+startHour.val()+"--"+endHour.val()+"Monday:"+Monday+"thursay:"+Thursday+"Sunday:"+Sunday);
+                            //Implement here code ajax to send data
+                            /* Pour toi Jaafar
+                            *ces variable sur les alerts sont les variables que t'en a besoin
+                            *pour les envoyer a ton script php tu utilises php comme suit
+                                $.ajax({
+                                    type : "POST",
+                                    url : "FICHIERPHP.php",
+                                    data : { action : action, url : url.val(), startHour : startHour}
+                                });
+                                */
+                           
+						},
+						  Cancel: function() {
+						  dialog.dialog( "close" );
+						}
+					  },
+					  close: function() {
+						form[ 0 ].reset();
+						allFields.removeClass( "ui-state-error" );
+					  }
+					});
+
+					form = dialog.find( "form" ).on( "submit", function( event ) {
+					  event.preventDefault();
+					 // addUser();
+					 dialog.dialog( "close" ); 
+					});
+					  //on click button activate the dialog form
+					$(document).on( "click", "#config", function() {
+					  dialog.dialog( "open" );
+					});
+						
+
+                });
+            }
+        
+        </script>
+        
+        <!-- the Form of the popup config -->
+        <div id="dialog-form-config" title="Configuration" style="height:410px!important;">
+            <form>
+                <fieldset>
+                    <label for="url">
+                        URL
+                    </label> 
+                    <input type="text" name="url" id="url" class="text ui-widget-content ui-corner-all"> 
+                    <label for="startHour">
+                        Start Hour
+                    </label> 
+                    <input type="text" name="startHour" id="startHour" class="text ui-widget-content ui-corner-all">
+                    <label for="endHour">
+                        End Hour
+                    </label> 
+                    <input type="text" name="endHour" id="endHour" class="text ui-widget-content ui-corner-all"> 
+                    <label for="workDays">
+                        Working days
+                    </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Monday" name="Monday" value="Monday" checked> Monday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" checked> Thursday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" checked> Wednesday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" checked> Tuesday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Friday" name="Friday" value="Friday" checked> Friday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Saturday" name="Saturday" value="Saturday"> Saturday
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="Sunday" name="Sunday" value="Sunday"> Sunday
+                        </label>
                     <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
                 </fieldset>
             </form>

@@ -9,4 +9,9 @@
 	<Toggle> Toggle </Toggle>
     <Disconnect> Disconnect </Disconnect>
     <ConfirmDelete> Confirm delete </ConfirmDelete>
+    <PasteError> Select one project/board only </PasteError>
+    <Synchronize> Synchronize back up file </Synchronize>
+    <RollBack> Roll back </RollBack>
+    <Archive> Archive</Archive>
+    
 </Language>

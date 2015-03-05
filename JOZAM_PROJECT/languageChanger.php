@@ -1,4 +1,6 @@
 <?php
+require('XMLFunctions.php');
+
 if(isset($_POST['clicked_lang']))
 {	
     //Script to chose the language selected and to set "true" or "false" the language chosen
@@ -22,10 +24,8 @@ if(isset($_POST['clicked_lang']))
 			}
 		}
 	}
-	$dom = new DOMDocument("1.0");
-	$dom->preserveWhiteSpace = false;
-	$dom->formatOutput = true;
-	$dom->loadXML($languages->asXML());
-	file_put_contents('Languages.xml', $dom->saveXML());
+
+	save_xml("languages.xml",$languages);
+	
 }
 ?>

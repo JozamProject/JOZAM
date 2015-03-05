@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Language>
+    <Title> جعزام </Title>
+	<Abb> عر </Abb>
+    <Project>  جعزام مدير المهام </Project>
+	<AddBoard>اضافة جدول </AddBoard>
+	<AddProject> اضافة مشروع </AddProject>
+	<DeleteProject> مسح جدول </DeleteProject>
+	<Toggle> اخفاء </Toggle>
+	<Disconnect> الخروج </Disconnect>
+	<ConfirmDelete> تأكيد المسح </ConfirmDelete>
+	<PasteError> اختيار مشاريع متعددة أو لا شيء</PasteError>
+	<Synchronize> مزامنة النسخ الاحتياطي </Synchronize>
+    	<RollBack> تراجع </RollBack>
+    	<Archive> الأرشيف </Archive>
+	
+</Language>

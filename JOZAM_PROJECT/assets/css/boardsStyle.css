@@ -3,7 +3,7 @@
     position:relative;
 }
 header {
-    background-color:gray;
+    background-color:#DAD5D5;
 }
 .gridster > * {
     margin: 0 auto;
@@ -191,7 +191,7 @@ body {
 
 .gridster ul {
 			list-style: none;
-			background-color: gray;
+			background-color: #DAD5D5;
 			}
 
 .gridster ul li {
@@ -232,6 +232,18 @@ body {
     
 }
 .loadtask{
+            background: #AAA;
+            font-size: 12px;
+			float: right;
+            display: block;
+            line-height: normal;
+            padding: 0px 0px 0px ;
+            margin-bottom: 0px;
+            cursor: pointer;
+            margin-right:2px;
+    
+}
+.chcolor{
             background: #AAA;
             font-size: 12px;
 			float: right;

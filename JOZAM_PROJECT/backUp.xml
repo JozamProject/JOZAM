@@ -5,7 +5,7 @@
     <project name="New Project" id="0-1" idMax="1" data-row="1" data-col="1" data-sizex="4" data-sizey="3" color="LightSlateGray">
       <project name="New Project" id="0-1-0" idMax="1" data-row="1" data-col="1" data-sizex="3" data-sizey="2" color="LightSlateGray">
         <project name="New Project" id="0-1-0-0" idMax="2" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray">
-          <task id="0-1-0-0-0" title="azeaqs" deadLine="" archive="true">
+          <task id="0-1-0-0-0" title="azeaqs" deadLine="">
             <comment/>
             <description/>
           </task>

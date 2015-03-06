@@ -222,6 +222,18 @@ class CalendarDate extends DateTime {
 	 * @return CalendarDate CalendarDate matching the Simple XML Element.
 	 */
 	public static function XML_to_CalendarDate($calendarDate) {
-		return new CalendarDate ( (int) $calendarDate ['year'], (int) $calendarDate ['month'], (int) $calendarDate ['day'], (int) $calendarDate ['hour'], (int) $calendarDate ['minute'], (int) $calendarDate ['second'] );
+		return new CalendarDate ( ( int ) $calendarDate ['year'], ( int ) $calendarDate ['month'], ( int ) $calendarDate ['day'], ( int ) $calendarDate ['hour'], ( int ) $calendarDate ['minute'], ( int ) $calendarDate ['second'] );
+	}
+	
+	/**
+	 * Creates a CalendarDate matching a date.
+	 *
+	 * @param DateTime $date
+	 *        	A date.
+	 *
+	 * @return CalendarDate CalendarDate matching the date.
+	 */
+	public static function date_to_CalendarDate($date) {
+		return new CalendarDate ( $date->format ( 'Y' ), $date->format ( 'm' ), $date->format ( 'd' ), $date->format ( 'H' ), $date->format ( 'i' ), $date->format ( 's' ) );
 	}
 }

@@ -222,7 +222,7 @@ class CalendarDate extends DateTime {
 	 * @return CalendarDate CalendarDate matching the Simple XML Element.
 	 */
 	public static function XML_to_CalendarDate($calendarDate) {
-		return new CalendarDate ( ( int ) $calendarDate ['year'], ( int ) $calendarDate ['month'], ( int ) $calendarDate ['day'], ( int ) $calendarDate ['hour'], ( int ) $calendarDate ['minute'], ( int ) $calendarDate ['second'] );
+		return new CalendarDate ( intval ( $calendarDate ['year'] ), intval ( $calendarDate ['month'] ), intval ( $calendarDate ['day'] ), intval ( $calendarDate ['hour'] ), intval ( $calendarDate ['minute'] ), intval ( $calendarDate ['second'] ) );
 	}
 	
 	/**
@@ -230,7 +230,7 @@ class CalendarDate extends DateTime {
 	 *
 	 * @param DateTime $date
 	 *        	A date.
-	 *
+	 *        	
 	 * @return CalendarDate CalendarDate matching the date.
 	 */
 	public static function date_to_CalendarDate($date) {

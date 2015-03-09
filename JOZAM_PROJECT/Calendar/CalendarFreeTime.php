@@ -117,7 +117,7 @@ class CalendarFreeTime {
 	static function retrieveFreeCalendarEvents($calendarEvents, $timeSlot) {
 		CalendarEvent::sort ( $calendarEvents );
 		// debug
-		echo 'Sorted event dates :<br>' . $calendarEvents . '<br><br>';
+		//echo 'Sorted event dates :<br>' . $calendarEvents . '<br><br>';
 		$freeCalendarEvents = $timeSlot->removeAllCalendarEvents ( $calendarEvents );
 		return $freeCalendarEvents;
 	}

@@ -32,6 +32,8 @@ class CalendarEvent {
 	 *        	The start date.
 	 * @param CalendarDate $endDate
 	 *        	The end date.
+	 *        
+	 * @throws Exception ZERO DURATION EVENT EXCEPTION
 	 */
 	public function __construct($startDate, $endDate) {
 		$null_duration_event_exception = $this->setCalendarEvent ( $startDate, $endDate );
@@ -48,7 +50,7 @@ class CalendarEvent {
 	 * @param CalendarDate $endDate
 	 *        	The end date.
 	 *        	
-	 * @return void
+	 * @return boolean TRUE if duration event is null, FALSE otherwise.
 	 */
 	public function setCalendarEvent($startDate, $endDate) {
 		$null_duration_event_exception = ($startDate == $endDate);

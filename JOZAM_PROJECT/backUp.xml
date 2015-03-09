@@ -1,23 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="2">
-  <board name="New Board" id="0" idMax="6">
-    <project name="New Project" id="0-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-    <project name="New Project" id="0-1" idMax="1" data-row="1" data-col="1" data-sizex="4" data-sizey="3" color="LightSlateGray">
-      <project name="New Project" id="0-1-0" idMax="1" data-row="1" data-col="1" data-sizex="3" data-sizey="2" color="LightSlateGray">
-        <project name="New Project" id="0-1-0-0" idMax="2" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray">
-          <task id="0-1-0-0-0" title="azeaqs" deadLine="">
-            <comment/>
-            <description/>
-          </task>
-          <task id="0-1-0-0-1" title="azeazsz" deadLine="" archive="false">
-            <comment/>
-            <description/>
-          </task>
-        </project>
-      </project>
-    </project>
-    <project name="New Project" id="0-2" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-    <project name="New Project" id="0-3" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-    <project name="New Project" id="0-4" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-  </board>
+<gestionnaireDesTaches utilisateur="Othman" idMax="4">
+  
 </gestionnaireDesTaches>

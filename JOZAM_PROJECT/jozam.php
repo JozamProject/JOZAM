@@ -15,20 +15,19 @@ if(isset($_SESSION['connect'])){
         //Function to display tasks in each project
 function showTask($task){
     ?>
-    <button id="modify-task" value="<?php echo $task['id'];?>" onclick="popupmodify()" style="color : black; font-size:16px; background : none; border: none">
-        <abbr title="Description :<?php echo $task->description . "\r\n";?>Comment :<?php echo $task->comment . "\r\n";?>"> 
+    <button id="modify-task" value="<?php echo $task['id'];?>" onclick="popupmodify()" style="color : black; font-size:16px; border: none">+</button>
+        <abbr id="<?php echo $task['id'];?>" title="Description :<?php echo $task->description . "\r\n";?>Comment :<?php echo $task->comment . "\r\n";?>"> 
             <?php if($task['archive']=="true"){?>
             	<s id="<?php echo "underline".$task['id'];?>">
             		<?php
-                        $var = "- ".$task['title']." || ".$task['deadLine'];
+                        $var = "- ".$task['title']." || ".$task['deadLine']. ' || time left : ' . $task ['timeLeft'];
                         echo $var;
                     ?> 
             	</s>
             <?php }
             	  else 
-            	  		  echo "- ".$task['title'] . " || " .$task['deadLine'] ; ?>
+            	  		  echo "- ".$task['title'] . " || " .$task['deadLine']. '|| time left : ' . $task ['timeLeft']; ?>
         </abbr>
-    </button>
 </br>
 <?php
     }
@@ -40,10 +39,12 @@ function showProject($project){
         	?>
     <li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu" style= "background:<?php echo $project['color']?>">
         <div id="<?php echo "my-widget".$project['id'];?>" value="<?php echo $project['id'];?>" onload="ch(this.id)" style="overflow: auto;">
-            <header>
-                <p id="<?php echo $project['id']?>" style="cursor: move; background: #DAD5D5;" ondblclick="selectItem(this.id)" onclick="unselectItem(this.id)" >|||</p>
-                <div class="dragDiv" contenteditable="true">
-                    <?php echo $project['name']?>
+            <header id="<?php echo $project['id']?>" ondblclick="selectItem(this.id,0)" onclick="unselectItem(this.id,0)" >
+                <p id="<?php echo $project['id']?>" style="cursor: move; background: #DAD5D5; height : 3px; float : left;" class="glyphicon glyphicon-move" ></p>
+                <div class="dragDiv">
+                    <button id="<?php echo $project['id']; ?>" value="<?php echo $project['name']?>" class="btn btn-default btn-xs" style="background:none;font-weight: bold;border:none;"  onclick="changeProjectName(this.id,this.value)">
+					<?php echo $project['name']?>
+					</button>
                     <div id="<?php echo $project['id'];?>" class="delete" onclick="deleteproj(this.id)">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </div>
@@ -58,7 +59,7 @@ function showProject($project){
                     </button>
                 </div>
             </header>
-            <div style="text-align: left; margin-left: 10%;"> 
+            <div style="text-align: left; margin-left: 3%;"> 
                 <?php 
                     //Iteretor to fetch tasks from XML and display them for each project
                     foreach($project->task as $stask){
@@ -96,20 +97,24 @@ function showProject($project){
         <!-- SRC needd Bootstrap , Ajax, Jquery et les CSS -->
         <title><?php echo $language->Title ?></title>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
 		<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png" type="image/png"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css">
         <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
         <link rel="stylesheet" type="text/css" href="assets/css/boardsStyle.css">
         <link rel="stylesheet" href="assets/css/bootstrap.netdna.min.css" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-        <script src="assets/jquery.min.js"></script>
-        <script src="assets/css/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap-glyphicons.css" >
         <link rel="stylesheet" href="assets/changeColorAssets/jquery-ui.css">
         <link rel="stylesheet" href="popup/jquery-ui.css">
+        
+        <script src="assets/jquery.min.js"></script>
+        <script src="assets/css/bootstrap.min.js"></script>
         <script src="popup/jquery-ui.js"></script>
+        <script src="assets/jquery-1.11.2.js"></script>
+        <script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
     </head>
     <!-- Body of the project -->
     <body>
@@ -182,6 +187,11 @@ function showProject($project){
                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                 </button>
                             </li>
+                            <li>
+                                
+                                    <a href="help/help.html"  target="_blank" class="glyphicon glyphicon-question-sign" aria-hidden="true"></a>
+                                
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -199,17 +209,17 @@ function showProject($project){
                         <div id="<?php echo "demo-".$board['id'];?>" class="gridster">
                                                   
                             <div class="btn-group" role="group" aria-label="...">
-                            	<button class="btn btn-default" style="background:none;font-weight: bold;border:none;" contenteditable="true">
+                            	<button id="<?php echo $board['id']; ?>" value="<?php echo $board['name'];?>" class="btn btn-default" style="background:none;font-weight: bold;border:none;"  onclick="changeBoardName(this.id,this.value)">
                             		<?php echo $board['name'];?>
                             	</button> 
                                 <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
                                     <?php echo $language->AddProject ?>
                                 </button>
                                 <button type="button" id="deleteWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
-                                    <?php echo $language->DeleteProject ?>
+                                    <?php echo $language->DeleteBoard ?>
                                 </button>
                             </div>
-                            <ul id="<?php echo $board['id'];?>" style="width: 105% !important;" ondblclick="selectItem(this.id)" onclick="unselectItem(this.id)">
+                            <ul id="<?php echo $board['id'];?>" style="width: 105% !important; padding : 0;" ondblclick="selectItem(this.id,1)" onclick="unselectItem(this.id,1)">
                                 <!--Display projects in this board-->
                                     <?php 
                                         foreach($board->project as $project){
@@ -228,8 +238,6 @@ function showProject($project){
         
         <!-- end of the html code of -->
         <!-- the JS Script needed -->
-        <script src="assets/jquery-1.11.2.js"></script>
-        <script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
         <script>
 		$(document).on( "click", "#deleteWidgetButton", function(e) {
             e.preventDefault(); 
@@ -245,9 +253,10 @@ function showProject($project){
                 {
                     if(data!="")
                     	alert(data);
+                    else 
+               		 window.location.reload();
                 }
             });
-            window.location.reload();
 		});
         </script>
         <script>
@@ -255,7 +264,7 @@ function showProject($project){
                 var i = 2;
                 var idcpt = 0;
                 function duplicate() {
-                    var action = "CreationBoard";
+                    var action = "CreateBoard";
                     $.ajax({
                         type : "POST",
                         url  : "trait.php",
@@ -264,9 +273,11 @@ function showProject($project){
                         {
                         	if(data!="")
                             	alert(data);
+                        	else 
+                        		 window.location.reload();
                         }
                     });
-                    window.location.reload();
+                   
                 }
                 document.getElementById('addBoard').onclick = duplicate;
 
@@ -285,7 +296,7 @@ function showProject($project){
                         gridster[nombre] = $("#demo-" + nombre + " ul").gridster({
                             namespace: '#demo-' + nombre,
                             widget_base_dimensions: [100, 100],
-                            widget_margins: [5, 5],
+                            widget_margins: [1, 1],
                            // autogrow_cols: true,
                            // widget_seletor: 'li'
                             
@@ -323,7 +334,7 @@ function showProject($project){
                          idcpt++;
                          var me = $(this);
                          var idParent = me.val();
-                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: #192237;"><div id = "my-widget'+idcpt+'"><header><p style="cursor: move; background: #DAD5D5;" >|||</p><div class="dragDiv" contenteditable="true">New project<div id="loadbutton" class="load">+</div><div id="deletebutton" class="delete">x</div><button id="create-user" value="'+me.val()+'" style = "height : 7px; width: 7px;"></button></div></header></div></li>', 2, 1]);
+                         gridster[me.val()].add_widget.apply(gridster[me.val()], ['<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background: LightSlateGray;"><div id = "my-widget'+idcpt+'"><header><p id="'+idcpt+'" style="cursor: move; background: #DAD5D5; height : 3px; float : left;" ondblclick="selectItem(this.id)" onclick="unselectItem(this.id)" class="glyphicon glyphicon-move" ></p><div class="dragDiv">New project<div id="'+me.val()+'" class="delete" onclick="deleteproj(this.id)"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></div><div id="'+me.val()+'" onclick="createproj(this.id)" class="load"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></div><button id="create-user" value="'+me.val()+'" style="background : none; border : none;" class="loadtask"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></button><button id="changeColor" value="'+idcpt+'" style="background : none; border : none;" class="chcolor"><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></button></button></div></header></div></li>', 2, 1]);
                         //activate the color change on the new project
                         //$("#my-widget"+idcpt).colorize();
                         //activate the tast creator on the new project
@@ -447,9 +458,10 @@ function showProject($project){
                         {
                             if(data!="")
                             	alert(data);
+                            else 
+                       		 window.location.reload();
                         }
                     });
-                    window.location.reload();               
                 }
                 //function to send the deleted project to MAJ it on XML
                 function deleteproj(idProj){
@@ -463,10 +475,10 @@ function showProject($project){
                         {
                             if(data!="")
                             	alert(data);
+                            else 
+                       		 window.location.reload();
                         }
                     });
-                    window.location.reload(); 
-                    window.location.reload(); 
                  }
                 }
             </script>
@@ -725,10 +737,12 @@ function showProject($project){
                             {
                             	 if(data!="")
                                  	alert(data);
+                            	 else 
+                            		 window.location.reload();
                             } 
                         });
-                        dialog.dialog( "close" );
-                        window.location.reload(); 
+                        //dialog.dialog( "close" );
+                        //window.location.reload(); 
                     },
                     Cancel: function() {
                       dialog.dialog( "close" );
@@ -743,7 +757,8 @@ function showProject($project){
                 form = dialog.find( "form" ).on( "submit", function( event ) {
                   event.preventDefault();
                   //addUser();
-                 dialog.dialog( "close" ); 
+                 dialog.dialog( "close" );
+                 window.location.reload();
                 });
                   //on click button activate the dialog form
                 $(document).on( "click", "#create-user", function() {
@@ -782,9 +797,15 @@ function showProject($project){
                     $.ajax({
                         type : "POST",
                         url  : "languageChanger.php",
-                        data : { clicked_lang : clicked_lang }
+                        data : { clicked_lang : clicked_lang },
+                        success: function(data)
+                        {
+                            if(data!="")
+                            	alert(data);
+                            else 
+                       		 window.location.reload();
+                        }
                     });
-                    window.location.reload();               
                 }
         </script>
         
@@ -836,29 +857,88 @@ function showProject($project){
                   }); 
         });
         </script>
+        
+             <!--change board name-->
+        <script>
+            function changeBoardName(id,name){
+                var action = "ModifyBoardName";
+                var newName = prompt("Please enter board name", name);
+				if (newName != null) {
+                    $.ajax({
+                        type : "POST",
+                        url : "trait.php",
+                        data : { action : action , newName : newName , id : id },
+                        success : function(output) { 
+                             if(output!="")
+                                alert(output);
+                             else 
+                                window.location.reload(); 
+                        }
+                    }); 
+                }
+            }
+			
+			function changeProjectName(id,name){
+				
+                var action = "ModifyProjectName";
+                var newName = prompt("Please enter Project name", name);
+                if (newName != null) {
+                    $.ajax({
+                        type : "POST",
+                        url : "trait.php",
+                        data : { action : action , newName : newName , id : id },
+                        success : function(output) { 
+                             if(output!="")
+                                alert(output);
+                             else 
+                                window.location.reload(); 
+                        }
+                    }); 
+                }
+            }
+			
+        </script>
+		
+        
         <script>
             //To Do SELECTED PROJECT
             var selectedProjects = [];
-            var cutProjects = [];
+            var copiedProjects = [];
+            var cut = false;
+            var k = 0;
             
-
+            function contains(a, obj) {
+                var i = a.length;
+                while (i--) {
+                   if (a[i] == obj) {
+                       return true;
+                   }
+                }
+                return false;
+            }
             
-            function selectItem(id){
-                
-                document.getElementById(id).style.borderStyle = 'solid';                
-                document.getElementById(id).style.borderColor = '#000000';  
-                //alert(id); 
-                selectedProjects.push(id); 
-                //alert("taille : " +selectedProjects.length);         
+            function selectItem(id,i){
+                if(i!=1 || k==0){
+                    if(i!=1)
+                		k = k+1;
+                	document.getElementById(id).style.borderStyle = 'solid';                
+                	document.getElementById(id).style.borderColor = '#000000';  
+                	selectedProjects.push(id); 
+                }
             }
-            function unselectItem(id){
-                 document.getElementById(id).style.borderStyle = 'none';
-                 var index = selectedProjects.indexOf(id);
-                 if(index > -1){
-                     selectedProjects.splice(index,1);
-                 }             
+            function unselectItem(id,i){
+                if(i!=1){
+                	if(contains(selectedProjects,id)){
+                    	k = k-1;
+                	}
+                }
+                document.getElementById(id).style.borderStyle = 'none';
+                var index = selectedProjects.indexOf(id);
+                if(index > -1){
+                    selectedProjects.splice(index,1);
+                }             
             }
-            var map = {17: false, 18: false, 84: false, 86: false, 88: false};
+            var map = {17: false, 18: false, 84: false, 86: false, 88: false, 67: false, 78 : false};
             function keydown(e) {
                 if (e.keyCode in map) {
                     map[e.keyCode] = true;
@@ -871,9 +951,35 @@ function showProject($project){
                             data: { action : action },
                             success: function(data)
                             {
-                                window.location.reload();
+                                if(data!="")
+                                	alert(data);
+                                else 
+                           		 window.location.reload();
                             }
                         });
+                    }
+                    else if(map[18] && map[78]) {
+                        var action;
+                        var idString;
+                        if(selectedProjects.length==0){
+                            action = "CreateBoard";
+                        }
+                        else {
+                    		action = "CreateProjects";
+                        	idString = JSON.stringify(selectedProjects);
+                        }
+                    	$.ajax({
+	                        type : "POST",
+	                        url  : "trait.php",
+	                        data : { action : action , idString : idString },
+	                        success: function(data)
+	                        {
+	                            if(data!="")
+	                            	alert(data);
+	                            else
+	                       		 	window.location.reload();
+	                        }
+	                    });
                     }
                     else if(map[17] && map[88]) {
                         for(var i=0;i<selectedProjects.length;i++){
@@ -884,25 +990,42 @@ function showProject($project){
                                 selectedProjects.splice(i,1);
                             }
                         }
-                        cutProjects = selectedProjects.slice();
+                        copiedProjects = selectedProjects.slice();
 						selectedProjects = [];
+						cut = true;
+						k=0;
+                    }
+                    else if(map[17] && map[67]) {
+                        for(var i=0;i<selectedProjects.length;i++){
+                            document.getElementById(selectedProjects[i]).style.borderStyle = 'none';
+                        }
+                    	for(var i=0;i<selectedProjects.length;i++){
+                            if(selectedProjects[i].length == 1){
+                                selectedProjects.splice(i,1);
+                            }
+                        }
+                        copiedProjects = selectedProjects.slice();
+						selectedProjects = [];
+						cut = false;
+						k=0;
                     }
                     else if(map[17] && map[86]) {
                         if(selectedProjects.length != 1){
                             alert(<?php echo json_encode((string)$language->PasteError);?>);
                         }
-                        var action = "ChangeParent";
+                        var action = "PasteProjects";
                         var id = selectedProjects[0];
-                        var idString = JSON.stringify(cutProjects);
+                        var idString = JSON.stringify(copiedProjects);
                         $.ajax({
                             type: "POST",
                             url: 'trait.php',
-                            data: { action : action, id : id, idString : idString },
+                            data: { action : action, id : id, idString : idString, cut : cut },
                             success: function(data)
                             {
                                 if(data!="")
-                                    alert(data);
-                                window.location.reload();
+                                	alert(data);
+                                else 
+                           		 window.location.reload();
                             }
                         });
                         
@@ -949,7 +1072,7 @@ function showProject($project){
 	        <!-- end form --> 	 	
 	          <!-- script of task modifyer --> 	 	
 	        <script> 	 	
-	            popupmodify(); 	 	
+	            popupmodify();
 	            //popupmodify() modify a task 	 	
 	            function popupmodify(){ 	 	
 	                $(function() { 	 	
@@ -983,7 +1106,7 @@ function showProject($project){
 						  //the dialog form 	 	
 						dialog = $( "#dialog-form-modify" ).dialog({ 	 	
 						  autoOpen: false, 	 	
-						  height: 400, 	 	
+						  height: 600, 	 	
 						  width: 450, 	 	
 						  modal: true, 	 	
 						  buttons: { 	 	
@@ -1000,38 +1123,42 @@ function showProject($project){
 		   	                         data: { action : action, idTask : idTask, title : titlemodif.val() , deadLine : deadLinemodif.val() , comment : commentmodif.val() , description : descriptionmodif.val() , archivemodif : archivemodif},
 		   	                             success: function(data)
 		   	                             {
-                                             window.location.reload();
-			   	                             /*var task = document.getElementById(idTask);
+			   	                             var task = document.getElementById(idTask);
                                              if(archivemodif == "false"){
                                                  var underline = document.getElementById("underline"+idTask);
-                                                 underline.parentNode.removeChild(underline);
-                                                 task.nodeValue ="- "+title+" || "+deadLine;
+                                                 if(underline != null){
+                                                     underline.parentNode.removeChild(underline);
+                                                 }
+                                                 //task.firstChild.nodeValue ="- "+title+" || "+deadLine;
                                              }
                                              else{
                                                  if(data == "true" && archivemodif == "true")
                                                      document.getElementById("underline"+idTask).firstChild.nodeValue = "- "+title+" || "+deadLine;
                                                  else
                                                  {
+                                                	 task.firstChild.nodeValue = "";
                                                      var underline = document.createElement('s');
                                                      underline.setAttribute('id','underline'+idTask);
-                                                     var textNode = document.createTextNode("- "+title+" || "+deadLine);
-                                                     underline.appendChild(textNode);
-                                                     task.firstChild.appendChild(underline);
+                                                     underline.innerHTML = "- "+title+" || "+deadLine;
+                                                     //task.appendChild(underline,null);
                                                      
                                                  }
                                                 
                                              }
+                                             
                                                 /*  if(data == "true"){
 			   	                            	    document.getElementById("underline"+idTask).firstChild.nodeValue = "- "+title+" || "+deadLine;
                                                   }
                                                 else
                                                   task.nodeValue ="- "+title+" || "+deadLine;*/
 			   	                            	//task.title = descr+com;
+
+			   	                            	window.location.reload();
 		   	                            	  
 		   	                             } 	 	
 		   	                             	 	
 		   	                      }); 	 
-		   						  dialog.dialog( "close" );	
+		   						  dialog.dialog( "close" );
 							}, 	 	
    							   	 	
    							  "Delete": function(){ 
@@ -1045,6 +1172,8 @@ function showProject($project){
 		   	                             	{
 		   	                            	  	if(data!="")
 		   	                                  	 	alert(data);
+		   	                            	  	else
+		   	                            	  		window.location.reload();
 		   	                             	} 	 	
 		   	                      	}); 	 
 		   						  dialog.dialog( "close" );	
@@ -1062,9 +1191,10 @@ function showProject($project){
    	 	 	
    						form = dialog.find( "form" ).on( "submit", function( event ) { 	 	
    						  event.preventDefault(); 	 	
-   						 // addUser(); 	 	
+   						 // addUser();
+   						 window.location.reload();
    						 dialog.dialog( "close" );  	 	
-   						}); 
+   						});
                         
                         //on click check box
                         $(document).on( "click", "#archivemodif", function() { 
@@ -1088,7 +1218,7 @@ function showProject($project){
    	   	                            var attributes = data.split("|");
    	    	                        dialog.dialog( "open" ); 	 	
    	    	                        $("#titlemodif").val(attributes[0]); 	 	
-   	    	                        $("#descriptionmodif").val(attributes[1]); 	 	
+   	    	                        $("#descriptionmodif").val(attributes[1]);
    	    	                        $("#commentmodif").val(attributes[2]); 	 
    	    	                     	$("#deadLinemodif").val(attributes[3]); 
    	    	                     	$("#archivemodif").val(attributes[4]);
@@ -1136,137 +1266,11 @@ function showProject($project){
    	                    <label for="deadLinemodif"> 	 	
    	                        Deadline 	 	
    	                    </label>  	 	
-   	                    <input type="datepicker" name="deadLinemodif" id="deadLinemodif" class="text ui-widget-content ui-corner-all">  	 	
+   	                    <input type="datepicker" name="deadLinemodif" id="deadLinemodif" class="text ui-widget-content ui-corner-all">  	 	   	                    
    	                    <label for="commentmodif"> 	 	
    	                        comment 	 	
    	                    </label>  	 	
    	                    <input type="text" name="commentmodif" id="commentmodif" class="text ui-widget-content ui-corner-all" style="height: 70px;"> 
-                    <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
-                </fieldset>
-            </form>
-        </div>
-        <!-- end form -->
-        
-               <!-- script of task modifyer -->
-        <script>
-            popupconfig();
-            //popupmodify() modify a task
-            function popupconfig(){
-                $(function() {
-						/**** To implement here ****/
-							 //elements needed for the popup
-					var dialog, form,
-					  action = "Configure",
-					  url = $( "#url" ),
-					  startHour = $( "#startHour" ),
-					  endHour = $( "#endHour" ),
-                        Monday = $("#Monday").is(':checked'),
-                        Thursday = $("#Thursday").is(':checked'),
-                        Wednesday = $("#Wednesday").is(':checked'),
-                        Tuesday = $("#Tuesday").is(':checked'),
-                        Friday = $("#Friday").is(':checked'),
-                        Saturday = $("#Saturday").is(':checked'),
-                        Sunday = $("#Sunday").is(':checked'),
-					 // workDays = $( "#workDays" ),
-					  allFields = $( [] ).add( url ).add( startHour ).add( endHour ).add( Monday ).add(Thursday).add(Wednesday).add(Tuesday).add(Friday).add(Saturday).add(Sunday),
-					  tips = $( ".validateTips" );
-
-					function updateTips( t ) {
-					  tips
-						.text( t )
-						.addClass( "ui-state-highlight" );
-					  setTimeout(function() {
-						tips.removeClass( "ui-state-highlight", 1500 );
-					  }, 500 );
-					}
-					  //the dialog form
-					dialog = $( "#dialog-form-config" ).dialog({
-					  autoOpen: false,
-					  height: 400,
-					  width: 450,
-					  modal: true,
-					  buttons: {
-						  //send data on click button
-						"Save Config": function(){
-						   alert(action+" --"+url.val()+" --"+startHour.val()+"--"+endHour.val()+"Monday:"+Monday+"thursay:"+Thursday+"Sunday:"+Sunday);
-                            //Implement here code ajax to send data
-                            /* Pour toi Jaafar
-                            *ces variable sur les alerts sont les variables que t'en a besoin
-                            *pour les envoyer a ton script php tu utilises php comme suit
-                                $.ajax({
-                                    type : "POST",
-                                    url : "FICHIERPHP.php",
-                                    data : { action : action, url : url.val(), startHour : startHour}
-                                });
-                                */
-                           
-						},
-						  Cancel: function() {
-						  dialog.dialog( "close" );
-						}
-					  },
-					  close: function() {
-						form[ 0 ].reset();
-						allFields.removeClass( "ui-state-error" );
-					  }
-					});
-
-					form = dialog.find( "form" ).on( "submit", function( event ) {
-					  event.preventDefault();
-					 // addUser();
-					 dialog.dialog( "close" ); 
-					});
-					  //on click button activate the dialog form
-					$(document).on( "click", "#config", function() {
-					  dialog.dialog( "open" );
-					});
-						
-
-                });
-            }
-        
-        </script>
-        
-        <!-- the Form of the popup config -->
-        <div id="dialog-form-config" title="Configuration" style="height:410px!important;">
-            <form>
-                <fieldset>
-                    <label for="url">
-                        URL
-                    </label> 
-                    <input type="text" name="url" id="url" class="text ui-widget-content ui-corner-all"> 
-                    <label for="startHour">
-                        Start Hour
-                    </label> 
-                    <input type="text" name="startHour" id="startHour" class="text ui-widget-content ui-corner-all">
-                    <label for="endHour">
-                        End Hour
-                    </label> 
-                    <input type="text" name="endHour" id="endHour" class="text ui-widget-content ui-corner-all"> 
-                    <label for="workDays">
-                        Working days
-                    </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Monday" name="Monday" value="Monday" checked> Monday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" checked> Thursday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" checked> Wednesday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" checked> Tuesday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Friday" name="Friday" value="Friday" checked> Friday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Saturday" name="Saturday" value="Saturday"> Saturday
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="Sunday" name="Sunday" value="Sunday"> Sunday
-                        </label>
                     <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
                 </fieldset>
             </form>

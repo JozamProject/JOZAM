@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html charset="UTF-8" >
+    <head>
+        <title>help</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    </head>
+    
+    <body style="width: 70%; padding-left: 3%;">
+	<b>JOZAM Task Manager</b> developped by :
+	<ul>
+		<li><b>Ayyoub OULIDI-OMALI</b> : 3rd Year ENSEEIHT (Exchange Student ENSIAS)</li>
+		<li><b>Othman BENCHEKROUN BELLABES</b> : 3rd Year ENSEEIHT</li>
+		<li><b>Zakariae JORTI</b> : 3rd Year ENSEEIHT</li>
+		<li><b>Mouhcine AMIRA</b> : 3rd Year ENSEEIHT</li>
+		<li><b>Jaafar BOUAYAD</b> : 3rd Year ENSEEIHT</li>
+	</ul>
+	<h2>User Manual</h2>
+	<h3>Notice</h3>
+		<p>	The JOZAM task manager is a local lightweight software that does not require an internet connection. It can be loaded on any web browser and on both operating systems WINDOWS and UNIX. However, so as to launch it, a server Apache needs to be activated first. It was designed to be simple, but still incorporates variable useful features:
+				<ul>
+				<li>Basic task management ( create or delete a task, every task has a name, a deadline, a description, etc…)</li> 
+				<li>Each task can be divided into subtasks </li>
+				<li>Calculating the number of workdays left, by calendar integration</li>
+				<li>Display with folding / folding out options</li>
+				</ul>
+		</p>
+	<h3>Launching instructions: </h3>
+		<p>	In order to start JOZAM on Windows, please follow the following instructions:<br/>
+			First, run WAMPSERVER (the local server in question). <br/>
+			Second, open your web navigator, and type this URL : http://127.0.0.1/JOZAM/index.php
+		</p>
+
+		<p>	In order to start JOZAM on Ubuntu, please follow the following instructions:<br/>
+			First, Install Lamp-Server with the following command: sudo apt-get install lamp-server^ <br/>
+			Second, put the project file in /var/www/html/<br/>
+			Then, execute the commands: <br/>
+				<ul>
+				<li>sudo chown -R $USER:$USER /var/www/html/folder-name</li>
+				<li>sudo chmod -R 777 /var/www/html</li>
+				</ul>
+		</p>
+		<p>
+			Finally, open your browser and type 127.0.0.1/folder-name/
+
+			The JOZAM software is then running, and its interface is displayed.<br/>
+			You can start by logging in with your username and password. <br/>
+			If you are logging in for the first time, click on the applet “Register” and fill in the requested input fields.
+		</p>
+		
+	<h3>Operating instructions:</h3> 
+		<p>	Once logged in, you can access to the main window. You can start by setting the language. For that, you need to click on the tab next to the “Disconnect” button and select the desired language.<br/>
+			You can configure new languages by:<br/>
+			<ul>
+			<li>adding in the file ”Languages.xml” the following line:<br/>
+				     &lsaquo;Language name="Language_Name" chosen="false"&rsaquo; language_name.xml&lsaquo;/Language&rsaquo; 
+			<li>opening the file “language_name.xml” and filling up all the fields with appropriate inputs.
+			</ul>
+
+			The second step is creating new boards: Click the “Add Board” tab in the top menu bar of your screen. Then, all the created boards are displayed and you can modify them : <br/>
+			<ul>
+			<li>Renaming a board : Click on the title of the board in question and type the new name in the corresponding field of the pop-up.</li>
+			<li>Adding a new project : In the corresponding board, click on the button “Add project”.</li>
+			<li>You can manually resize an existing project by clicking and dragging the bottom right corner of the project window.</li>
+			<li>To move a project, click on the top left corner logo <img src="feather.png" style="height: 15px"/> and drag the project to the targeted area.</li>
+			<li>To move a project, click on the middle top triple stroke logo <img src="move.png" style="height: 15px"/> and drag the project to the targeted area.</li>
+			<li>To delete a project, click on <img src="deleate.png" style="height: 15px"/> the “cross” on the top right angle of the selected project.</li>
+			<li>To add a project inside another  project, just click on the “plus” icon <img src="plus.png" style="height: 15px"/> But you can also use the cut-and-paste shortcut: Ctrl+X on a selected project to cut it, select a board or a project and type Ctrl+V to paste there. </li>
+			<li>A copy-and-paste shortcut is also available to duplicate a project: double click on a project and type Ctrl+C to copy, then select a board or a project and type Ctrl+V to paste there.</li>
+			<li>To annex a task to a project, click on the asterix icon <img src="star.png" style="height: 15px"/> then you will have to fill in the following sections (title, description, deadline and comment) in a new pop up. Moreover, you can set the archive option for completed tasks. They will then be crossed out. This will enable you afterwards to use the “Archive” button to hide all these crossed out tasks and store them in the file “archive.txt”. </li> 
+			<li>To toggle between boards, you can click on the “Toggle” applet and then select boards you wish to hide. Or, you can also use the ALT+T keyboard shortcut.</li>
+			<li>To save the current modifications, click on the button “synchronize back up files”.</li>
+			<li>To restore the latest backup files, click on the “Roll back” button.</li>
+			</ul>
+		</p>	
+	</body>
+	
+</html>

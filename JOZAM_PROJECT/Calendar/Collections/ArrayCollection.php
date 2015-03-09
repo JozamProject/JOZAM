@@ -433,4 +433,22 @@ class ArrayCollection implements Collection, Selectable {
 	public function sort($sortFunction) {
 		usort ( $this->elements, $sortFunction );
 	}
+	
+	/**
+	 * Recursively converts nested array into a flat one.
+	 */
+	function flatten() {
+		$result = new ArrayCollection ();
+		foreach ( $this->elements as $key => $value ) {
+			if (ArrayCollection::is_ArrayCollection ( $value )) {
+				$subArrayCollection = $this->get ( $key );
+				$subArrayCollection->flatten ();
+				$result->addAll ( $subArrayCollection );
+			} else {
+				$result->add ( $value );
+			}
+		}
+		$this->clear ();
+		$this->addAll ( $result );
+	}
 }

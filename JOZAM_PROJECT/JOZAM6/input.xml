@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gestionnaireDesTaches utilisateur="Othman" idMax="2">
+  <board name="New Board" id="1" idMax="1">
+    <project name="New Project" id="1-0" idMax="1" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray">
+      <task id="1-0-0" title="a" deadLine="03/11/2015" archive="false">
+        <comment>a</comment>
+        <description>a</description>
+      </task>
+    </project>
+  </board>
+</gestionnaireDesTaches>

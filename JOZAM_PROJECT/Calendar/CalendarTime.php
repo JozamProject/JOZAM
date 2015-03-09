@@ -133,7 +133,7 @@ class CalendarTime {
 	 * @return CalendarTime RecurringEvent matching the Simple XML Element.
 	 */
 	public static function XML_to_CalendarTime($calendarTime) {
-		return new CalendarTime ( $calendarTime ['hour'], $calendarTime ['minute'], $calendarTime ['second'] );
+		return new CalendarTime ( intval ( $calendarTime ['hour'] ), intval ( $calendarTime ['minute'] ), intval ( $calendarTime ['second'] ) );
 	}
 }
 ?>

@@ -137,7 +137,7 @@ class CalendarDuration {
 		
 		// minutes
 		$i = $this->floor_minutes ();
-		$is = ($h > 1) ? 's' : '';
+		$is = ($i > 1) ? 's' : '';
 		$minutes = ($i == 0) ? '' : sprintf ( '%d minute%s', $i, $is );
 		
 		$return = sprintf ( '%s %s %s', $days, $hours, $minutes );

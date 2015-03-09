@@ -1,5 +1,7 @@
 <?php
-require ('templateCalendar.php');
+// <modified by Jaafar Bouayad>
+require_once ('Calendar.php');
+// </modified by Jaafar Bouayad>function save_xml($file,$xml){
 function save_xml($file, $xml) {
 	$dom = new DOMDocument ( "1.0" );
 	$dom->preserveWhiteSpace = false;
@@ -26,18 +28,35 @@ function addTask($project, $idTask) {
 	$task = $project->addChild ( 'task' );
 	$task->addAttribute ( 'id', $idTask );
 	$task->addAttribute ( 'title', $_POST ['title'] );
+	// <modified by Jaafar Bouayad>
 	$deadline = $_POST ['deadLine'];
 	$task->addAttribute ( 'deadLine', $deadline );
+	$timeLeft = timeLeft ( $deadline );
+	$task->addAttribute ( 'timeLeft', $timeLeft );
+	// </modified by Jaafar Bouayad>
 	$task->addAttribute ( 'archive', 'false' );
-    
-	// <modified by Jaafar Bouayad>
-	file_put_contents('test', 'Dead line : ' . $deadline);
-    $timeLeft = timeLeft($deadline);
-    $task->addAttribute ( 'timeLeft', $timeLeft);
-    // </modified>
-	
 	$task->addChild ( 'comment', $_POST ['comment'] );
 	$task->addChild ( 'description', $_POST ['description'] );
+}
+function addChild($idChild, $idFutureParent, $boards) {
+	$child = findProject ( $idChild, $boards );
+	$parent = findProject ( $idFutureParent, $boards );
+	changeId ( $child, $parent );
+	simplexml_import_xml ( $parent, $child->asXML () );
+	$child ['id'] = $idChild;
+	foreach ( $child->project as $sp ) {
+		changeId ( $sp, $child );
+	}
+	foreach ( $child->task as $task ) {
+		changeTaskId ( $task, $child );
+	}
+}
+function createProject($id, $boards) {
+	$projects = findProject ( $id, $boards );
+	$idMaxProjects = intval ( $projects ['idMax'] );
+	$idProject = $id . '-' . $idMaxProjects;
+	$projects ['idMax'] = $idMaxProjects + 1;
+	addProject ( $projects, $idProject );
 }
 function changeParent($idChild, $idFutureParent, $boards) {
 	$child = findProject ( $idChild, $boards );
@@ -47,11 +66,23 @@ function changeParent($idChild, $idFutureParent, $boards) {
 	$dom = dom_import_simplexml ( $child );
 	$dom->parentNode->removeChild ( $dom );
 }
+function changeIdTask($task, $newParent) {
+	$id = $newParent ['id'] . "-" . $newParent ['idMax'];
+	$idParent = intval ( $newParent ['idMax'] );
+	$newParent ['idMax'] = $idParent + 1;
+	$task ['id'] = $id;
+}
 function changeId($project, $newParent) {
 	$id = $newParent ['id'] . "-" . $newParent ['idMax'];
 	$idParent = intval ( $newParent ['idMax'] );
 	$newParent ['idMax'] = $idParent + 1;
 	$project ['id'] = $id;
+	foreach ( $project->project as $sp ) {
+		changeId ( $sp, $project );
+	}
+	foreach ( $project->task as $task ) {
+		changeTaskId ( $task, $project );
+	}
 }
 // Returns the project with $id in $boards
 function findProject($id, $boards) {
@@ -107,6 +138,12 @@ function findTask($id, $boards) {
 			}
 		}
 	}
+}
+function updateTimeLeft($deadline) {
+	// <modified by Jaafar Bouayad>
+	$timeLeft = timeLeft ( $deadline );
+	return $timeLeft;
+	// </modified by Jaafar Bouayad>
 }
 function findBoard($id, $boards) {
 	foreach ( $boards->board as $board ) {

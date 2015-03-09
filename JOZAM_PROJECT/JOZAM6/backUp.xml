@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gestionnaireDesTaches utilisateur="Othman" idMax="3">
+  <board name="Frigo" id="0" idMax="7">
+    <project name="New Project" id="0-0" idMax="2" data-row="1" data-col="1" data-sizex="4" data-sizey="2" color="LightSlateGray">
+      <task id="0-0-0" title="test" deadLine="03/06/2015" archive="false">
+        <comment>ndvds</comment>
+        <description>test</description>
+      </task>
+      <project name="New Project" id="0-0-1" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="Aqua"/>
+    </project>
+    <project name="New Project" id="0-1" idMax="2" data-row="1" data-col="1" data-sizex="5" data-sizey="4" color="LightSlateGray">
+      <project name="New Project" id="0-1-0" idMax="2" data-row="1" data-col="1" data-sizex="3" data-sizey="3" color="LightSlateGray">
+        <project name="New Project" id="0-1-0-0" idMax="2" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray">
+          <task id="0-1-0-0-1" title="azeazsz" deadLine="03/06/2015" archive="true">
+            <comment>mknflknv</comment>
+            <description>djknk</description>
+          </task>
+        </project>
+        <project name="New Project" id="0-1-0-1" idMax="0" data-row="2" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
+      </project>
+      <project name="New Project" id="0-1-1" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
+    </project>
+    <project name="New Project" id="0-2" idMax="1" data-row="1" data-col="1" data-sizex="3" data-sizey="2" color="LightSlateGray">
+      <project name="New Project" id="0-2-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="blue"/>
+    </project>
+    <project name="New Project" id="0-6" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
+  </board>
+</gestionnaireDesTaches>

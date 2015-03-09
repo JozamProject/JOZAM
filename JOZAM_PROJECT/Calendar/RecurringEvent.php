@@ -73,7 +73,7 @@ class RecurringEvent {
 		$this->setstartTime ( $startTime );
 		$this->setendTime ( $endTime );
 		$this->setTimeSlot ( $timeSlot );
-		$this->setDays ( is_null ( $days ) ? new ArrayCollection ( self::$WEEKDAYS ) : new ArrayCollection ( $days ) );
+		$this->setDays ( (is_null ( $days ) || empty ( $days )) ? new ArrayCollection ( self::$WEEKDAYS ) : new ArrayCollection ( $days ) );
 	}
 	
 	/**
@@ -166,16 +166,16 @@ class RecurringEvent {
 	 * @return ArrayCollection Returns an ArrayCollection of all the CalendarEvents generated.
 	 */
 	public function generate() {
-		$busyCalendarEvents = new ArrayCollection ();
+		$busyEvents = new ArrayCollection ();
 		
-		// busy event date start hour
-		$startTime = $this->getstartTime ();
+		// start time
+		$startTime = $this->getStartTime ();
 		$startTime_hour = $startTime->getHour ();
 		$startTime_minute = $startTime->getMinute ();
 		$startTime_second = $startTime->getSecond ();
 		
-		// busy event date end hour
-		$endTime = $this->getendTime ();
+		// end time
+		$endTime = $this->getEndTime ();
 		$endTime_hour = $endTime->getHour ();
 		$endTime_minute = $endTime->getMinute ();
 		$endTime_second = $endTime->getSecond ();
@@ -187,19 +187,41 @@ class RecurringEvent {
 		$startDate_month = $startDate->getMonth ();
 		$startDate_day = $startDate->getDay ();
 		
+		// days
+		$days = $this->getDays ();
+		
 		$j = ($startTime >= $endTime) ? 1 : 0;
 		
 		$floor_days = $timeSlot->duration ()->floor_days ();
-		for($i = 0; $i < $floor_days; $i ++) {
-			$busy_startDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i, $startTime_hour, $startTime_minute, $startTime_second );
-			if ($this->getDays ()->contains ( $busy_startDate->format ( 'l' ) )) {
-				$busy_endDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i + $j, $endTime_hour, $endTime_minute, $endTime_second );
-				$busy_eventDate = new CalendarEvent ( $busy_startDate, $busy_endDate );
-				$busyCalendarEvents->add ( $busy_eventDate );
+		
+		for($i = - 1; $i < $floor_days; $i ++) {
+			$current_startDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i, $startTime_hour, $startTime_minute, $startTime_second );
+			// $current_startDate_next_day = clone $current_startDate;
+			// $current_startDate_next_day->modify('tomorrow');
+			$add_condition = $days->contains ( $current_startDate->format ( 'l' ) );
+			// || (($j == 1) && $days->contains ( $current_startDate_next_day->format ( 'l' ) ))
+			
+			if ($add_condition) {
+				$current_endDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i + $j, $endTime_hour, $endTime_minute, $endTime_second );
+				$current_event = new CalendarEvent ( $current_startDate, $current_endDate );
+				$busyEvents->add ( $current_event );
 			}
 		}
 		
-		return $busyCalendarEvents;
+		return $busyEvents;
+	}
+	
+	/**
+	 * Maps generate function to an array collection of recurring events.
+	 *
+	 * @return ArrayCollection ArrayCollection of generated events from all recurring events.
+	 */
+	public static function map_generate($recurringEvents) {
+		$generate_function = function ($recurringEvent) {
+			return $recurringEvent->generate ();
+		};
+		$recurringEvents_generated = new ArrayCollection ( array_map ( $generate_function, $recurringEvents->toArray () ) );
+		return $recurringEvents_generated;
 	}
 	
 	/**
@@ -243,12 +265,13 @@ class RecurringEvent {
 	/**
 	 * Generates a RecurringEvent matching a SimpleXMLElement.
 	 *
-	 * @param SimpleXMLElement $recurringEvent
-	 *        	A Simple XML Element.
+	 * @param String $recurringEvent
+	 *        	String of the xml file.
 	 *        	
 	 * @return RecurringEvent RecurringEvent matching the Simple XML Element.
 	 */
 	public static function XML_to_RecurringEvent($recurringEvent) {
+		$recurringEvent = new SimpleXMLElement ( $recurringEvent );
 		$startTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->startTime );
 		$endTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->endTime );
 		$timeSlot = CalendarEvent::XML_to_CalendarEvent ( $recurringEvent->timeSlot );

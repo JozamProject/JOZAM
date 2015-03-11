@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="8">
-  <board name="New Board" id="5" idMax="2">
-    <project name="projet" id="5-0" idMax="7" data-row="1" data-col="3" data-sizex="7" data-sizey="2" color="Aqua">
-      <task id="5-0-0" title="Shabadabada" deadLine="03/26/2015" timeLeft="4 days 8 hours 15 minutes&lt;a href=&quot;http://localhost/JOZAM/JOZAM_PROJECT/CalendarFreeTime.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
+<gestionnaireDesTaches utilisateur="Othman" idMax="10">
+  <board name="New Board" id="9" idMax="3">
+    <project name="New Project" id="9-1" idMax="1" data-row="1" data-col="5" data-sizex="4" data-sizey="2" color="LightSlateGray">
+      <task id="9-1-0" title="" deadLine="03/02/2015" timeLeft="no time left !" archive="false">
         <comment/>
         <description/>
       </task>
-      <task id="5-0-1" title="" deadLine="03/31/2015" timeLeft="5 days 5 hours 15 minutes&lt;a href=&quot;http://localhost/JOZAM/JOZAM_PROJECT/CalendarFreeTime.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
-        <comment/>
-        <description/>
-      </task>
-      <task id="5-0-2" title="title" deadLine="03/24/2015" timeLeft="3 days 18 hours 15 minutes&lt;a href=&quot;http://localhost/JOZAM/JOZAM_PROJECT/CalendarFreeTime.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="true">
-        <comment>comment</comment>
-        <description>description</description>
-      </task>
-      <project name="New Project" id="5-0-6" idMax="0" data-row="1" data-col="1" data-sizex="3" data-sizey="1" color="LightSlateGray"/>
     </project>
-    <project name="New Project" id="5-1" idMax="0" data-row="3" data-col="10" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-  </board>
-  <board name="New Board" id="6" idMax="1">
-    <project name="New Project" id="6-0" idMax="0" data-row="1" data-col="5" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
-  </board>
-  <board name="New Board" id="7" idMax="1">
-    <project name="New Project" id="7-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/>
+    <task id="9-2" title="" deadLine="03/09/2015" timeLeft=" 17 hours 45 minutes&lt;a href=&quot;http://localhost/JOZAM/JOZAM_PROJECT/CalendarFreeTime.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
+      <comment/>
+      <description/>
+    </task>
   </board>
 </gestionnaireDesTaches>

@@ -32,12 +32,13 @@ class CalendarEvent {
 	 *        	The start date.
 	 * @param CalendarDate $endDate
 	 *        	The end date.
-	 *        
+	 *        	
 	 * @throws Exception ZERO DURATION EVENT EXCEPTION
 	 */
 	public function __construct($startDate, $endDate) {
 		$null_duration_event_exception = $this->setCalendarEvent ( $startDate, $endDate );
 		if ($null_duration_event_exception) {
+			echo $startDate;
 			throw new Exception ( 'ZERO DURATION EVENT EXCEPTION : event has the same start date and end date.' );
 		}
 	}

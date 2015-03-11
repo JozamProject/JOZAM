@@ -1,5 +1,5 @@
 <?php
-require ('XMLFunctions.php');
+require_once ('XMLFunctions.php');
 
 // test if there is an action
 if (isset ( $_POST ['action'] )) {

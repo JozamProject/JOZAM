@@ -47,7 +47,7 @@ class CalendarDate extends DateTime {
 	 */
 	public function setCalendarDate($year, $month, $day, $hour, $minute, $second) {
 		$this->setDate ( $year, $month, $day );
-		$this->setTime ( $hour, $minute, $second );
+		$this->setTime ( intval ( $hour ), intval ( $minute ), intval ( $second ) );
 	}
 	
 	/**

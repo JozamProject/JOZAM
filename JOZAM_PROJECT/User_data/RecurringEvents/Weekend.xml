@@ -1,4 +1,4 @@
-<weekend name="Weekend" days="[Saturday, Sunday]">
+<weekend name="weekend" days="[Saturday, Sunday]">
 	<startTime hour="00" minute="00" second="00" />
 	<endTime hour="00" minute="00" second="00" />
 	<timeSlot>

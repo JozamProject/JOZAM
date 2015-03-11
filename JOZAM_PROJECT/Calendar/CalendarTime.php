@@ -101,6 +101,22 @@ class CalendarTime {
 	}
 	
 	/**
+	 * Tests if the calendar time is greater or equal than an other calendar time.
+	 *
+	 * @param CalendarTime $calendarTime
+	 *        	A CalendarTime.
+	 *        	
+	 * @return boolean TRUE if greater or equal, FALSE otherwise.
+	 */
+	public function is_greater_or_equal($calendarTime) {
+		$this_date = new DateTime ();
+		$this_date->setTime ( intval ( $this->getHour () ), intval ( $this->getMinute () ), intval ( $this->getSecond () ) );
+		$calendarTime_date = new DateTime ();
+		$calendarTime_date->setTime ( intval ( $calendarTime->getHour () ), intval ( $calendarTime->getMinute () ), intval ( $calendarTime->getSecond () ) );
+		return $this_date >= $calendarTime_date;
+	}
+	
+	/**
 	 * Returns a string representation of this object.
 	 *
 	 * @return string
@@ -133,7 +149,7 @@ class CalendarTime {
 	 * @return CalendarTime RecurringEvent matching the Simple XML Element.
 	 */
 	public static function XML_to_CalendarTime($calendarTime) {
-		return new CalendarTime ( intval ( $calendarTime ['hour'] ), intval ( $calendarTime ['minute'] ), intval ( $calendarTime ['second'] ) );
+		return new CalendarTime ( $calendarTime ['hour'], $calendarTime ['minute'], $calendarTime ['second'] );
 	}
 }
 ?>

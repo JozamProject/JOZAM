@@ -30,6 +30,13 @@ class RecurringEvent {
 	);
 	
 	/**
+	 * Name of the recurring event.
+	 *
+	 * @var string
+	 */
+	private $name;
+	
+	/**
 	 * The time slot during which the generated events will occur.
 	 *
 	 * @var CalendarEvent
@@ -69,11 +76,33 @@ class RecurringEvent {
 	 * @param array $days
 	 *        	The days of the week during which the generated events will occur (all days of the week by default).
 	 */
-	public function __construct($startTime, $endTime, $timeSlot, $days = null) {
-		$this->setstartTime ( $startTime );
-		$this->setendTime ( $endTime );
+	public function __construct($name, $startTime, $endTime, $timeSlot, $days = null) {
+		$this->setName ( $name );
+		$this->setStartTime ( $startTime );
+		$this->setEndTime ( $endTime );
 		$this->setTimeSlot ( $timeSlot );
 		$this->setDays ( (is_null ( $days ) || empty ( $days )) ? new ArrayCollection ( self::$WEEKDAYS ) : new ArrayCollection ( $days ) );
+	}
+	
+	/**
+	 * Sets the name of the recurring event.
+	 *
+	 * @param string $name
+	 *        	Name of the recurring event.
+	 *        	
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+	
+	/**
+	 * Returns the name of the recurring event.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
 	}
 	
 	/**
@@ -190,7 +219,10 @@ class RecurringEvent {
 		// days
 		$days = $this->getDays ();
 		
-		$j = ($startTime >= $endTime) ? 1 : 0;
+		$j = ($startTime->is_greater_or_equal($endTime)) ? 1 : 0;
+		
+		//debug
+		//echo 'j = ' . $j . ' $startTime : '. $startTime. ' $endTime : '. $endTime. '<br><br>';
 		
 		$floor_days = $timeSlot->duration ()->floor_days ();
 		
@@ -214,9 +246,14 @@ class RecurringEvent {
 	/**
 	 * Maps generate function to an array collection of recurring events.
 	 *
+	 * @param ArrayCollection $recurringEvents
+	 *        	Recurring events.
+	 *        	
 	 * @return ArrayCollection ArrayCollection of generated events from all recurring events.
 	 */
 	public static function map_generate($recurringEvents) {
+		//debug
+		//echo 'map_generate recurring events :<br>' . $recurringEvents . '<br><br>';
 		$generate_function = function ($recurringEvent) {
 			return $recurringEvent->generate ();
 		};
@@ -230,12 +267,12 @@ class RecurringEvent {
 	 * @return string
 	 */
 	public function __toString() {
-		$return = 'Every ';
+		$return = $this->getName () . ' : every ';
 		foreach ( $this->getDays () as $d ) {
 			$return .= $d . ', ';
 		}
-		$return .= '<br>from ' . $this->getStartTime () . ' to ' . $this->getEndTime () . ', ';
-		$return .= '<br>during this time slot : ' . $this->getTimeSlot () . '.';
+		$return .= '<br>from ' . $this->getStartTime () . ' to ' . $this->getEndTime ();
+		$return .= '<br>during this time slot : ' . $this->getTimeSlot ();
 		
 		return $return;
 	}
@@ -249,7 +286,7 @@ class RecurringEvent {
 	 * @return String Simple XML Element string matching this object.
 	 */
 	public function __toXML($name = 'recurringEvent') {
-		$xml_string = '<' . $name . ' days = "' . str_replace ( '<br>', '', $this->getDays () ) . '">
+		$xml_string = '<' . $name . ' name="' . $this->getName () . '" days = "' . str_replace ( '<br>', '', $this->getDays () ) . '">
 ';
 		
 		$xml_string .= $this->getStartTime ()->__toXML ( 'startTime' );
@@ -272,10 +309,11 @@ class RecurringEvent {
 	 */
 	public static function XML_to_RecurringEvent($recurringEvent) {
 		$recurringEvent = new SimpleXMLElement ( $recurringEvent );
+		$name = $recurringEvent ['name'];
 		$startTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->startTime );
 		$endTime = CalendarTime::XML_to_CalendarTime ( $recurringEvent->endTime );
 		$timeSlot = CalendarEvent::XML_to_CalendarEvent ( $recurringEvent->timeSlot );
 		$days = explode ( ', ', substr ( $recurringEvent ['days'], 1, - 1 ) );
-		return new RecurringEvent ( $startTime, $endTime, $timeSlot, $days );
+		return new RecurringEvent ( $name, $startTime, $endTime, $timeSlot, $days );
 	}
 }

@@ -1,0 +1,8 @@
+<morning_recess name="Morning Recess" days = "[Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]">
+<startTime hour = "09" minute = "45" second = "00"/>
+<endTime hour = "10" minute = "15" second = "00"/>
+<timeSlot>
+<startDate year = "2015" month = "03" day = "02" hour = "00" minute = "00" second = "00"/>
+<endDate year = "2015" month = "03" day = "09" hour = "00" minute = "00" second = "00"/>
+</timeSlot>
+</morning_recess>

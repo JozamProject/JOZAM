@@ -1,11 +1,11 @@
-<sleep
+<sleep name="sleep"
 	days="[Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]">
 	<startTime hour="18" minute="00" second="00" />
 	<endTime hour="08" minute="00" second="00" />
 	<timeSlot>
-		<startDate year="2015" month="01" day="01" hour="00" minute="00"
+		<startDate year="2015" month="03" day="02" hour="00" minute="00"
 			second="00" />
-		<endDate year="2016" month="01" day="01" hour="00" minute="00"
+		<endDate year="2015" month="03" day="09" hour="00" minute="00"
 			second="00" />
 	</timeSlot>
 </sleep>

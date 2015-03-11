@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<configuration refresh_rate="00h 30min" calendar_url="http://localhost/JOZAM/JOZAM_PROJECT/Calendar/Tests/ADECal.ics">
-	<recurringEvent name="Afternoon_recess"/>
-	<recurringEvent name="LunchBreak"/>
-	<recurringEvent name="Morning_recess"/>
-	<recurringEvent name="Sleep"/>
-	<recurringEvent name="Weekend"/>
+<configuration refresh_rate="00h 45min" calendar_url="http://localhost/JOZAM/JOZAM_PROJECT/Calendar/Tests/ADECal.ics">
+	<recurringEvent id="sleep" name="Sleep"/>
+	<recurringEvent id="weekend" name="Weekend"/>
+	<recurringEvent id="afternoon_recess" name="Afternoon Recess"/>
+	<recurringEvent id="morning_recess" name="Morning Recess"/>
+	<recurringEvent id="lunchBreak" name="Lunch Break"/>
 </configuration>

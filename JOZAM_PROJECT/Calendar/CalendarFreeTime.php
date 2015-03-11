@@ -117,7 +117,7 @@ class CalendarFreeTime {
 	static function retrieveFreeCalendarEvents($calendarEvents, $timeSlot) {
 		CalendarEvent::sort ( $calendarEvents );
 		// debug
-		//echo 'Sorted event dates :<br>' . $calendarEvents . '<br><br>';
+		// echo 'Sorted event dates :<br>' . $calendarEvents . '<br><br>';
 		$freeCalendarEvents = $timeSlot->removeAllCalendarEvents ( $calendarEvents );
 		return $freeCalendarEvents;
 	}
@@ -128,7 +128,7 @@ class CalendarFreeTime {
 	 * @param ArrayCollection $calendarEvents
 	 *        	Calendar events.
 	 *        	
-	 * @param string $calendar_event_name
+	 * @param string $recurringEvent_name
 	 *        	Name of the recurring event (is 'Free Time' by default).
 	 *        	
 	 * @param string $calendar_file_path

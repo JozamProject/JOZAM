@@ -1,244 +1,276 @@
 <?php
-session_start();
-//Test the variable session for connection
-if(isset($_GET["state"])){
-    if($_GET["state"] == "ok"){
-        $_SESSION['connect'] =true;
-    }
+session_start ();
+// Test the variable session for connection
+if (isset ( $_GET ["state"] )) {
+	if ($_GET ["state"] == "ok") {
+		$_SESSION ['connect'] = true;
+	}
 }
 
-if(isset($_SESSION['connect'])){
-    if($_SESSION['connect'] == true){
-?>
+if (isset ( $_SESSION ['connect'] )) {
+	if ($_SESSION ['connect'] == true) {
+		?>
 
 <?php
-        //Function to display tasks in each project
-function showTask($task){
-    ?>
-    <button id="modify-task" value="<?php echo $task['id'];?>" onclick="popupmodify()" style="color : black; font-size:16px; border: none">+</button>
-        <abbr id="<?php echo $task['id'];?>" title="Description :<?php echo $task->description . "\r\n";?>Comment :<?php echo $task->comment . "\r\n";?>"> 
+		// Function to display tasks in each project
+		function showTask($task) {
+			?>
+<button id="modify-task" value="<?php echo $task['id'];?>"
+	onclick="popupmodify()"
+	style="color: black; font-size: 16px; border: none">+</button>
+<abbr id="<?php echo $task['id'];?>"
+	title="Description :<?php echo $task->description . "\r\n";?>Comment :<?php echo $task->comment . "\r\n";?>"> 
             <?php if($task['archive']=="true"){?>
             	<s id="<?php echo "underline".$task['id'];?>">
             		<?php
-                        $var = "- ".$task['title']." || ".$task['deadLine']. ' || time left : ' . $task ['timeLeft'];
-                        echo $var;
-                    ?> 
+				$var = "- " . $task ['title'] . " || " . $task ['deadLine'] . ' || time left : ' . $task ['timeLeft'];
+				echo $var;
+				?> 
             	</s>
-            <?php }
-            	  else 
-            	  		  echo "- ".$task['title'] . " || " .$task['deadLine']. '|| time left : ' . $task ['timeLeft']; ?>
+            <?php
+			} else
+				echo "- " . $task ['title'] . " || " . $task ['deadLine'] . '|| time left : ' . $task ['timeLeft'];
+			?>
         </abbr>
 </br>
 <?php
-    }
-?>
+		}
+		?>
 
-<?php 
-        //function to load projects from XML dynamically and display them on boards
-function showProject($project){
-        	?>
-    <li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu" style= "background:<?php echo $project['color']?>">
-        <div id="<?php echo "my-widget".$project['id'];?>" value="<?php echo $project['id'];?>" onload="ch(this.id)" style="overflow: auto;">
-            <header id="<?php echo $project['id']?>" ondblclick="selectItem(this.id,0)" onclick="unselectItem(this.id,0)" >
-                <p id="<?php echo $project['id']?>" style="cursor: move; background: #DAD5D5; height : 3px; float : left;" class="glyphicon glyphicon-move" ></p>
-                <div class="dragDiv">
-                    <button id="<?php echo $project['id']; ?>" value="<?php echo $project['name']?>" class="btn btn-default btn-xs" style="background:none;font-weight: bold;border:none;"  onclick="changeProjectName(this.id,this.value)">
+<?php
+		// function to load projects from XML dynamically and display them on boards
+		function showProject($project) {
+			?>
+<li id="<?php echo $project['id']?>" data-row="<?php echo $project['data-row']?>" data-col="<?php echo $project['data-col']?>" data-sizex="<?php echo $project['data-sizex']?>" data-sizey="<?php echo $project['data-sizey']?>" class="gs-w scrollable-menu" style= "background:<?php echo $project['color']?>">
+	<div id="<?php echo "my-widget".$project['id'];?>"
+		value="<?php echo $project['id'];?>" onload="ch(this.id)"
+		style="overflow: auto;">
+		<header id="<?php echo $project['id']?>"
+			ondblclick="selectItem(this.id,0)" onclick="unselectItem(this.id,0)">
+			<p id="<?php echo $project['id']?>"
+				style="cursor: move; background: #DAD5D5; height: 3px; float: left;"
+				class="glyphicon glyphicon-move"></p>
+			<div class="dragDiv">
+				<button id="<?php echo $project['id']; ?>"
+					value="<?php echo $project['name']?>"
+					class="btn btn-default btn-xs"
+					style="background: none; font-weight: bold; border: none;"
+					onclick="changeProjectName(this.id,this.value)">
 					<?php echo $project['name']?>
 					</button>
-                    <div id="<?php echo $project['id'];?>" class="delete" onclick="deleteproj(this.id)">
-                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                    </div>
-                    <div id="<?php echo $project['id'];?>" onclick="createproj(this.id)" class="load">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                    </div>
-                    <button id="create-user" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="loadtask">
-                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-                    </button>
-                    <button id="changeColor" value="<?php echo $project['id'];?>" style="background : none; border : none;" class="chcolor">
-                        <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </header>
-            <div style="text-align: left; margin-left: 3%;"> 
-                <?php 
-                    //Iteretor to fetch tasks from XML and display them for each project
-                    foreach($project->task as $stask){
-                        showTask($stask);
-                        }?>
+				<div id="<?php echo $project['id'];?>" class="delete"
+					onclick="deleteproj(this.id)">
+					<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+				</div>
+				<div id="<?php echo $project['id'];?>" onclick="createproj(this.id)"
+					class="load">
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+				</div>
+				<button id="create-user" value="<?php echo $project['id'];?>"
+					style="background: none; border: none;" class="loadtask">
+					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+				</button>
+				<button id="changeColor" value="<?php echo $project['id'];?>"
+					style="background: none; border: none;" class="chcolor">
+					<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+				</button>
+			</div>
+		</header>
+		<div style="text-align: left; margin-left: 3%;"> 
+                <?php
+			// Iteretor to fetch tasks from XML and display them for each project
+			foreach ( $project->task as $stask ) {
+				showTask ( $stask );
+			}
+			?>
                 <ul style="background: #DDDDDD;">
-                     <?php 
-                        //Iteretor to fetch sub projects and display the recurssevilly
-                        foreach($project->project as $sproject){
-                            showProject($sproject);
-                            }?>	
+                     <?php
+			// Iteretor to fetch sub projects and display the recurssevilly
+			foreach ( $project->project as $sproject ) {
+				showProject ( $sproject );
+			}
+			?>	
                 </ul>
-            </div>
-        </div>
-    </li>
-<?php 
-        }
-?>
-<?php 
-    //Load the language of JOZAM
-    $languages = new SimpleXMLElement('Languages.xml',0,true);
-    $boards = new SimpleXMLElement('input.xml',0,true);
-    foreach($languages->Language as $l){
-        if($l['chosen']=="true"){
-            $lstring = str_replace(' ', '', $l);
-            $language =  new SimpleXMLElement($lstring,0,true);
-
-        }
-    }
-?>
+		</div>
+	</div>
+</li>
+<?php
+		}
+		?>
+<?php
+		// Load the language of JOZAM
+		$languages = new SimpleXMLElement ( 'Languages.xml', 0, true );
+		$boards = new SimpleXMLElement ( 'input.xml', 0, true );
+		foreach ( $languages->Language as $l ) {
+			if ($l ['chosen'] == "true") {
+				$lstring = str_replace ( ' ', '', $l );
+				$language = new SimpleXMLElement ( $lstring, 0, true );
+			}
+		}
+		?>
 <!-- Startin the HTML document -->
 <!DOCTYPE html>
-<html charset="UTF-8" >
-    <head>
-        <!-- SRC needd Bootstrap , Ajax, Jquery et les CSS -->
-        <title><?php echo $language->Title ?></title>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png" type="image/png"/>
-        <link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/boardsStyle.css">
-        <link rel="stylesheet" href="assets/css/bootstrap.netdna.min.css" />
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap-glyphicons.css" >
-        <link rel="stylesheet" href="assets/changeColorAssets/jquery-ui.css">
-        <link rel="stylesheet" href="popup/jquery-ui.css">
-        
-        <script src="assets/jquery.min.js"></script>
-        <script src="assets/css/bootstrap.min.js"></script>
-        <script src="popup/jquery-ui.js"></script>
-        <script src="assets/jquery-1.11.2.js"></script>
-        <script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
-    </head>
-    <!-- Body of the project -->
-    <body>
-        <!-- the  bootstrap navigation Bar -->
-        <div>
-            <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" data-target="#navbarCollapse"
-                            data-toggle="collapse" class="navbar-toggle">
-                            <span class="sr-only">Toggle navigation</span> <span
-                                class="icon-bar"></span> <span class="icon-bar"></span> <span
-                                class="icon-bar"></span>
-                        </button>
-						<a href="#" class="navbar-brand"><img src="assets/css/JOZAM_Logo.png" style="width:40px; height: 40px; margin-top:-10px;" /></a>
-                        <a href="#" class="navbar-brand"><?php echo $language->Project ?></a>
-                    </div>
-                    <!-- Collection of nav links and other content for toggling -->
-                    <div id="navbarCollapse" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a id="addBoard" href="#"><?php echo $language->AddBoard ?></a></li>
-                            <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $language->Toggle ?> <span
-                                    class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <!-- Adding elements dynamically to the navigaftion bar "Toggle"-->
-                                        <?php 
-                                            foreach($boards->board as $board){?>                                        
-                                                <li><button id="btnshowhide"
-                                            value="<?php echo $board['id'];?>" href="#"
-                                            style="width: 100%; background: none;"><?php echo $board['name'];?></button></li>
+<html charset="UTF-8">
+<head>
+<!-- SRC needd Bootstrap , Ajax, Jquery et les CSS -->
+<title><?php echo $language->Title ?></title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" href="assets/css/JOZAM_Logo.png"
+	type="image/png" />
+<link rel="stylesheet" type="text/css"
+	href="assets/css/jquery.gridster.css">
+<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+<link rel="stylesheet" type="text/css" href="assets/css/boardsStyle.css">
+<link rel="stylesheet" href="assets/css/bootstrap.netdna.min.css" />
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-glyphicons.css">
+<link rel="stylesheet" href="assets/changeColorAssets/jquery-ui.css">
+<link rel="stylesheet" href="popup/jquery-ui.css">
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/css/bootstrap.min.js"></script>
+<script src="popup/jquery-ui.js"></script>
+<script src="assets/jquery-1.11.2.js"></script>
+<script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
+</head>
+<!-- Body of the project -->
+<body>
+	<!-- the  bootstrap navigation Bar -->
+	<div>
+		<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" data-target="#navbarCollapse"
+						data-toggle="collapse" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand"><img
+						src="assets/css/JOZAM_Logo.png"
+						style="width: 40px; height: 40px; margin-top: -10px;" /></a> <a
+						href="#" class="navbar-brand"><?php echo $language->Project ?></a>
+				</div>
+				<!-- Collection of nav links and other content for toggling -->
+				<div id="navbarCollapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a id="addBoard" href="#"><?php echo $language->AddBoard ?></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $language->Toggle ?> <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<!-- Adding elements dynamically to the navigaftion bar "Toggle"-->
+                                        <?php
+		foreach ( $boards->board as $board ) {
+			?>                                        
+                                                <li><button
+										id="btnshowhide" value="<?php echo $board['id'];?>" href="#"
+										style="width: 100%; background: none;"><?php echo $board['name'];?></button></li>
                                             <?php } ?>
-                                </ul>
-                            </li>
-                            <li><a id="synchronize" href="#"><?php echo $language->Synchronize ?></a></li>
-                            <li><a id="rollBack" href="#"><?php echo $language->RollBack ?></a></li>
-                            <li><a id="archive" href="#"><?php echo $language->Archive ?></a></li>
-                            
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                </ul></li>
+						<li><a id="synchronize" href="#"><?php echo $language->Synchronize ?></a></li>
+						<li><a id="rollBack" href="#"><?php echo $language->RollBack ?></a></li>
+						<li><a id="archive" href="#"><?php echo $language->Archive ?></a></li>
+
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">
                                         <?php echo $language->Abb;?>
                                         <span class="caret"></span>
-                                </a>
-                                <!-- choosing the language -->
-                                <ul class="dropdown-menu" role="menu">
-                                        <?php 
-                                            foreach($languages->Language as $l){ 
-                                            if($l['chosen']=="true")
-                                                $chosen = 'v ';
-                                            else $chosen = " ";
-                                        ?>
+						</a> <!-- choosing the language -->
+							<ul class="dropdown-menu" role="menu">
+                                        <?php
+		foreach ( $languages->Language as $l ) {
+			if ($l ['chosen'] == "true")
+				$chosen = 'v ';
+			else
+				$chosen = " ";
+			?>
                                     <li href="#">
-                                        <button id="<?php echo $l['name'];?>" style="width: 100%; background: none;" onclick="change(this.id)">
+									<button id="<?php echo $l['name'];?>"
+										style="width: 100%; background: none;"
+										onclick="change(this.id)">
                                             <?php echo $chosen.$l['name'];?>
                                         </button>
-                                    </li>  
+								</li>  
                                         <?php } ?>
-                                </ul>
-                            </li>
-                            <!-- disconnect -->
-                            <li>
-                                <a href="logout.php" id="disconnect"><?php echo $language->Disconnect; ?></a>
-                            </li>
-                            <!--Config-->
-                            <li>
-                                <button id="config" style="background : none; border : none; margin-top : 15px; ">
-                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                </button>
-                            </li>
-                            <li>
-                                
-                                    <a href="help/help.html"  target="_blank" class="glyphicon glyphicon-question-sign" aria-hidden="true"></a>
-                                
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class="navbar" style="margin-top: 60px;">
-            <div class="container" style="margin-left : -20px !important;">
-            <!--Charge and display boards on the main menu-->
-            <?php 
-                foreach($boards->board as $board)
-                {
-            ?> 
-                <div id="<?php echo "showorHide".$board['id'];?>" style="margin-right: -150px;">
-                    <div id="<?php echo "duplicater".$board['id'];?>">
-                        <div id="<?php echo "demo-".$board['id'];?>" class="gridster">
-                                                  
-                            <div class="btn-group" role="group" aria-label="...">
-                            	<button id="<?php echo $board['id']; ?>" value="<?php echo $board['name'];?>" class="btn btn-default" style="background:none;font-weight: bold;border:none;"  onclick="changeBoardName(this.id,this.value)">
+                                </ul></li>
+						<!-- disconnect -->
+						<li><a href="logout.php" id="disconnect"><?php echo $language->Disconnect; ?></a>
+						</li>
+						<!--Config-->
+						<li>
+							<button id="config"
+								style="background: none; border: none; margin-top: 15px;">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+							</button>
+						</li>
+						<li><a href="help/help.html" target="_blank"
+							class="glyphicon glyphicon-question-sign" aria-hidden="true"></a>
+
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="navbar" style="margin-top: 60px;">
+		<div class="container" style="margin-left: -20px !important;">
+			<!--Charge and display boards on the main menu-->
+            <?php
+		foreach ( $boards->board as $board ) {
+			?> 
+                <div id="<?php echo "showorHide".$board['id'];?>"
+				style="margin-right: -150px;">
+				<div id="<?php echo "duplicater".$board['id'];?>">
+					<div id="<?php echo "demo-".$board['id'];?>" class="gridster">
+
+						<div class="btn-group" role="group" aria-label="...">
+							<button id="<?php echo $board['id']; ?>"
+								value="<?php echo $board['name'];?>" class="btn btn-default"
+								style="background: none; font-weight: bold; border: none;"
+								onclick="changeBoardName(this.id,this.value)">
                             		<?php echo $board['name'];?>
-                            	</button> 
-                                <button type="button" id="addWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
-                                    <?php echo $language->AddProject ?>
+                            	</button>
+							<button type="button" id="addWidgetButton"
+								value="<?php echo $board['id'];?>"
+								class="btn btn-primary btn-sm">
+                                    <?php echo $language->AddProject?>
                                 </button>
-                                <button type="button" id="deleteWidgetButton" value="<?php echo $board['id'];?>" class="btn btn-primary btn-sm">
-                                    <?php echo $language->DeleteBoard ?>
+							<button type="button" id="deleteWidgetButton"
+								value="<?php echo $board['id'];?>"
+								class="btn btn-primary btn-sm">
+                                    <?php echo $language->DeleteBoard?>
                                 </button>
-                            </div>
-                            <ul id="<?php echo $board['id'];?>" style="width: 105% !important; padding : 0;" ondblclick="selectItem(this.id,1)" onclick="unselectItem(this.id,1)">
-                                <!--Display projects in this board-->
-                                    <?php 
-                                        foreach($board->project as $project){
-                                            showProject($project);
-                                        }
-                                    ?>
+						</div>
+						<ul id="<?php echo $board['id'];?>"
+							style="width: 105% !important; padding: 0;"
+							ondblclick="selectItem(this.id,1)"
+							onclick="unselectItem(this.id,1)">
+							<!--Display projects in this board-->
+                                    <?php
+			foreach ( $board->project as $project ) {
+				showProject ( $project );
+			}
+			?>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            <?php 
-                }
-            ?>
+					</div>
+				</div>
+			</div>
+            <?php
+		}
+		?>
             </div>
-        </div>
-        
-        <!-- end of the html code of -->
-        <!-- the JS Script needed -->
-        <script>
+	</div>
+
+	<!-- end of the html code of -->
+	<!-- the JS Script needed -->
+	<script>
 		$(document).on( "click", "#deleteWidgetButton", function(e) {
             e.preventDefault(); 
             var action = "DeleteBoard";
@@ -259,7 +291,7 @@ function showProject($project){
             });
 		});
         </script>
-        <script>
+	<script>
                 //Creating new board ans send action to trait.php to save it in input XML             
                 var i = 2;
                 var idcpt = 0;
@@ -435,7 +467,7 @@ function showProject($project){
                 }
             </script>
 
-            <script>
+	<script>
             //Show and Hide Boards the Toggle Button
                     var idPrj;
                     $(document).on( "click", "#btnshowhide", function() {
@@ -446,7 +478,7 @@ function showProject($project){
 
             </script>
 
-            <script>
+	<script>
                 //function to send the new Created project to save it on XML
                 function createproj(idParent){
                     var action = "CreateProject";
@@ -482,28 +514,28 @@ function showProject($project){
                  }
                 }
             </script>
-        <!-- src script jquery to change color-->
-        <script src="assets/changeColorAssets/jquery-ui.js"></script>
-        <!-- style for color changer -->
-        <style>
-            .custom-colorize {
-                position: relative;
-                width: 100%;
-                height: 100%;
-            }
+	<!-- src script jquery to change color-->
+	<script src="assets/changeColorAssets/jquery-ui.js"></script>
+	<!-- style for color changer -->
+	<style>
+.custom-colorize {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
 
-            .custom-colorize-changer {
-                font-size: 10px;
-                position: absolute;
-                height: 0px;
-                width: 0px;
-                left: 1px;
-                bottom: 1px;
-                background-color: none;
-            }
-        </style>
-        <!--Script of color changer-->
-        <script>
+.custom-colorize-changer {
+	font-size: 10px;
+	position: absolute;
+	height: 0px;
+	width: 0px;
+	left: 1px;
+	bottom: 1px;
+	background-color: none;
+}
+</style>
+	<!--Script of color changer-->
+	<script>
 
               $(function() {
                   //variable colors
@@ -627,8 +659,8 @@ function showProject($project){
                 });
               });
         </script>
-        
-        <script>
+
+	<script>
 
               $(document).on( "click", "#changeColor", function() {
                   var me = $(this);
@@ -643,52 +675,52 @@ function showProject($project){
                         });
               });
         </script>
-        <!-- style script of popup task creator-->
-        <style>
-            label, input {
-                display: block;
-            }
+	<!-- style script of popup task creator-->
+	<style>
+label, input {
+	display: block;
+}
 
-            input.text {
-                margin-bottom: 12px;
-                width: 95%;
-                padding: .4em;
-            }
+input.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
 
-            fieldset {
-                padding: 0;
-                border: 0;
-                margin-top: 25px;
-            }
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
 
-            div#users-contain {
-                width: 350px;
-                margin: 20px 0;
-            }
+div#users-contain {
+	width: 350px;
+	margin: 20px 0;
+}
 
-            div#users-contain table {
-                margin: 1em 0;
-                border-collapse: collapse;
-                width: 100%;
-            }
+div#users-contain table {
+	margin: 1em 0;
+	border-collapse: collapse;
+	width: 100%;
+}
 
-            div#users-contain table td, div#users-contain table th {
-                border: 1px solid #eee;
-                padding: .6em 10px;
-                text-align: left;
-            }
+div#users-contain table td, div#users-contain table th {
+	border: 1px solid #eee;
+	padding: .6em 10px;
+	text-align: left;
+}
 
-            .ui-dialog .ui-state-error {
-                padding: .3em;
-            }
+.ui-dialog .ui-state-error {
+	padding: .3em;
+}
 
-            .validateTips {
-                border: 1px solid transparent;
-                padding: 0.3em;
-            }
-        </style>
-        <!-- popup function task creator -->
-        <script>
+.validateTips {
+	border: 1px solid transparent;
+	padding: 0.3em;
+}
+</style>
+	<!-- popup function task creator -->
+	<script>
             //need to be called once to activate the popup
             popup();
             //function of the popup
@@ -773,8 +805,8 @@ function showProject($project){
               });
             }
         </script>
-        <!-- script of task modifyer -->
-        <script>
+	<!-- script of task modifyer -->
+	<script>
             //popupmodify() modify a task
             /*function popupmodify(){
                 $(document).on( "click", "#modify-task", function() {
@@ -786,11 +818,11 @@ function showProject($project){
             }*/
         
         </script>
-        
-        <!-- Script of Switcher Alt + t  : change order of boards-->
 
-        <!-- Change Language Script -->
-        <script>
+	<!-- Script of Switcher Alt + t  : change order of boards-->
+
+	<!-- Change Language Script -->
+	<script>
                 //sending the langage chose !!
                 function change(clicked_lang){
                     //send the chosen language to php file
@@ -808,8 +840,8 @@ function showProject($project){
                     });
                 }
         </script>
-        
-        <script>
+
+	<script>
 
         $(document).on( "click", "#synchronize", function() {
             var action = "synchronize";
@@ -857,9 +889,9 @@ function showProject($project){
                   }); 
         });
         </script>
-        
-             <!--change board name-->
-        <script>
+
+	<!--change board name-->
+	<script>
             function changeBoardName(id,name){
                 var action = "ModifyBoardName";
                 var newName = prompt("Please enter board name", name);
@@ -898,9 +930,9 @@ function showProject($project){
             }
 			
         </script>
-		
-        
-        <script>
+
+
+	<script>
             //To Do SELECTED PROJECT
             var selectedProjects = [];
             var copiedProjects = [];
@@ -1045,33 +1077,29 @@ function showProject($project){
             window.addEventListener('keyup', keyup);
             window.addEventListener('keydown', keydown);
         </script>
-        <!-- the Form of the popup -->
-        <div id="dialog-form" title="Create task" style="height:410px!important;">
-            <form>
-                <fieldset>
-                    <label for="title">
-                        Title
-                    </label> 
-                    <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all"> 
-                    <label for="description">
-                        Description
-                    </label> 
-                    <input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all" style="height: 70px;">
-                    <label for="deadLine">
-                        Deadline
-                    </label> 
-                    <input type="datepicker" name="deadLine" id="deadLine" class="text ui-widget-content ui-corner-all"> 
-                    <label for="comment">
-                        comment
-                    </label> 
-                    <input type="text" name="comment" id="comment" class="text ui-widget-content ui-corner-all" style="height: 70px;">
-                    <input type="submit" tabindex="-1" style="position: absolute; top: -1000px"> 	 	
-	                </fieldset> 	 	
-	            </form> 	 	
-	        </div> 	 	
-	        <!-- end form --> 	 	
-	          <!-- script of task modifyer --> 	 	
-	        <script> 	 	
+	<!-- the Form of the popup -->
+	<div id="dialog-form" title="Create task"
+		style="height: 410px !important;">
+		<form>
+			<fieldset>
+				<label for="title"> Title </label> <input type="text" name="title"
+					id="title" class="text ui-widget-content ui-corner-all"> <label
+					for="description"> Description </label> <input type="text"
+					name="description" id="description"
+					class="text ui-widget-content ui-corner-all" style="height: 70px;">
+				<label for="deadLine"> Deadline </label> <input type="datepicker"
+					name="deadLine" id="deadLine"
+					class="text ui-widget-content ui-corner-all"> <label for="comment">
+					comment </label> <input type="text" name="comment" id="comment"
+					class="text ui-widget-content ui-corner-all" style="height: 70px;">
+				<input type="submit" tabindex="-1"
+					style="position: absolute; top: -1000px">
+			</fieldset>
+		</form>
+	</div>
+	<!-- end form -->
+	<!-- script of task modifyer -->
+	<script> 	 	
 	            popupmodify();
 	            //popupmodify() modify a task 	 	
 	            function popupmodify(){ 	 	
@@ -1227,7 +1255,9 @@ function showProject($project){
                                         document.getElementById("archivemodif").checked = true;
                                     else
                                         document.getElementById("archivemodif").checked = false;
-   	    	                        
+
+                                    var link = $("#openFreeTimeCalendar");
+                                    link.attr('href', 'User_data/FreeTimeCalendars/task_' + idTask + '.ics');
    	                            } 	 	
    	                             	 	
    	                      }); 	
@@ -1244,42 +1274,39 @@ function showProject($project){
    	 	 	
    	            } 	 	
    	         	 	
-   	        </script> 	 	
-   	        <!-- the Form of the popup modify --> 	 	
-   	        <div id="dialog-form-modify" title="Modify task" style="height:4   !important;"> 	 	
-   	            <form> 	 	
-   	                <fieldset> 
-                        <label for="archivemodif"> 	 	
-   	                        State	 	
-   	                    </label>  	 	
-   	                    <label class="checkbox-inline">
-                            <input type="checkbox" id="archivemodif" name="archivemodif" value="archivemodif"> Archive
-                        </label> 
-   	                    <label for="titlemodif"> 	 	
-   	                        Title 	 	
-   	                    </label>  	 	
-   	                    <input type="text" name="titlemodif" id="titlemodif" class="text ui-widget-content ui-corner-all">  	 	
-   	                    <label for="descriptionmodif"> 	 	
-   	                        Description 	 	
-   	                    </label>  	 	
-   	                    <input type="text" name="descriptionmodif" id="descriptionmodif" class="text ui-widget-content ui-corner-all" style="height: 70px;"> 	 	
-   	                    <label for="deadLinemodif"> 	 	
-   	                        Deadline 	 	
-   	                    </label>  	 	
-   	                    <input type="datepicker" name="deadLinemodif" id="deadLinemodif" class="text ui-widget-content ui-corner-all">  	 	   	                    
-   	                    <label for="commentmodif"> 	 	
-   	                        comment 	 	
-   	                    </label>  	 	
-   	                    <input type="text" name="commentmodif" id="commentmodif" class="text ui-widget-content ui-corner-all" style="height: 70px;"> 
-                    <input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
-                </fieldset>
-            </form>
-        </div>
-        <!-- end form -->
-    </body>
+   	        </script>
+	<!-- the Form of the popup modify -->
+	<div id="dialog-form-modify" title="Modify task"
+		style="height: 4 !important;">
+		<form>
+			<fieldset>
+				<label for="archivemodif"> State </label> <label
+					class="checkbox-inline"> <input type="checkbox" id="archivemodif"
+					name="archivemodif" value="archivemodif"> Archive
+				</label> <label for="titlemodif"> Title </label> <input type="text"
+					name="titlemodif" id="titlemodif"
+					class="text ui-widget-content ui-corner-all"> <label
+					for="descriptionmodif"> Description </label> <input type="text"
+					name="descriptionmodif" id="descriptionmodif"
+					class="text ui-widget-content ui-corner-all" style="height: 70px;">
+				<label for="deadLinemodif"> Deadline </label> <input
+					type="datepicker" name="deadLinemodif" id="deadLinemodif"
+					class="text ui-widget-content ui-corner-all"> <label
+					for="commentmodif"> comment </label> <input type="text"
+					name="commentmodif" id="commentmodif"
+					class="text ui-widget-content ui-corner-all" style="height: 70px;">
+				<input type="submit" tabindex="-1"
+					style="position: absolute; top: -1000px"> <label> <a
+					id='openFreeTimeCalendar'>Open Free Time Calendar</a>
+				</label>
+			</fieldset>
+		</form>
+	</div>
+	<!-- end form -->
+</body>
 </html>
 
 <?php
-    }
-} 
+	}
+}
 ?>

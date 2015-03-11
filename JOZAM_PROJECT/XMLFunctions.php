@@ -31,7 +31,7 @@ function addTask($project, $idTask) {
 	// <modified by Jaafar Bouayad>
 	$deadline = $_POST ['deadLine'];
 	$task->addAttribute ( 'deadLine', $deadline );
-	$timeLeft = timeLeft ( $deadline );
+	$timeLeft = updateTimeLeft ( $idTask, $deadline );
 	$task->addAttribute ( 'timeLeft', $timeLeft );
 	// </modified by Jaafar Bouayad>
 	$task->addAttribute ( 'archive', 'false' );
@@ -139,12 +139,6 @@ function findTask($id, $boards) {
 		}
 	}
 }
-function updateTimeLeft($deadline) {
-	// <modified by Jaafar Bouayad>
-	$timeLeft = timeLeft ( $deadline );
-	return $timeLeft;
-	// </modified by Jaafar Bouayad>
-}
 function findBoard($id, $boards) {
 	foreach ( $boards->board as $board ) {
 		if ($board ['id'] == $id) {
@@ -169,4 +163,11 @@ function simplexml_import_xml(SimpleXMLElement $parent, $xml, $before = false) {
 	}
 	return ( bool ) $node->appendChild ( $fragment );
 }
+
+// <modified by Jaafar Bouayad>
+function updateTimeLeft($idTask, $deadline) {
+	$timeLeft = timeLeft ( $idTask, $deadline );
+	return $timeLeft;
+}
+// </modified by Jaafar Bouayad>
 ?>

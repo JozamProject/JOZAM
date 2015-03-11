@@ -126,7 +126,7 @@ if (isset ( $_POST ['action'] )) {
 		// <modified by Jaafar Bouayad>
 		$deadLine = $_POST ['deadLine'];
 		$t ['deadLine'] = $deadLine;
-		$timeLeft = updateTimeLeft ( $deadLine );
+		$timeLeft = updateTimeLeft ( $idTask, $deadLine );
 		$t ['timeLeft'] = $timeLeft;
 		// </modified by Jaafar Bouayad>
 		echo $t ['archive'];

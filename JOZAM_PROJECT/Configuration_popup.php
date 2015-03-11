@@ -15,29 +15,31 @@
 <link rel='stylesheet' href='popup/jquery-ui.css'>
 </head>
 <body>
+<?php
+require_once ('Calendar.php');
+?>
 	<!-- Configuration popup -->
 	<fieldset>
 		<label for='calendar_url'>Calendar URL : &nbsp;</label><input
-			placeholder='Calendar URL' name='calendar_url' id='calendar_url'
+			placeholder='Calendar URL' value='<?php echo getCalendar_url();?>'
+			name='calendar_url' id='calendar_url'
 			class='text ui-widget-content ui-corner-all'><br> <br>
 		<table>
 			<tr>
 				<td><label for='refresh_rate'>Refresh Rate : &nbsp;</label></td>
-				<td><input readonly='readonly' value='00h 30min'
-					name='refresh_rate' id='refresh_rate'
-					class='text ui-widget-content ui-corner-all'></td>
+				<td><input readonly='readonly' value='<?php echo getRefresh_Rate();?>' name='refresh_rate'
+					id='refresh_rate' class='text ui-widget-content ui-corner-all'></td>
 			</tr>
 		</table>
 		<br> <label for='recurringEvents'>Recurring Events :</label>
 		<table>
 			<tr>
-				<td><select class='recurringEvents' name='recurringEvents'
-					size='8'>
-						<option value='weekend' selected>Weekend</option>
-						<option value='lunchBreak'>Lunch Break</option>
-						<option value='morning_recess'>Morning Recess</option>
-						<option value='afternoon_recess'>Afternoon Recess</option>
-						<option value='sleep'>Sleep</option>
+				<td><select class='recurringEvents' name='recurringEvents' size='8'>
+				<?php
+				foreach ( getRecurringEvents () as $re ) {
+					echo '<option value=' . $re ['id'] . '>' . $re ['name'] . '</option>';
+				}
+				?>
 				</select></td>
 
 				<td>
@@ -73,19 +75,20 @@
 				</td>
 			</tr>
 		</table>
-		<br> <label for='default_recurringEvents'> Default
-			Recurring Events :
+		<br> <label for='default_recurringEvents'> Default Recurring Events :
 			<button class='add_to_recurringEvents_button'
 				name='add_to_recurringEvents_button'>
 				<span class='glyphicon glyphicon-arrow-up' aria-hidden='true'></span>
 			</button>
 		</label><br> <select class='default_recurringEvents'
 			name='default_recurringEvents' size='5'>
-			<option value='weekend' selected>Weekend</option>
-			<option value='lunchBreak'>Lunch Break</option>
-			<option value='morning_recess'>Morning Recess</option>
-			<option value='afternoon_recess'>Afternoon Recess</option>
-			<option value='sleep'>Sleep</option>
+			<?php
+			$defaultRecurringEvents_files = glob ( 'DefaultRecurringEvents/*.xml' );
+			foreach ( $defaultRecurringEvents_files as $f ) {
+				$dre = new SimpleXMLElement ( file_get_contents ( $f ) );
+				echo '<option value=' . $dre->getName () . '>' . $dre ['name'] . '</option>';
+			}
+			?>
 		</select>
 	</fieldset>
 	<!-- end popup -->
@@ -112,10 +115,16 @@
 		$('.add_to_recurringEvents_button').on(
 				'click',
 				function() {
-					var options = $(
-							'select.default_recurringEvents option:selected')
-							.sort().clone();
-					$('select.recurringEvents').append(options);
+					var selected = $('select.default_recurringEvents option:selected');
+					$.ajax({
+						type : "POST", 	 	
+		   	            url : "Calendar.php", 	 	
+		   	            data : { action: 'add_to_recurringEvents', selected_value: selected.val()}, 	 	
+		   	            success : function() { 	 	
+		   	            	var options = selected.sort().clone();
+							$('select.recurringEvents').append(options);
+		   	            }
+		   	        });
 				});
 
 		$('.add_recurringEvent_button').on('click', function() {
@@ -123,7 +132,15 @@
 		});
 
 		$('.remove_recurringEvent_button').on('click', function() {
-			$('select.recurringEvents option:selected').remove();
+			var selected = $('select.recurringEvents option:selected');
+			$.ajax({
+				type : "POST", 	 	
+   	            url : "Calendar.php", 	 	
+   	            data : { action: 'removeRecurringEvent', selected_value: selected.val()}, 	 	
+   	            success : function() { 	 	
+   	            	selected.remove();
+   	            }
+   	        });
 		});
 
 		$('.edit_recurringEvent_button').on('click', function() {

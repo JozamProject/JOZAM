@@ -399,7 +399,7 @@ class ArrayCollection implements Collection, Selectable {
 	/**
 	 * Remove all the elements from the ArrayCollection.
 	 *
-	 * @param ArrayCollection $values        	
+	 * @param ArrayCollection $elements        	
 	 *
 	 * @return void
 	 */

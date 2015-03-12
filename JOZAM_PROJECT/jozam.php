@@ -135,6 +135,8 @@ if (isset ( $_SESSION ['connect'] )) {
 <script src="popup/jquery-ui.js"></script>
 <script src="assets/jquery-1.11.2.js"></script>
 <script src="assets/jquery.gridster.min.js" charster="utf-8"></script>
+<script src='custom_js/popupCenter.js'></script>
+<script src='custom_js/periodic_action.js'></script>
 </head>
 <!-- Body of the project -->
 <body>
@@ -175,6 +177,11 @@ if (isset ( $_SESSION ['connect'] )) {
 						<li><a id="synchronize" href="#"><?php echo $language->Synchronize ?></a></li>
 						<li><a id="rollBack" href="#"><?php echo $language->RollBack ?></a></li>
 						<li><a id="archive" href="#"><?php echo $language->Archive ?></a></li>
+						<li><button
+								style='background: none; border: none; margin-top: 15px;'
+								class='refresh_button' name='refresh_button' id='refresh_button'>
+								<span class='glyphicon glyphicon-refresh' aria-hidden='true'></span>
+							</button></li>
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
@@ -205,7 +212,9 @@ if (isset ( $_SESSION ['connect'] )) {
 						</li>
 						<!--Config-->
 						<li>
-							<button id="config"
+							<button
+								onclick="return popupCenter('Configuration_popup.php', 'Configuration', 425, 425)"
+								id="config"
 								style="background: none; border: none; margin-top: 15px;">
 								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 							</button>
@@ -270,6 +279,18 @@ if (isset ( $_SESSION ['connect'] )) {
 
 	<!-- end of the html code of -->
 	<!-- the JS Script needed -->
+	<script>
+	$('#refresh_button').on('click', function() {
+		$.ajax({
+			type : 'POST', 	 	
+   	    	url : 'Calendar.php', 	 	
+   	    	data : { action: 'GetRefreshRate' }, 	 	
+   	    	success : function() {
+	   	   	    window.location.reload();
+   	   		}
+   		});
+	});
+	</script>
 	<script>
 		$(document).on( "click", "#deleteWidgetButton", function(e) {
             e.preventDefault(); 

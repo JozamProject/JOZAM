@@ -337,35 +337,24 @@ class CalendarEvent {
 	 * @return ArrayCollection
 	 */
 	public function removeAllCalendarEvents($calendarEvents) {
-		// debug
-		// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\this is this : <br>' . $this . '<br><br>';
-		// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\remove event dates : <br>' . $calendarEvents . '<br><br>';
 		$splits = new ArrayCollection ();
 		$splits_queue = new ArrayCollection ();
 		if (! $calendarEvents->isEmpty ()) {
 			$splits_to_be_added = $this->removeCalendarEvent ( $calendarEvents->first () );
-			// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\splits to be added : <br>' . $splits_to_be_added . '<br><br>';
 			if ($splits_to_be_added->count () == 2) {
-				// echo '------first split : <br>' . $splits_to_be_added->first () . '<br><br>';
-				// echo '------second split : <br>' . $splits_to_be_added->last () . '<br><br>';
 				$splits->add ( $splits_to_be_added->first () );
 				$calendarEvents_queue = $calendarEvents->queue ();
 				$splits_queue = $splits_to_be_added->last ()->removeAllCalendarEvents ( $calendarEvents_queue );
-				// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\splits queue 2 : <br>' . $splits_queue . '<br><br>';
 			} else {
 				if ($splits_to_be_added->count () == 1) {
 					$calendarEvents_queue = $calendarEvents->queue ();
 					$splits_queue = $splits_to_be_added->first ()->removeAllCalendarEvents ( $calendarEvents_queue );
-					// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\splits queue 1 : <br>' . $splits_queue . '<br><br>';
-				} else {
-					// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\splits queue 0 : <br>' . $splits_queue . '<br><br>';
 				}
 			}
 			$splits->addAll ( $splits_queue );
 		} else {
 			$splits->add ( $this );
 		}
-		// echo '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\splits : <br>' . $splits . '<br><br>';
 		return $splits;
 	}
 	
@@ -459,6 +448,26 @@ X-WR-CALNAME:' . $summary . '
 	public static function XML_to_CalendarEvent($calendarEvent) {
 		$startDate = CalendarDate::XML_to_CalendarDate ( $calendarEvent->startDate );
 		$endDate = CalendarDate::XML_to_CalendarDate ( $calendarEvent->endDate );
+		return new CalendarEvent ( $startDate, $endDate );
+	}
+	
+	/**
+	 * Returns the intersection of the two calendar events.
+	 *
+	 * Precondition : mergeable.
+	 *
+	 * @param CalendarEvent $calendarEvent_0
+	 *        	A calendar event.
+	 * @param CalendarEvent $calendarEvent_1
+	 *        	A calendar event.
+	 *        	
+	 * @return CalendarEvent The intersection of the two calendar events.
+	 */
+	public static function intersection($calendarEvent_0, $calendarEvent_1) {
+		$zero_after_one_start = $calendarEvent_0->getStartDate () >= $calendarEvent_1->getStartDate ();
+		$zero_before_one_end = $calendarEvent_0->getEndDate () <= $calendarEvent_1->getEndDate ();
+		$startDate = $zero_after_one_start ? $calendarEvent_0->getStartDate () : $calendarEvent_1->getStartDate ();
+		$endDate = $zero_before_one_end ? $calendarEvent_0->getEndDate () : $calendarEvent_1->getEndDate ();
 		return new CalendarEvent ( $startDate, $endDate );
 	}
 }

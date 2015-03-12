@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="10">
+<gestionnaireDesTaches utilisateur="Othman" idMax="11">
   
-<board name="New Board" id="9" idMax="1"/></gestionnaireDesTaches>
+<board name="New Board" id="10" idMax="1"/></gestionnaireDesTaches>

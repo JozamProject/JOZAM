@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="10">
-  <board name="New Board" id="9" idMax="3">
-    <project name="New Project" id="9-1" idMax="6" data-row="1" data-col="5" data-sizex="6" data-sizey="2" color="LightSlateGray">
-      <task id="9-1-0" title="" deadLine="03/02/2015" timeLeft="no time left !" archive="false">
+<gestionnaireDesTaches utilisateur="Othman" idMax="11">
+  <board name="New Board" id="10" idMax="1">
+    <project name="New Project" id="10-0" idMax="3" data-row="1" data-col="4" data-sizex="4" data-sizey="2" color="LightSlateGray">
+      <task id="10-0-0" title="" deadLine="03/18/2015" timeLeft="1 day 5 hours " archive="false">
         <comment/>
         <description/>
       </task>
-      <task id="9-1-2" title="title" deadLine="03/09/2015" timeLeft=" 17 hours 45 minutes&lt;a href=&quot;User_data/FreeTimeCalendars/task_9-1-2.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
-        <comment>comment</comment>
-        <description>description</description>
-      </task>
-      <task id="9-1-3" title="" deadLine="03/18/2015" timeLeft="1 day 10 hours 15 minutes&lt;a href=&quot;User_data/FreeTimeCalendars/task_9-1-3.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
+      <task id="10-0-1" title="" deadLine="03/19/2015" timeLeft="1 day 12 hours " archive="false">
         <comment/>
         <description/>
       </task>
-      <task id="9-1-4" title="" deadLine="03/18/2015" timeLeft="1 day 10 hours 13 minutes&lt;a href=&quot;User_data/FreeTimeCalendars/task_9-1-4.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
+      <task id="10-0-2" title="" deadLine="03/26/2015" timeLeft="2 days 23 hours " archive="false">
         <comment/>
         <description/>
-      </task>
-      <task id="9-1-5" title="title" deadLine="03/18/2015" timeLeft="1 day 10 hours 5 minutes&lt;a href=&quot;User_data/FreeTimeCalendars/task_9-1-5.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
-        <comment>comment</comment>
-        <description>description</description>
       </task>
     </project>
-    <task id="9-2" title="" deadLine="03/09/2015" timeLeft=" 17 hours 45 minutes&lt;a href=&quot;http://localhost/JOZAM/JOZAM_PROJECT/CalendarFreeTime.ics&quot;&gt;&amp;nbsp;See&lt;/a&gt;" archive="false">
-      <comment/>
-      <description/>
-    </task>
   </board>
 </gestionnaireDesTaches>

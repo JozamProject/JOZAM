@@ -12,12 +12,13 @@ $configuration;
 $calendar_events;
 
 initialize ();
+ini_set('xdebug.max_nesting_level', 100000);
 generate_calendar_events (); // to be removed
 
 $action = $_POST ['action'];
 if (isset ( $action )) {
-	// implement InitializeCalendar action
 	if ($action === 'InitializeCalendar') {
+		initialize ();
 		generate_calendar_events ();
 	}
 	
@@ -211,13 +212,14 @@ function timeLeft($idTask, $deadLine) {
 	global $calendar_events;
 	
 	$startDate = CalendarDate::date_to_CalendarDate ( new DateTime ( 'now' ) );
-	$endDate = CalendarDate::date_to_CalendarDate ( new DateTime ( $deadLine ) );
-	
+	$endDate = DateTime::createFromFormat ( 'm/d/Y', $deadLine );
+	$endDate = CalendarDate::date_to_CalendarDate ( $endDate );
+	// file_put_contents ( 'test', $endDate );
 	$deadLine_exceeded = $startDate >= $endDate;
 	
 	if (! $deadLine_exceeded) {
 		$task_calendarEvent = new CalendarEvent ( $startDate, $endDate );
-		
+		// file_put_contents ( 'test', $task_calendarEvent );
 		$files = glob ( recurringEvents_path () . '*.xml' );
 		$recurringEvents = new ArrayCollection ( array_map ( recurringEvent_file_to_recurringEvent, $files ) );
 		
@@ -226,6 +228,7 @@ function timeLeft($idTask, $deadLine) {
 			if ($task_calendarEvent->mergeable ( $re->getTimeSlot () )) {
 				$intersection = CalendarEvent::intersection ( $task_calendarEvent, $re->getTimeSlot () );
 				$re->setTimeSlot ( $intersection );
+				// $re->setTimeSlot ( $task_calendarEvent );
 			} else {
 				$recurringEvents_to_be_deleted->add ( $re );
 			}
@@ -244,6 +247,8 @@ function timeLeft($idTask, $deadLine) {
 		$icsCalendar = CalendarFreeTime::createCalendar ( $freeCalendarEvents, $task ['title'] . ' free time', freeTimeCalendars_path () . 'task_' . $idTask . '.ics' );
 		
 		$timeLeft = $timeLeft->is_strictly_positive () ? $timeLeft : 'no time left !';
+		
+		// file_put_contents ( 'test', 'time left : ' . $timeLeft );
 	} else {
 		$timeLeft = 'no time left !';
 	}

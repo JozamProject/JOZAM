@@ -1,5 +1,4 @@
 <?php
-namespace Calendar;
 /**
  * A CalendarTime is a time format used in BusyEventDate to describe recurring events.
  *

@@ -1,5 +1,4 @@
 <?php
-namespace Calendar;
 use Collections\ArrayCollection;
 require_once ('Collections/ArrayCollection.php');
 require_once ('CalendarDate.php');

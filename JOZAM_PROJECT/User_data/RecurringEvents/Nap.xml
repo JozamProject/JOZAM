@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<Nap name="Nap" days="[Monday, Thursday, Wednesday, Tuesday, Friday, Saturday, Sunday]">
-<startTime hour="18" minute="00" second="00"/>
-<endTime hour="20" minute="00" second="00"/>
-<timeSlot>
-<startDate year="2015" month="03" day="12" hour="00" minute="00" second="00"/>
-<endDate year="2015" month="03" day="15" hour="00" minute="00" second="00"/>
-</timeSlot>
-</Nap>

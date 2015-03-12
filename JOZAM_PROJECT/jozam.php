@@ -1,5 +1,6 @@
 <?php
 session_start ();
+require_once ('Calendar.php');
 // Test the variable session for connection
 if (isset ( $_GET ["state"] )) {
 	if ($_GET ["state"] == "ok") {

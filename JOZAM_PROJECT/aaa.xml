@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="11">
+<gestionnaireDesTaches utilisateur="Othman" idMax="14">
   
-<board name="New Board" id="10" idMax="1"><project name="New Project" id="10-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/></board></gestionnaireDesTaches>
+<board name="New Board" id="13" idMax="1"><project name="New Project" id="13-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/></board></gestionnaireDesTaches>

@@ -127,7 +127,8 @@ if (isset ( $_POST ['action'] )) {
 		$deadLine = $_POST ['deadLine'];
 		$t ['deadLine'] = $deadLine;
 		$timeLeft = updateTimeLeft ( $idTask, $deadLine );
-		$t ['timeLeft'] = $timeLeft;
+		$t ['timeLeft'] = '' . $timeLeft;
+		//file_put_contents ( 'test', 'in ModifyTask timeLeft : ' . $timeLeft . 'task as xml : ' . $t->asXML());
 		// </modified by Jaafar Bouayad>
 		echo $t ['archive'];
 		$t ['archive'] = $_POST ['archivemodif'];

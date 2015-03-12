@@ -1,5 +1,4 @@
 <?php
-namespace Calendar;
 /**
  * A CalendarDate provides a set of custom functions for the DateTime class.
  *

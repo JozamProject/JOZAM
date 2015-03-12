@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<morning_recess name="Morning Recess" days="[Monday, Tuesday, Wednesday, Thursday, Friday]">
-	<startTime hour="09" minute="45" second="00"/>
-	<endTime hour="10" minute="15" second="00"/>
-	<timeSlot>
-		<startDate year="2015" month="01" day="01" hour="00" minute="00" second="00"/>
-		<endDate year="2025" month="01" day="01" hour="00" minute="00" second="00"/>
-	</timeSlot>
-</morning_recess>

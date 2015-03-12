@@ -12,7 +12,7 @@ $configuration;
 $calendar_events;
 
 initialize ();
-ini_set('xdebug.max_nesting_level', 100000);
+ini_set ( 'xdebug.max_nesting_level', 100000 );
 generate_calendar_events (); // to be removed
 
 $action = $_POST ['action'];
@@ -137,7 +137,7 @@ function refresh($p) {
 		refresh ( $sp );
 	}
 	foreach ( $p->tache as $t ) {
-		$t ['timeLeft'] = timeLeft ( $t ['deadLine'] );
+		$t ['timeLeft'] = '' . timeLeft ( $t ['deadLine'] );
 	}
 }
 function configuration_path() {

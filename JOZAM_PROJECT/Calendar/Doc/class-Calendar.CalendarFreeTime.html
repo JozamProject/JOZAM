@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Calendar\CalendarFreeTime</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Calendar.html">
+						Calendar					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Collections.html">
+						Collections<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Collections.Expr.html">
+						Expr					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Calendar.CalendarDate.html">CalendarDate</a></li>
+				<li><a href="class-Calendar.CalendarDuration.html">CalendarDuration</a></li>
+				<li><a href="class-Calendar.CalendarEvent.html">CalendarEvent</a></li>
+				<li class="active"><a href="class-Calendar.CalendarFreeTime.html">CalendarFreeTime</a></li>
+				<li><a href="class-Calendar.CalendarTime.html">CalendarTime</a></li>
+				<li><a href="class-Calendar.RecurringEvent.html">RecurringEvent</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Calendar.html" title="Summary of Calendar"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CalendarFreeTime</h1>
+
+
+	<div class="description">
+	<p>CalendarFreeTime is a utility class that provides a way to :
+- retrieve data from an ics file
+- retrieve free calendar events from these data
+- create an ics file containing the free calendar events
+- compute the time left for a set of free calendar events</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Calendar.html">Calendar</a><br>
+		
+
+				<b>Author:</b>
+				Jaafar Bouayad <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a><br>
+				<b>Since:</b>
+				1.0<br>
+			<b>Located at</b> <a href="source-class-Calendar.CalendarFreeTime.html#10-162" title="Go to source code">CalendarFreeTime.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="retrieveDate" id="_retrieveDate">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveDate">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#21-38" title="Go to source code">retrieveDate</a>( <span>string <var>$date</var></span> )</code>
+
+		<div class="description short">
+			<p>Transforms a date string into a calendar date.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Transforms a date string into a calendar date.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$date</var></dt>
+					<dd>date string.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="retrieveStartDate" id="_retrieveStartDate">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveStartDate">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#40-51" title="Go to source code">retrieveStartDate</a>( <span>string <var>$date</var></span> )</code>
+
+		<div class="description short">
+			<p>Transforms an ICS format start date string into a calendar date.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Transforms an ICS format start date string into a calendar date.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$date</var></dt>
+					<dd>ICS format start date string.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="retrieveEndDate" id="_retrieveEndDate">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveEndDate">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#53-64" title="Go to source code">retrieveEndDate</a>( <span>string <var>$date</var></span> )</code>
+
+		<div class="description short">
+			<p>Transforms an ICS format start date string into a calendar date.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Transforms an ICS format start date string into a calendar date.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$date</var></dt>
+					<dd>ICS format start date string.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarDate.html">Calendar\CalendarDate</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="retrieveCalendar" id="_retrieveCalendar">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveCalendar">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#66-76" title="Go to source code">retrieveCalendar</a>( <span>string <var>$calendar_path</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieves the calendar from an ICS file path.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves the calendar from an ICS file path.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$calendar_path</var></dt>
+					<dd>ICS file path.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="retrieveCalendarEvents" id="_retrieveCalendarEvents">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveCalendarEvents">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#78-105" title="Go to source code">retrieveCalendarEvents</a>( <span>string <var>$calendar</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieves the calendar events from the ICS calendar.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves the calendar events from the ICS calendar.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$calendar</var></dt>
+					<dd>An ICS calendar.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="retrieveFreeCalendarEvents" id="_retrieveFreeCalendarEvents">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_retrieveFreeCalendarEvents">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#107-124" title="Go to source code">retrieveFreeCalendarEvents</a>( <span><code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code> <var>$calendarEvents</var></span>, <span><code><a href="class-Calendar.CalendarEvent.html">Calendar\CalendarEvent</a></code> <var>$timeSlot</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieves the free calendar events from the time slot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves the free calendar events from the time slot.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$calendarEvents</var></dt>
+					<dd>Calendar events.</dd>
+					<dt><var>$timeSlot</var></dt>
+					<dd>A calendar event.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createCalendar" id="_createCalendar">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createCalendar">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#126-143" title="Go to source code">createCalendar</a>( <span><code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code> <var>$calendarEvents</var></span>, <span>string <var>$recurringEvent_name</var> = <span class="php-quote">'Free Time'</span></span>, <span>string <var>$calendar_file_path</var> = <span class="php-quote">'CalendarFreeTime.ics'</span></span> )</code>
+
+		<div class="description short">
+			<p>Create an ics file containing the calendar events.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Create an ics file containing the calendar events.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$calendarEvents</var></dt>
+					<dd>Calendar events.</dd>
+					<dt><var>$recurringEvent_name</var></dt>
+					<dd>Name of the recurring event (is 'Free Time' by default).</dd>
+					<dt><var>$calendar_file_path</var></dt>
+					<dd>The calendar file path to put contents in (is 'CalendarFreeTime.ics' by default).</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="timeLeft" id="_timeLeft">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_timeLeft">#</a>
+		<code><a href="source-class-Calendar.CalendarFreeTime.html#145-161" title="Go to source code">timeLeft</a>( <span><code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code> <var>$freeCalendarEvents</var></span> )</code>
+
+		<div class="description short">
+			<p>Computes the duration of all the free calendar events.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Computes the duration of all the free calendar events.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$freeCalendarEvents</var></dt>
+					<dd>The free calendar events.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>| integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

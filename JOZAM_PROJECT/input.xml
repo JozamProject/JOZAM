@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gestionnaireDesTaches utilisateur="Othman" idMax="11">
   <board name="New Board" id="10" idMax="1">
-    <project name="New Project" id="10-0" idMax="3" data-row="1" data-col="4" data-sizex="4" data-sizey="2" color="LightSlateGray">
+    <project name="New Project" id="10-0" idMax="3" data-row="1" data-col="5" data-sizex="4" data-sizey="2" color="LightSlateGray">
       <task id="10-0-0" title="" deadLine="03/18/2015" timeLeft="1 day 5 hours " archive="false">
         <comment/>
         <description/>

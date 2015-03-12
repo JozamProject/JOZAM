@@ -1,4 +1,5 @@
 <?php
+namespace Calendar;
 /**
  * A CalendarDuration is a utility object that provides 
  * a way to easily switch between a date interval and the number of seconds of a duration

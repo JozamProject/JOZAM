@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Collections\Criteria</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-Calendar.html">
+						Calendar					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Collections.html">
+						Collections<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Collections.Expr.html">
+						Expr					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Collections.AbstractLazyCollection.html">AbstractLazyCollection</a></li>
+				<li><a href="class-Collections.ArrayCollection.html">ArrayCollection</a></li>
+				<li class="active"><a href="class-Collections.Criteria.html">Criteria</a></li>
+				<li><a href="class-Collections.ExpressionBuilder.html">ExpressionBuilder</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Collections.Collection.html">Collection</a></li>
+				<li><a href="class-Collections.Selectable.html">Selectable</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Collections.html" title="Summary of Collections"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Criteria</h1>
+
+
+	<div class="description">
+	<p>Criteria for filtering Selectable collections.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Collections.html">Collections</a><br>
+		
+
+				<b>Author:</b>
+				Benjamin Eberlei <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x6b;&#111;&#x6e;&#116;&#x61;&#107;&#x74;&#64;&#98;&#x65;&#98;&#x65;&#114;&#x6c;&#101;&#x69;&#46;&#x64;&#101;">&#x6b;&#111;&#x6e;&#116;&#x61;&#107;&#x74;&#64;&#98;&#x65;&#98;&#x65;&#114;&#x6c;&#101;&#x69;&#46;&#x64;&#101;</a><br>
+				<b>Since:</b>
+				2.3<br>
+			<b>Located at</b> <a href="source-class-Collections.Criteria.html#25-245" title="Go to source code">Collections/Criteria.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-Collections.Criteria.html#68-76" title="Go to source code">create</a>( )</code>
+
+		<div class="description short">
+			<p>Creates an instance of the class.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates an instance of the class.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="expr" id="_expr">
+
+		<td class="attributes"><code>
+			 public static
+
+			Doctrine\Common\Collections\ExpressionBuilder
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_expr">#</a>
+		<code><a href="source-class-Collections.Criteria.html#78-89" title="Go to source code">expr</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the expression builder.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the expression builder.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Doctrine\Common\Collections\ExpressionBuilder
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Collections.Criteria.html#91-105" title="Go to source code">__construct</a>( <span><code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code> <var>$expression</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$orderings</var> = <span class="php-keyword1">null</span></span>, <span>integer|null <var>$firstResult</var> = <span class="php-keyword1">null</span></span>, <span>integer|null <var>$maxResults</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Construct a new Criteria.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Construct a new Criteria.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$expression</var></dt>
+					<dd></dd>
+					<dt><var>$orderings</var></dt>
+					<dd></dd>
+					<dt><var>$firstResult</var></dt>
+					<dd></dd>
+					<dt><var>$maxResults</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="where" id="_where">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_where">#</a>
+		<code><a href="source-class-Collections.Criteria.html#107-118" title="Go to source code">where</a>( <span><code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code> <var>$expression</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the where expression to evaluate when this Criteria is searched for.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the where expression to evaluate when this Criteria is searched for.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$expression</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="andWhere" id="_andWhere">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_andWhere">#</a>
+		<code><a href="source-class-Collections.Criteria.html#120-139" title="Go to source code">andWhere</a>( <span><code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code> <var>$expression</var></span> )</code>
+
+		<div class="description short">
+			<p>Appends the where expression to evaluate when this Criteria is searched for
+using an AND with previous expression.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Appends the where expression to evaluate when this Criteria is searched for
+using an AND with previous expression.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$expression</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="orWhere" id="_orWhere">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_orWhere">#</a>
+		<code><a href="source-class-Collections.Criteria.html#141-160" title="Go to source code">orWhere</a>( <span><code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code> <var>$expression</var></span> )</code>
+
+		<div class="description short">
+			<p>Appends the where expression to evaluate when this Criteria is searched for
+using an OR with previous expression.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Appends the where expression to evaluate when this Criteria is searched for
+using an OR with previous expression.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$expression</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getWhereExpression" id="_getWhereExpression">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code>|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getWhereExpression">#</a>
+		<code><a href="source-class-Collections.Criteria.html#162-170" title="Go to source code">getWhereExpression</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the expression attached to this Criteria.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the expression attached to this Criteria.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Expr.Expression.html">Collections\Expr\Expression</a></code>|null
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOrderings" id="_getOrderings">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOrderings">#</a>
+		<code><a href="source-class-Collections.Criteria.html#172-180" title="Go to source code">getOrderings</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the current orderings of this Criteria.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the current orderings of this Criteria.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="orderBy" id="_orderBy">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_orderBy">#</a>
+		<code><a href="source-class-Collections.Criteria.html#182-198" title="Go to source code">orderBy</a>( <span>array <var>$orderings</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the ordering of the result of this Criteria.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the ordering of the result of this Criteria.</p>
+
+<p>Keys are field and values are the order, being either ASC or DESC.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$orderings</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-Collections.Criteria.html#ASC">Collections\Criteria::<b>ASC</b></a></code><br>
+						<code><a href="class-Collections.Criteria.html#DESC">Collections\Criteria::<b>DESC</b></a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFirstResult" id="_getFirstResult">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFirstResult">#</a>
+		<code><a href="source-class-Collections.Criteria.html#200-208" title="Go to source code">getFirstResult</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the current first result option of this Criteria.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the current first result option of this Criteria.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer|null
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFirstResult" id="_setFirstResult">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFirstResult">#</a>
+		<code><a href="source-class-Collections.Criteria.html#210-221" title="Go to source code">setFirstResult</a>( <span>integer|null <var>$firstResult</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the number of first result that this Criteria should return.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the number of first result that this Criteria should return.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$firstResult</var></dt>
+					<dd>The value to set.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMaxResults" id="_getMaxResults">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMaxResults">#</a>
+		<code><a href="source-class-Collections.Criteria.html#223-231" title="Go to source code">getMaxResults</a>( )</code>
+
+		<div class="description short">
+			<p>Gets maxResults.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets maxResults.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer|null
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMaxResults" id="_setMaxResults">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMaxResults">#</a>
+		<code><a href="source-class-Collections.Criteria.html#233-244" title="Go to source code">setMaxResults</a>( <span>integer|null <var>$maxResults</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets maxResults.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets maxResults.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$maxResults</var></dt>
+					<dd>The value to set.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.Criteria.html">Collections\Criteria</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="ASC" id="ASC">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Collections.Criteria.html#33-36" title="Go to source code"><b>ASC</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ASC" class="anchor">#</a>
+				<code><span class="php-quote">'ASC'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DESC" id="DESC">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Collections.Criteria.html#38-41" title="Go to source code"><b>DESC</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DESC" class="anchor">#</a>
+				<code><span class="php-quote">'DESC'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

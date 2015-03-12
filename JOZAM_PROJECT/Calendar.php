@@ -204,7 +204,7 @@ function recurringEvent_file_to_recurringEvent($file) {
 	return RecurringEvent::XML_to_RecurringEvent ( file_get_contents ( $file ) );
 }
 function freeTimeCalendars_path() {
-	return 'User_data/FreeTimeCalendars/';
+	return './User_data/FreeTimeCalendars/';
 }
 function timeLeft($idTask, $deadLine) {
 	global $configuration;

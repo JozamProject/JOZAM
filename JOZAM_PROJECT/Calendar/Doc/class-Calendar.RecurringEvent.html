@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Calendar\RecurringEvent</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Calendar.html">
+						Calendar					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Collections.html">
+						Collections<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Collections.Expr.html">
+						Expr					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Calendar.CalendarDate.html">CalendarDate</a></li>
+				<li><a href="class-Calendar.CalendarDuration.html">CalendarDuration</a></li>
+				<li><a href="class-Calendar.CalendarEvent.html">CalendarEvent</a></li>
+				<li><a href="class-Calendar.CalendarFreeTime.html">CalendarFreeTime</a></li>
+				<li><a href="class-Calendar.CalendarTime.html">CalendarTime</a></li>
+				<li class="active"><a href="class-Calendar.RecurringEvent.html">RecurringEvent</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Calendar.html" title="Summary of Calendar"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class RecurringEvent</h1>
+
+
+	<div class="description">
+	<p>A RecurringEvent is a way to generate recurring events
+such as weekends, lunch breaks, morning and afternoon recess breaks,
+in a time slot so they can be added to a set of calendar events.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Calendar.html">Calendar</a><br>
+		
+
+				<b>Author:</b>
+				Jaafar Bouayad <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a><br>
+				<b>Since:</b>
+				1.0<br>
+			<b>Located at</b> <a href="source-class-Calendar.RecurringEvent.html#9-320" title="Go to source code">RecurringEvent.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#68-86" title="Go to source code">__construct</a>( <span><code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code> <var>$name</var></span>, <span><code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code> <var>$startTime</var></span>, <span><code><a href="class-Calendar.CalendarEvent.html">Calendar\CalendarEvent</a></code> <var>$endTime</var></span>, <span>array <var>$timeSlot</var></span>, <span> <var>$days</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Initializes a new RecurringEvent.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes a new RecurringEvent.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><p>$startTime
+        The time at which the recurring event will start.</p></dd>
+					<dt><var>$startTime</var></dt>
+					<dd><p>$endTime
+        The time at which the recurring event will end.</p></dd>
+					<dt><var>$endTime</var></dt>
+					<dd><p>$timeSlot
+        The time slot during which the generated events will occur.</p></dd>
+					<dt><var>$timeSlot</var></dt>
+					<dd><p>$days
+        The days of the week during which the generated events will occur (all days of the week by default).</p></dd>
+					<dt><var>$days</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setName" id="_setName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setName">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#88-98" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the name of the recurring event.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the name of the recurring event.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Name of the recurring event.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getName" id="_getName">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getName">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#100-107" title="Go to source code">getName</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the name of the recurring event.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the name of the recurring event.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTimeSlot" id="_setTimeSlot">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTimeSlot">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#109-119" title="Go to source code">setTimeSlot</a>( <span><code><a href="class-Calendar.CalendarEvent.html">Calendar\CalendarEvent</a></code> <var>$timeSlot</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the time slot during which the generated events will occur.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the time slot during which the generated events will occur.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$timeSlot</var></dt>
+					<dd>The time slot during which the generated events will occur.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTimeSlot" id="_getTimeSlot">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Calendar.CalendarEvent.html">Calendar\CalendarEvent</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTimeSlot">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#121-128" title="Go to source code">getTimeSlot</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the time slot during which the generated events will occur.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the time slot during which the generated events will occur.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarEvent.html">Calendar\CalendarEvent</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDays" id="_setDays">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDays">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#130-140" title="Go to source code">setDays</a>( <span>array <var>$days</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the days during which the generated events will occur.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the days during which the generated events will occur.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$days</var></dt>
+					<dd>The days during which the generated events will occur.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDays" id="_getDays">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDays">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#142-149" title="Go to source code">getDays</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the days during which the generated events will occur.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the days during which the generated events will occur.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setStartTime" id="_setStartTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setStartTime">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#151-161" title="Go to source code">setStartTime</a>( <span><code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code> <var>$startTime</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the time at which the recurring event will start.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the time at which the recurring event will start.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$startTime</var></dt>
+					<dd>The time at which the recurring event will start.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStartTime" id="_getStartTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStartTime">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#163-170" title="Go to source code">getStartTime</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the time at which the recurring event will start.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the time at which the recurring event will start.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEndTime" id="_setEndTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEndTime">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#172-182" title="Go to source code">setEndTime</a>( <span><code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code> <var>$endTime</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the time at which the recurring event will end.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the time at which the recurring event will end.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$endTime</var></dt>
+					<dd>The time at which the recurring event will end.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEndTime" id="_getEndTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEndTime">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#184-191" title="Go to source code">getEndTime</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the time at which the recurring event will end.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the time at which the recurring event will end.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.CalendarTime.html">Calendar\CalendarTime</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="generate" id="_generate">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_generate">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#193-245" title="Go to source code">generate</a>( )</code>
+
+		<div class="description short">
+			<p>Generates all recurring events in accordance with specified start and end time, days, and time slot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generates all recurring events in accordance with specified start and end time, days, and time slot.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code><br>Returns an ArrayCollection of all the CalendarEvents generated.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="map_generate" id="_map_generate">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_map_generate">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#247-263" title="Go to source code">map_generate</a>( <span><code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code> <var>$recurringEvents</var></span> )</code>
+
+		<div class="description short">
+			<p>Maps generate function to an array collection of recurring events.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Maps generate function to an array collection of recurring events.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$recurringEvents</var></dt>
+					<dd>Recurring events.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Collections.ArrayCollection.html">Collections\ArrayCollection</a></code><br>ArrayCollection of generated events from all recurring events.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#265-279" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			<p>Returns a string representation of this object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a string representation of this object.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toXML" id="___toXML">
+
+		<td class="attributes"><code>
+			 public 
+
+			String
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toXML">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#281-301" title="Go to source code">__toXML</a>( <span>String <var>$name</var> = <span class="php-quote">'recurringEvent'</span></span> )</code>
+
+		<div class="description short">
+			<p>Generates a Simple XML Element string matching this object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generates a Simple XML Element string matching this object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>Name of the Simple XML Element.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					String<br>Simple XML Element string matching this object.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="XML_to_RecurringEvent" id="_XML_to_RecurringEvent">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Calendar.RecurringEvent.html">Calendar\RecurringEvent</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_XML_to_RecurringEvent">#</a>
+		<code><a href="source-class-Calendar.RecurringEvent.html#303-319" title="Go to source code">XML_to_RecurringEvent</a>( <span>String <var>$recurringEvent</var></span> )</code>
+
+		<div class="description short">
+			<p>Generates a RecurringEvent matching a SimpleXMLElement.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generates a RecurringEvent matching a SimpleXMLElement.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$recurringEvent</var></dt>
+					<dd>String of the xml file.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Calendar.RecurringEvent.html">Calendar\RecurringEvent</a></code><br>RecurringEvent matching the Simple XML Element.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="WEEKDAYS" id="$WEEKDAYS">
+		<td class="attributes"><code>
+			public static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Calendar.RecurringEvent.html#18-31" title="Go to source code"><var>$WEEKDAYS</var></a>
+
+			<div class="description short">
+				<p>The days of the week.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The days of the week.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$WEEKDAYS" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span> (
+        <span class="php-quote">'Sunday'</span>,
+        <span class="php-quote">'Monday'</span>,
+        <span class="php-quote">'Tuesday'</span>,
+        <span class="php-quote">'Wednesday'</span>,
+        <span class="php-quote">'Thursday'</span>,
+        <span class="php-quote">'Friday'</span>,
+        <span class="php-quote">'Saturday'</span> 
+)</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Calendar\CalendarDuration</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Calendar.html">
+						Calendar					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Collections.html">
+						Collections<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Collections.Expr.html">
+						Expr					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Calendar.CalendarDate.html">CalendarDate</a></li>
+				<li class="active"><a href="class-Calendar.CalendarDuration.html">CalendarDuration</a></li>
+				<li><a href="class-Calendar.CalendarEvent.html">CalendarEvent</a></li>
+				<li><a href="class-Calendar.CalendarFreeTime.html">CalendarFreeTime</a></li>
+				<li><a href="class-Calendar.CalendarTime.html">CalendarTime</a></li>
+				<li><a href="class-Calendar.RecurringEvent.html">RecurringEvent</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Calendar.html" title="Summary of Calendar"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CalendarDuration</h1>
+
+
+	<div class="description">
+	<p>A CalendarDuration is a utility object that provides
+a way to easily switch between a date interval and the number of seconds of a duration
+and a user-friendly display of the duration.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Calendar.html">Calendar</a><br>
+		
+
+				<b>Author:</b>
+				Jaafar Bouayad <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#98;&#111;&#x75;&#x61;y&#97;&#100;&#46;&#x6a;&#x61;a&#102;&#97;&#x72;&#x40;&#x67;m&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a><br>
+				<b>Since:</b>
+				1.0<br>
+			<b>Located at</b> <a href="source-class-Calendar.CalendarDuration.html#3-156" title="Go to source code">CalendarDuration.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#26-41" title="Go to source code">__construct</a>( <span>DateInterval <var>$dateInterval</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Initializes a new CalendarDuration.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes a new CalendarDuration.</p>
+
+<p>If no date interval is specified,
+the duration has to be set manually via setNbSeconds($nbSeconds).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dateInterval</var></dt>
+					<dd>The date interval.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNbSeconds" id="_setNbSeconds">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNbSeconds">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#43-54" title="Go to source code">setNbSeconds</a>( <span>string|integer <var>$nbSeconds</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the duration in seconds.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the duration in seconds.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$nbSeconds</var></dt>
+					<dd>The duration in seconds.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getNbSeconds" id="_getNbSeconds">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getNbSeconds">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#56-63" title="Go to source code">getNbSeconds</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the duration in seconds.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the duration in seconds.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDateInterval" id="_setDateInterval">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDateInterval">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#65-76" title="Go to source code">setDateInterval</a>( <span>DateInterval <var>$dateInterval</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the date interval.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the date interval.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dateInterval</var></dt>
+					<dd>The date interval.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDateInterval" id="_getDateInterval">
+
+		<td class="attributes"><code>
+			 public 
+
+			DateInterval
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDateInterval">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#78-85" title="Go to source code">getDateInterval</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the date interval.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the date interval.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					DateInterval
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="floor_days" id="_floor_days">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_floor_days">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#96-103" title="Go to source code">floor_days</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the number of days of the duration.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the number of days of the duration.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="floor_hours" id="_floor_hours">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_floor_hours">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#105-112" title="Go to source code">floor_hours</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the number of hours of the duration.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the number of hours of the duration.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="floor_minutes" id="_floor_minutes">
+
+		<td class="attributes"><code>
+			 public 
+
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_floor_minutes">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#114-121" title="Go to source code">floor_minutes</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the number of minutes of the duration.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the number of minutes of the duration.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#123-146" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			<p>Returns a string representation of this object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a string representation of this object.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="is_strictly_positive" id="_is_strictly_positive">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_strictly_positive">#</a>
+		<code><a href="source-class-Calendar.CalendarDuration.html#148-155" title="Go to source code">is_strictly_positive</a>( )</code>
+
+		<div class="description short">
+			<p>Tests if the duration is strictly positive.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Tests if the duration is strictly positive.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE if the duration is strictly positive, FALSE otherwise.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

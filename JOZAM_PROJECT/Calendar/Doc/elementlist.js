@@ -1,0 +1,3 @@
+
+var ApiGen = ApiGen || {};
+ApiGen.elements = [["c","Calendar\\CalendarDate"],["c","Calendar\\CalendarDuration"],["c","Calendar\\CalendarEvent"],["c","Calendar\\CalendarFreeTime"],["c","Calendar\\CalendarTime"],["c","Calendar\\RecurringEvent"],["c","Collections\\AbstractLazyCollection"],["c","Collections\\ArrayCollection"],["c","Collections\\Collection"],["c","Collections\\Criteria"],["c","Collections\\Expr\\ClosureExpressionVisitor"],["c","Collections\\Expr\\Comparison"],["c","Collections\\Expr\\CompositeExpression"],["c","Collections\\Expr\\Expression"],["c","Collections\\Expr\\ExpressionVisitor"],["c","Collections\\Expr\\Value"],["c","Collections\\ExpressionBuilder"],["c","Collections\\Selectable"]];

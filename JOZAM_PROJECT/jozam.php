@@ -285,7 +285,7 @@ if (isset ( $_SESSION ['connect'] )) {
 		$.ajax({
 			type : 'POST', 	 	
    	    	url : 'Calendar.php', 	 	
-   	    	data : { action: 'GetRefreshRate' }, 	 	
+   	    	data : { action: 'RefreshTimeLeft' }, 	 	
    	    	success : function() {
 	   	   	    window.location.reload();
    	   		}

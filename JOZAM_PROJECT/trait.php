@@ -138,6 +138,9 @@ if (isset ( $_POST ['action'] )) {
 	if ($action === "DeleteTask") {
 		$boards = new SimpleXMLElement ( 'input.xml', 0, true );
 		$idTask = $_POST ['idTask'];
+		// <modified by Jaafar Bouayad>
+		unlink ( './User_data/FreeTimeCalendars/task_' .  $idTask . '.ics');
+		// </modified by Jaafar Bouayad>
 		$t = findTask ( $idTask, $boards );
 		deleteElement ( $t );
 		save_xml ( "input.xml", $boards );

@@ -226,7 +226,7 @@ class RecurringEvent {
 		
 		$floor_days = $timeSlot->duration ()->floor_days ();
 		
-		for($i = 0; $i <= $floor_days; $i ++) {
+		for($i = -1; $i <= $floor_days; $i ++) {
 			$current_startDate = new CalendarDate ( $startDate_year, $startDate_month, $startDate_day + $i, $startTime_hour, $startTime_minute, $startTime_second );
 			// $current_startDate_next_day = clone $current_startDate;
 			// $current_startDate_next_day->modify('tomorrow');

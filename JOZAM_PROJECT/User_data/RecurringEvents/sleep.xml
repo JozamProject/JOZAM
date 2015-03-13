@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <sleep name="Sleep" days="[Monday, Thursday, Wednesday, Tuesday, Friday, Saturday, Sunday]">
-<startTime hour="19" minute="45" second="00"/>
+<startTime hour="18" minute="00" second="00"/>
 <endTime hour="08" minute="00" second="00"/>
 <timeSlot>
 <startDate year="2015" month="01" day="01" hour="00" minute="00" second="00"/>

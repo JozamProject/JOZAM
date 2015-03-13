@@ -5,3 +5,4 @@ New Board->New Project->New Project->New Project : azeaqs
 New Board->New Project->New Project->New Project : blajjjj	
 New Board->New Project->New Project->New Project : title	
 New Board->New Project->New Project->New Project : 1	
+New Board->New Project : 	

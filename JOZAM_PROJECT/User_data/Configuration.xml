@@ -3,6 +3,6 @@
 	
 	
 	
-	<recurringEvent id="sleep" name="Sleep"/>
 	
-<recurringEvent id="weekend" name="Weekend"/></configuration>
+	
+<recurringEvent id="afternoon_recess" name="Afternoon Recess"/><recurringEvent id="lunchBreak" name="Lunch Break"/><recurringEvent id="morning_recess" name="Morning Recess"/><recurringEvent id="sleep" name="Sleep"/><recurringEvent id="weekend" name="Weekend"/></configuration>

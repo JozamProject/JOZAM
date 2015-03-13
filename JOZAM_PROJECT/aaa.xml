@@ -1,4 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gestionnaireDesTaches utilisateur="Othman" idMax="15">
-  
-<board name="New Board" id="14" idMax="1"><project name="New Project" id="14-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/></board></gestionnaireDesTaches>
+<gestionnaireDesTaches utilisateur="Othman" idMax="16">
+  <board name="New Board" id="14" idMax="1">
+    <project name="New Project" id="14-0" idMax="11" data-row="1" data-col="6" data-sizex="5" data-sizey="4" color="LightSlateGray">
+      <task id="14-0-0" title="" deadLine="03/26/2015" timeLeft="4 days 3 hours 45 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-1" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-3" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-4" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-5" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-6" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-7" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-8" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-9" title="" deadLine="03/13/2015" timeLeft=" 4 hours 14 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+      <task id="14-0-10" title="" deadLine="03/16/2015" timeLeft=" 5 hours 45 minutes" archive="false">
+        <comment/>
+        <description/>
+      </task>
+    </project>
+  </board>
+<board name="New Board" id="15" idMax="1"><project name="New Project" id="15-0" idMax="0" data-row="1" data-col="1" data-sizex="2" data-sizey="1" color="LightSlateGray"/></board></gestionnaireDesTaches>

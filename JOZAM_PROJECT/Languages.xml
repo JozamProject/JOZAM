@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Languages>
-  <Language name="Francais" chosen="true">francais.xml</Language>
-  <Language name="English" chosen="false">english.xml</Language>
+  <Language name="Francais" chosen="false">francais.xml</Language>
+  <Language name="English" chosen="true">english.xml</Language>
   <Language name="العربية" chosen="false">arabe.xml</Language>
 </Languages>

@@ -259,7 +259,7 @@ function timeLeft($idTask, $deadLine) {
 		$freeCalendarEvents = CalendarFreeTime::retrieveFreeCalendarEvents ( $allEvents, $task_calendarEvent );
 		$timeLeft = CalendarFreeTime::timeLeft ( $freeCalendarEvents );
 		
-		// file_put_contents ( 'test', $freeCalendarEvents );
+		file_put_contents ( 'test', $freeCalendarEvents );
 		
 		$task = $configuration->xpath ( 'task[@id="' . $idTask . '"]' )[0];
 		$icsCalendar = CalendarFreeTime::createCalendar ( $freeCalendarEvents, $task ['title'] . ' free time', freeTimeCalendars_path () . 'task_' . $idTask . '.ics' );
